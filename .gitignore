@@ -1,0 +1,25 @@
+.DS_Store
+.ipynb_checkpoints
+subsize_image_data
+temp/
+bean_bucket_100.zip
+test.png
+test.svg
+test.py
+old_files/
+test_filter.py
+/__pycache__
+/src/pore2chip/__pycache__
+/example_outputs copy
+test_file.vtk
+/dist_bak
+dist_bak/pore2chip-0.0.1-py3-none-any.whl
+dist_bak/pore2chip-0.0.1.tar.gz
+dist_bak/pore2chip-0.0.2-py3-none-any.whl
+dist_bak/pore2chip-0.0.2.tar.gz
+dist_bak/pore2chip-0.0.3-py3-none-any.whl
+dist_bak/pore2chip-0.0.3.tar.gz
+requirements_bak.txt.bak
+example_outputs/micromodel.vtk
+isrc/pore2chip.egg-info/PKG-INFO/*
+src/pore2chip/gencoord.py

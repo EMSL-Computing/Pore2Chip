@@ -1,3 +1,34 @@
+Metadata-Version: 2.1
+Name: pore2chip
+Version: 0.0.8
+Summary: A package that takes XCT images of porous materials and generates representative micromodels
+Author-email: Aramy Truong <aramy.truong@pnnl.gov>, Maruti Mudunuru <maruti@pnnl.gov>, Erin Rooney <erin.rooney@usda.gov>, Arunima Bhattacharjee <arunimab@pnnl.gov>, Tamas Varga <tamas.varga@pnnl.gov>, Lal Mamud <lal.mamud@pnnl.gov>, "Xiaoliang (Bryan) He" <xiaoliang.he@pnnl.gov>, Anil Krishna Battu <anilkrishna.battu@pnnl.gov>, Satish Karra <karra@pnnl.gov>
+Project-URL: Homepage, https://github.com/aramyxt/Pore2Chip
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE.md
+Requires-Dist: drawsvg
+Requires-Dist: ezdxf
+Requires-Dist: feret
+Requires-Dist: numpy
+Requires-Dist: opencv-python
+Requires-Dist: openpnm
+Requires-Dist: porespy
+Requires-Dist: pypardiso
+Requires-Dist: scikit-image
+Requires-Dist: scipy
+Requires-Dist: yapf
+Requires-Dist: svglib
+Requires-Dist: reportlab
+Requires-Dist: cairosvg
+Requires-Dist: gstools
+Requires-Dist: jaxlib
+Requires-Dist: jax
+Requires-Dist: optax
+Requires-Dist: matplotlib
+
 # Pore2Chip: All-in-One Python Tool for Soil Microstructure Analysis and Micromodel Design
 
 ## What is Pore2Chip?
