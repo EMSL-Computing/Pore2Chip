@@ -29,7 +29,7 @@ Below is a conceptual figure, workflow, and vision for this all-in-one Python to
 
 **Conclusion:** The iterative ModEx loop continuously improves multi-physics process models through integration with experimental data, leading to more accurate predictions for soil carbon cycling and rhizosphere function applications.
 
-![ModExLoop](https://github.com/EMSL-Computing/XCT_to_Micromodel/blob/main/example_outputs/ModEx_Loop_SoilChip.jpg)
+![ModExLoop](https://github.com/EMSL-Computing/Pore2Chip/blob/main/example_outputs/ModEx_Loop_SoilChip.jpg)
 
 ## Capability summary: What the Pore2Chip module can do?
 * Extract pore sizes and pore throat sizes
