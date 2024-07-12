@@ -81,7 +81,7 @@ python3 pip install -e ./Pore2Chip
 
 Creating a Conda environment:
 ```
-conda create -n pore2chip python=3.8
+conda create -n pore2chip python=3.9
 conda activate pore2chip
 pip install pore2chip
 ```
