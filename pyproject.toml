@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pore2chip"
-version = "0.0.8"
+version = "0.1.0"
 authors = [
   { name="Aramy Truong", email="aramy.truong@pnnl.gov" },
   { name="Maruti Mudunuru", email="maruti@pnnl.gov" },
@@ -16,9 +16,9 @@ authors = [
   { name="Anil Krishna Battu", email="anilkrishna.battu@pnnl.gov" },
   { name="Satish Karra", email="karra@pnnl.gov" },
 ]
-description = "A package that takes XCT images of porous materials and generates representative micromodels"
+description = "A package that takes 3D images of porous materials and generates representative micromodels"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 
 classifiers = [
     "Programming Language :: Python :: 3",
@@ -30,4 +30,4 @@ dynamic = ["dependencies"]
 dependencies = {file = ["requirements.txt"]}
 
 [project.urls]
-Homepage = "https://github.com/aramyxt/Pore2Chip"
+Homepage = "https://github.com/EMSL-Computing/Pore2Chip"
