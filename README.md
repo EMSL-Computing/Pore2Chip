@@ -113,7 +113,7 @@ design = export.network2svg(network, n, 100)
 
 design.save_svg('network.svg')
 ```
-![output](https://github.com/aramyxt/XCT_to_Micromodel/blob/main/example_outputs/network_from_values.svg)
+![output](https://github.com/EMSL-Computing/Pore2Chip/blob/main/example_outputs/network_from_values.svg)
 
 This package can also generate images without throats and simulate "pores" as "grain" particulates.
 ```
@@ -130,7 +130,7 @@ design = export.network2svg(network, n, 100)
 
 design.save_svg('grain_network.svg')
 ```
-![output2](https://github.com/aramyxt/XCT_to_Micromodel/blob/main/example_outputs/grain_network.svg)
+![output2](https://github.com/EMSL-Computing/Pore2Chip/blob/main/example_outputs/grain_network.svg)
 
 ## Converting to PNG
 There are many ways to convert an SVG image to a rasterized image format using only Python, such as rendering it using```CairoSVG```.
@@ -154,9 +154,14 @@ This is a generalized workflow for getting an SVG to an STL file:
 6. Export to STL
 
 Example result in Solidworks:
-![solidworks_ex](https://github.com/aramyxt/XCT_to_Micromodel/blob/main/example_outputs/cad_mockup2.PNG)
+![solidworks_ex](https://github.com/EMSL-Computing/Pore2Chip/blob/main/example_outputs/cad_mockup2.PNG)
 
 There are many other methods to print the micromodel design onto physical materials.
+Another example of fabricating lab-on-chip micromodels is using the design to etch it on a surface. Example:
+
+![fabricated](https://github.com/EMSL-Computing/Pore2Chip/blob/main/example_outputs/fabricated_chip.jpg)
+
+This laser etching functionality is available at EMSL. Please see contact for more information.
 
 It is highly recommended to try the Python library ```svglob``` to combine SVG paths without using an external program:
 https://github.com/deckar01/svglob/tree/master
@@ -184,7 +189,7 @@ To use the library with Tahoma Open OnDemand:
 For more information, see [user guide for EMSL Open OnDemand](https://www.emsl.pnnl.gov/MSC/UserGuide/ood/overview.html)
 
 ## Known Issues
-* The Feret module will rarely throw an error on some images. Being worked on.
+* The coordination algorithm may create pores of coordination of 1, despite the given coordination list not having 1's. This is being worked on.
 
 ## Work in Progress
 * The ability to import and export pore networks in CSV or VTK file formats needed for multi-physics process modeling (e.g., using PFLOTRAN)
