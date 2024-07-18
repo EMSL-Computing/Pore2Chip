@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# This script automates cloning, building (if necessary), and installing the Pore2Chip python package.
+# This script automates cloning, building (if necessary), and installing the Pore2Chip Python package.
 
 # Clone the Pore2Chip repository from GitHub
-git clone https://github.com/aramyxt/Pore2Chip.git
+git clone https://github.com/EMSL-Computing/Pore2Chip.git
 
-# Change directory to the cloned repository
+# Change the directory to the cloned repository
 cd Pore2Chip
 
 # Try building the package (assumes a setup.py is present)
