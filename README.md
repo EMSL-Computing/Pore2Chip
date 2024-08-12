@@ -107,9 +107,9 @@ arr_pore = [4.0, 9.0, 4.5, 8.4, 14.0, 7.6, 5.0]
 arr_throat = [7.0, 5.5, 3.5, 1.4, 5.8, 4.3, 8.8, 8.4, 4.0]
 arr_coord = list(range(0, 4))
 
-network = generate.generate_network(n, arr_pore, arr_throat, arr_coord)
+network = generate.generate_network(n, n, arr_pore, arr_throat, arr_coord)
 
-design = export.network2svg(network, n, 100)
+design = export.network2svg(network, n, n, 100, 100)
 
 design.save_svg('network.svg')
 ```
@@ -124,9 +124,9 @@ n = 5
 # Random values for pore, throat diameters and coordination numbers. Can be any length.
 arr_grain = [4.0, 3.0, 4.5, 2.4, 14.0, 7.6, 5.0]
 
-network = generate.generate_network(n, arr_grain, None, None)
+network = generate.generate_network(n, n, arr_grain, None, None)
 
-design = export.network2svg(network, n, 100)
+design = export.network2svg(network, n, n, 100, 100)
 
 design.save_svg('grain_network.svg')
 ```
