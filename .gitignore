@@ -23,3 +23,4 @@ requirements_bak.txt.bak
 example_outputs/micromodel.vtk
 isrc/pore2chip.egg-info/PKG-INFO/*
 src/pore2chip/gencoord.py
+src/pore2chip.egg-info
