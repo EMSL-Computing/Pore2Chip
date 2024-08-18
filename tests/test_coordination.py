@@ -12,6 +12,7 @@ from pathlib import Path
 from pore2chip.coordination import coordination_nums_2D, coordination_nums_3D
 #from pore2chip.src.pore2chip.export import coordination_nums_3D, coordination_nums_2D
 
+
 def generate_network():
     """
     Generate a simple network with 3x3 pores and straight throats.
@@ -19,11 +20,13 @@ def generate_network():
     Returns:
         network (dict): A dictionary representing the network structure. An OpenPNM Cubic network object configured with spheres and cylinders geometry models.
     """
-    network = op.network.Cubic([3, 3]) # Create a 3x3 cubic network
-    network.add_model_collection(op.models.collections.geometry.spheres_and_cylinders) # Add geometry models
-    network.regenerate_models() # Generate network properties
-    print(network) # For debugging purposes
+    network = op.network.Cubic([3, 3])  # Create a 3x3 cubic network
+    network.add_model_collection(op.models.collections.geometry.
+                                 spheres_and_cylinders)  # Add geometry models
+    network.regenerate_models()  # Generate network properties
+    print(network)  # For debugging purposes
     return network
+
 
 def test_coordination_nums_3D(network):
     """
@@ -36,10 +39,11 @@ def test_coordination_nums_3D(network):
         coordination_numbers (ndarray): An array of coordination numbers for each pore in the network..
     """
     coordination_numbers = coordination_nums_3D(pn=network)
-    print(coordination_numbers) # For debugging purposes
-    print(coordination_numbers.mean()) # For debugging purposes
-    print(coordination_numbers.shape) # For debugging purposes
+    print(coordination_numbers)  # For debugging purposes
+    print(coordination_numbers.mean())  # For debugging purposes
+    print(coordination_numbers.shape)  # For debugging purposes
     return coordination_numbers
+
 
 def test_coordination_nums_2D(img_list):
     """
@@ -56,6 +60,7 @@ def test_coordination_nums_2D(img_list):
     print(coordination_numbers.mean())
     print(coordination_numbers.shape)
     return coordination_numbers
+
 
 def main():
     """
