@@ -30,4 +30,5 @@ dynamic = ["dependencies"]
 dependencies = {file = ["requirements.txt"]}
 
 [project.urls]
-Homepage = "https://github.com/EMSL-Computing/Pore2Chip"
+Homepage = "https://www.emsl.pnnl.gov/science/instruments-resources/terraforms-pore2chip"
+Source = "https://github.com/EMSL-Computing/Pore2Chip"

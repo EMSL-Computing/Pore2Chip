@@ -17,6 +17,3 @@ jaxlib
 jax
 optax
 matplotlib
-
-
-
