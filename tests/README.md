@@ -12,7 +12,11 @@ The Python script defines functions for generating a network and calculating coo
 
 ## Purpose and functionality of `test_export.py`
 
+The python script through `test_network2svg` and `test_network2dxf` functions directly test the capability of the `network2svg` and `network2dxf` functions from the `pore2chip` package to handle the generated network structure and produce relevant output files for computational simulations and visualizations. This allows us to verify that the generated SVG and DXF files visually match the expected output for a 3x3 grid of circles connected by straight lines (throats). That is, it generates a sample network. Calls functions to convert the network to SVG and DXF formats, which is essential for experimental design testing.
 
+- The `generate_network` creates a hardcoded network structure with 3x3 pores and straight throats. It returns a dictionary containing pore coordinates, diameters, throat connections, and diameters.
+- The `test_network2svg` converts the given network to an SVG using network2svg, saves the SVG as `grain_network.svg`, and then converts the SVG to a PNG using `cairosvg` for visualization
+- The `test_network2dxf` converts the given network to a DXF using `network2dxf` and then saves the DXF as `test_dxf_1.dxf`. 
 
 ## Purpose and functionality of `test_filter_im.py`
 
