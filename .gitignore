@@ -10,6 +10,7 @@ old_files/
 test_filter.py
 /__pycache__
 /src/pore2chip/__pycache__
+/src/flow/__pycache__
 /example_outputs copy
 test_file.vtk
 /dist_bak
