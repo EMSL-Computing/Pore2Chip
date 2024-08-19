@@ -22,7 +22,7 @@ def test_filter(image):
         image (ndarray): The input image to be filtered.
 
     Returns:
-        Filtered images: Dataset of 3 filtered images
+        Filtered images (tuple): Dataset of 3 filtered images
     """
     filtered1 = filter_single(image, cropx=[50, 100], cropy=[50, 100])
     filtered2 = filter_single(image, thresh=50, invert=True)
@@ -32,7 +32,10 @@ def test_filter(image):
 
 def test_filter_list(image_stack):
     """
-    Filters a 3D array (3D stack of images)
+    Filters a 3D stack of images
+
+    Args:
+        image_stack (ndarray): The stack of images to be filtered.
 
     Returns:
         Filtered images: Dataset of filtered image stacks
@@ -41,9 +44,17 @@ def test_filter_list(image_stack):
     return filtered_stack
 
 def main():
-    # Generate a test image using PoreSpy
+    """
+    Main function to test filtering on both individual and stacks of images.
+    """
+
+    # Generate a 2D test image using PoreSpy with fractal noise
     test_image = ps.generators.fractal_noise([500, 500], seed=1)
+
+    # Normalize the image for display and processing
     test_image2 = cv2.normalize(test_image, None, 0, 255, cv2.NORM_MINMAX, cv2.CV_8U)
+
+    # Filter the normalized image using different filtering techniques
     filtered1, filtered2, filtered3 = test_filter(test_image2)
 
     # Display original and 3 filtered images
@@ -53,23 +64,28 @@ def main():
     ax[2].imshow(filtered2)
     ax[3].imshow(filtered3)
     plt.show()
-    plt.waitforbuttonpress()
+    plt.waitforbuttonpress() # Wait for a user interaction before closing
     plt.close()
 
     ### Advanced Tests ###
 
     # Generate a 3D stack of images using PoreSpy
     test_stack = ps.generators.fractal_noise([3, 500, 500], seed=1)
+
+    # Normalize the 3D stack for display and processing
     test_stack2 = cv2.normalize(test_stack, None, 0, 255, cv2.NORM_MINMAX, cv2.CV_8U)
+
+    # Apply filtering to the stack of images
     filtered_stack = test_filter_list(test_stack2)
 
+    # Display the original first image of the stack and filtered results
     fig, ax = plt.subplots(1,4)
     ax[0].imshow(test_stack[0])
     ax[1].imshow(filtered_stack[0])
     ax[2].imshow(filtered_stack[1])
     ax[3].imshow(filtered_stack[2])
     plt.show()
-    plt.waitforbuttonpress()
+    plt.waitforbuttonpress() # Wait for user interaction before closing
     plt.close()
 
 
