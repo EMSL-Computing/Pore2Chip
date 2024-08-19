@@ -7,16 +7,19 @@ from pathlib import Path
 import cv2
 import matplotlib.pyplot as plt
 
+# Uncomment and modify these lines if the pore2chip package is not in the PYTHONPATH
 #mod_path = Path("__file__").resolve().parents[2]
 #sys.path.append(os.path.abspath(mod_path))
 
-#import pore2chip
-#from pore2chip.src.pore2chip.export import extract_diameters, feret_diameter
+import pore2chip
 from pore2chip.filter_im import filter_single, filter_list
 
 def test_filter(image):
     """
     Filters image using different parameters
+
+    Args:
+        image (ndarray): The input image to be filtered.
 
     Returns:
         Filtered images: Dataset of 3 filtered images
