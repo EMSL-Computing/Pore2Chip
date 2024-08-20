@@ -1,4 +1,4 @@
-# Description of the files in the tests folder
+# Description of the files in the `tests` folder
 
 This readme summarizes and focuses on the functionalities of scripts testing various aspects of the Pore2Chip repository.
 
