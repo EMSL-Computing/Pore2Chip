@@ -4,7 +4,7 @@ This readme summarizes and focuses on the flow modeling functionalities using ph
 
 ## Purpose and functionality of `pinn_utilities.py`
 
-The Python script .
+The Python script provides a set of functions that plays a crucial role in setting up the PINN's training, initializing the model, and evaluating the loss during training.
 
 - The `generate_BCs_and_colloc_xct` function generates boundary conditions (Dirichlet and Neumann) and collocation points for a 2D domain. BCs are defined along the boundaries of the grid, while collocation points are used inside the domain to enforce the PDE. It returns a tuple containing the boundary points and the collocation points.
 - The `pde_flow_2d_hetero_resiual` function computes the residual of a 2D flow PDE for a heterogeneous medium. It calculates the partial derivatives with respect to x and y using `jax.grad` and applies the normalization coefficients to account for heterogeneity. It returns the sum of second derivatives, representing the residual of the PDE.
