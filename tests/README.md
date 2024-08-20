@@ -23,14 +23,18 @@ This python script through `test_network2svg` and `test_network2dxf` functions d
 This python script applies applies image filters and displays the results for both 2D and 3D cases.
 
 - The `test_filter` demonstrates how to apply various filters and cropping to an image.
-- The `test_filter_list` applies a single type of filter across a stack of images, demonstrating handling of 3D data
+- The `test_filter_list` applies a single type of filter across a stack of images, demonstrating handling of 3D data.
 
 ## Purpose and functionality of `test_flow.py`
 
-This python script provides simple test case (`test_plot_xct`) for visualizing xct intensity results. For more detailed and complex example, please see the Jupyter notebooks `example_6_flow_2d_numerical_on_XCT.ipynb` and `example_7_flow_2d_pinn_on_XCT.ipynb`
+This python script provides simple test case (`test_plot_xct`) for visualizing xct intensity results. For more detailed and complex example, please see the Jupyter notebooks `example_6_flow_2d_numerical_on_XCT.ipynb` and `example_7_flow_2d_pinn_on_XCT.ipynb`.
 
 ## Purpose and functionality of `test_generate.py`
 
+This python script generates random network properties and test network generation functions for visual inspection.
 
+- This `create_random_properties` test function generates random values for pore diameters (1.0 - 10.0), throat diameters (0.5 - 6.0), and coordination numbers (0 - 8, converted to integers).
+- This  `test_generate_network` test function takes random properties and network parameters (number of nodes, center channel) to generate an OpenPNM network using the `generate_network` function and then prints the generated network to the console for visual inspection.
+- This `test_generate_network2` function is similar to `test_generate_network`. This function additionally takes probability density functions (pdfs) for each property and allows specifying an average coordination number.
 
 ## Purpose and functionality of `test_metrics.py`

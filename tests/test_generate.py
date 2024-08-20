@@ -4,24 +4,33 @@ import time
 import numpy as np
 from pathlib import Path
 
+# Uncomment and modify these lines if the pore2chip package is not in the PYTHONPATH
 #mod_path = Path("__file__").resolve().parents[2]
 #sys.path.append(os.path.abspath(mod_path))
 
+# Importing functions from the pore2chip package
 from pore2chip.generate import generate_network
 from pore2chip.metrics import get_probability_density
-#from pore2chip.src.pore2chip.export import generate_network
 
 
-def create_random_propterties():
+def create_random_properties():
     """
     Generates random numbers used for the pore sizes, throat sizes,
     and coordination numbers using numpy.random.uniform
 
     Returns:
-        properties: Dataset of 3 arrays for each pore property respectively
+        tuple: Dataset of 3 arrays for each pore property respectively (pore diameters, throat diameters, and coordination numbers).
+            - pore_diameters (np.ndarray): Array of random pore diameters.
+            - throat_diameters (np.ndarray): Array of random throat diameters.
+            - coordination_nums (np.ndarray): Array of random coordination numbers (converted to integers).
     """
+    # Generating random pore diameters within specified range
     pore_diameters = np.random.uniform(low=1.0, high=10.0, size=20)
+
+    # Generating random throat diameters within specified range
     throat_diameters = np.random.uniform(low=0.5, high=6.0, size=20)
+
+    # Generating random coordination numbers within specified range and converting to integers
     coordination_nums = np.random.uniform(low=0, high=8,
                                           size=20).astype(np.int64)
     return pore_diameters, throat_diameters, coordination_nums
@@ -32,14 +41,26 @@ def test_generate_network(properties, n=5, cc=None):
     Generates an OpenPNM network given pore diameters, throat diameters, and 
     coordination numbers
 
+    Args:
+    properties (tuple): A tuple containing pore diameters, throat diameters, and coordination numbers.
+        - pore diameters
+        - throat diameters
+        - coordination numbers
+    n (int, optional): The dimension for the network generation, default is 5.
+    cc (int, optional): Center channel size, if any, defaults to None
+
     Returns:
         network: The generated OpenPNM network
     """
+    # Generating the network with provided dimensions and properties
     network = generate_network(n,
+                               n,
                                properties[0],
                                properties[1],
                                properties[2],
                                center_channel=cc)
+
+    # Outputting the network details for visual inspection
     print(network)
 
 
@@ -48,10 +69,20 @@ def test_generate_network2(properties, pdfs, avg_coord=None, n=5, cc=None):
     Generates an OpenPNM network given pore diameters, throat diameters, and 
     coordination numbers and their respective probability densities (from metrics.py)
 
+    Args:
+        properties (tuple): A tuple containing pore diameters, throat diameters, and coordination numbers.
+        pdfs (list): A list containing probability density functions for each property.
+        avg_coord (int, optional): Average coordination number to be used, if provided.
+        n (int): The dimension for the network generation, default is 5.
+        cc (int, optional): Center channel size, if any.
+
     Returns:
         network: The generated OpenPNM network
     """
+
+    # Generating the network with additional parameters including probability densities
     network = generate_network(n,
+                               n,
                                properties[0],
                                properties[1],
                                properties[2],
@@ -60,13 +91,21 @@ def test_generate_network2(properties, pdfs, avg_coord=None, n=5, cc=None):
                                pdfs[2],
                                avg_coord,
                                center_channel=cc)
+
+    # Outputting the network details
     print(network)
 
 
 def main():
-    # Generate network
+    """
+    Main function to generate properties for a network, create and test network generation with different parameters.
+    """
+
+    # Generate network; Setting a random seed for reproducibility
     np.random.seed(seed=1)
-    properties = create_random_propterties()
+
+    # Generating random properties for network elements
+    properties = create_random_properties()
 
     # Test generation (n=5, no center channel)
     test_generate_network(properties)
