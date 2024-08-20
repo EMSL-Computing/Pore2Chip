@@ -38,3 +38,8 @@ This python script generates random network properties and test network generati
 - This `test_generate_network2` function is similar to `test_generate_network`. This function additionally takes probability density functions (pdfs) for each property and allows specifying an average coordination number.
 
 ## Purpose and functionality of `test_metrics.py`
+
+This python script demonstrates generating a test image with simple ellipses, applying the diameter extraction functions, and optionally displaying the output for a given sample. It also includes advanced tests with generated cylindrical 3D structures to show how the functions can handle more complex image data.
+
+- This `test_feret_diameter` function processes an image to calculate and return the feret diameters, which describe the extent of a projected area of the image.
+- The `test_extract_diameters` and `test_extract_diameters2` functions extract pore and throat diameters from images. They showcase different methodologies, with `test_extract_diameters2` using a method that doesn't rely on `PoreSpy's` built-in SNOW algorithm. For more complex image analysis tasks, we will need to explore advanced techniques like watershed segmentation or ML-based segmentation methods.
