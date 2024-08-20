@@ -61,15 +61,14 @@ def feret_diameter_list(img_list):
         # This sub_images array is for saving images of individual pores and
         # sending them to the feret module
         sub_images = []
-        for index in range(len(regions) - 1): 
+        for index in range(len(regions) - 1):
             # These are the locations of the pores bound by a box
             # The variables are in order: minimum row, minimum column, maximum
             # row, maximum column
             minr, minc, maxr, maxc = regions[index].bbox
 
-            sub_images.insert(
-                index, np.zeros(
-                    (maxr - minr, maxc - minc), dtype=int))
+            sub_images.insert(index,
+                              np.zeros((maxr - minr, maxc - minc), dtype=int))
             # The property image_filled isolates only one pore per image,
             # useful for the feret module
             sub_images[index] = regions[index].image_filled
@@ -130,10 +129,9 @@ def extract_diameters2(img_list, voxel_size=1, sigma_val=0.4):
 
     regions = watershed(image=-dt, markers=peaks, mask=dt > 0)
     regions = randomize_colors(regions)
-    net = ps.networks.regions_to_network(regions*img_list, voxel_size=1)
+    net = ps.networks.regions_to_network(regions * img_list, voxel_size=1)
     pn = op.io.network_from_porespy(net)
     return pn["pore.equivalent_diameter"], pn["throat.equivalent_diameter"]
-
 
 
 def extract_diameters_alt(img_list, num_bins=10):

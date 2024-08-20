@@ -11,7 +11,7 @@ import ezdxf
 def network2svg(
     generated_network,  # An OpenPNM network object
     n1,  # Number of pores on x-axis
-    n2, # Number of pores on y-axis
+    n2,  # Number of pores on y-axis
     d1,  # x dimension of the SVG image
     d2,  # y dimension of the SVG image
     pore_shape='blob',  # Shape of the pores ('blob' or 'circle')
@@ -79,10 +79,10 @@ def network2svg(
             if disconnected is not None:
                 if pore_index in disconnected:
                     fill_color = 'red'
-            x_coord = generated_network['pore.coords'][pore_index][0] * (
-                d1 / n1)
-            y_coord = generated_network['pore.coords'][pore_index][1] * (
-                d2 / n2)
+            x_coord = generated_network['pore.coords'][pore_index][0] * (d1 /
+                                                                         n1)
+            y_coord = generated_network['pore.coords'][pore_index][1] * (d2 /
+                                                                         n2)
 
             # Create a path object to define the pore shape and
             # adjust y-coordinate to match OpenPNM network (drawsvg has different origin)
@@ -134,7 +134,12 @@ def network2svg(
 
             design.append(p)  # Add the pore path to the SVG design
             if pore_debug:
-                design.append(dr.Text(str(pore_index), 6, x_coord, -y_coord + d2, fill=fill_color))
+                design.append(
+                    dr.Text(str(pore_index),
+                            6,
+                            x_coord,
+                            -y_coord + d2,
+                            fill=fill_color))
 
     # This section handles the case where pore_shape is 'circle'
     elif pore_shape == 'circle':
@@ -146,33 +151,46 @@ def network2svg(
             if disconnected is not None:
                 if pore_index in disconnected:
                     fill_color = 'red'
-            x_coord = generated_network['pore.coords'][pore_index][0] * (
-                d1 / n1)
-            y_coord = generated_network['pore.coords'][pore_index][1] * (
-                d2 / n2)
+            x_coord = generated_network['pore.coords'][pore_index][0] * (d1 /
+                                                                         n1)
+            y_coord = generated_network['pore.coords'][pore_index][1] * (d2 /
+                                                                         n2)
             radius = generated_network['pore.diameter'][pore_index] / 2
             # Create a circle object using the drawsvg library
             # Adjust y-coordinate to match OpenPNM network (drawsvg has different origin)
             if middle_pores is not None and pore_index in middle_pores:
                 design.append(
                     dr.Circle(x_coord, (-y_coord) + d2,
-                            radius / 2,
-                            fill='green'))
+                              radius / 2,
+                              fill='green'))
                 if pore_debug:
-                    design.append(dr.Text(str(pore_index), 6, x_coord, -y_coord + d2, fill='green'))
+                    design.append(
+                        dr.Text(str(pore_index),
+                                6,
+                                x_coord,
+                                -y_coord + d2,
+                                fill='green'))
             else:
                 design.append(
                     dr.Circle(x_coord, (-y_coord) + d2,
-                            radius / 2,
-                            fill=fill_color))
+                              radius / 2,
+                              fill=fill_color))
                 if pore_debug:
-                    design.append(dr.Text(str(pore_index), 6, x_coord, -y_coord + d2, fill='blue'))
+                    design.append(
+                        dr.Text(str(pore_index),
+                                6,
+                                x_coord,
+                                -y_coord + d2,
+                                fill='blue'))
     else:
-        print('Error: Invalid shape for pore body (Must be \'blob\' or \'circle\')')
+        print(
+            'Error: Invalid shape for pore body (Must be \'blob\' or \'circle\')'
+        )
         return None  # This section handles an invalid pore_shape argument (anything other than 'blob' or 'circle')
 
     # Check if 'throat.conns' data exists in the network
-    if generated_network.get('throat.conns') is not None and no_throats == False:
+    if generated_network.get(
+            'throat.conns') is not None and no_throats == False:
         # Get the number of throats
         #num_throats = len(generated_network['throat.all']) #This might be a bug
         num_throats = len(generated_network['throat.conns'])
@@ -183,14 +201,10 @@ def network2svg(
             pore2 = generated_network['throat.conns'][throat_index][1]
 
             # Get the coordinates of the connected pores
-            pore1_x = generated_network['pore.coords'][pore1][0] * (
-                d1 / n1)
-            pore1_y = generated_network['pore.coords'][pore1][1] * (
-                d2 / n2)
-            pore2_x = generated_network['pore.coords'][pore2][0] * (
-                d1 / n1)
-            pore2_y = generated_network['pore.coords'][pore2][1] * (
-                d2 / n2)
+            pore1_x = generated_network['pore.coords'][pore1][0] * (d1 / n1)
+            pore1_y = generated_network['pore.coords'][pore1][1] * (d2 / n2)
+            pore2_x = generated_network['pore.coords'][pore2][0] * (d1 / n1)
+            pore2_y = generated_network['pore.coords'][pore2][1] * (d2 / n2)
 
             # Convert coordinates to match the SVG coordinate system
             pore1_coords = [pore1_x, (-pore1_y) + d2]
@@ -240,7 +254,7 @@ def network2svg(
 
                 # Random shift based on throat diameter and throat_random parameter
                 throat_radius = generated_network['throat.diameter'][
-                    throat_index]  /2
+                    throat_index] / 2
                 random_shift = np.random.uniform(-throat_radius,
                                                  throat_radius) * throat_random
                 perp_vector[0] *= random_shift
@@ -255,7 +269,7 @@ def network2svg(
                 if disconnected is not None:
                     if pore1 in disconnected or pore2 in disconnected:
                         throat_fill = 'red'
-                
+
                 design.append(
                     dr.Circle(x_new,
                               y_new,
@@ -271,14 +285,14 @@ def network2svg(
                 pore2 = generated_network['throat.conns'][throat_index][1]
 
                 # Get coordinates of the connected pores
-                pore1_x = generated_network['pore.coords'][pore1][0] * (
-                    d1 / n1)
-                pore1_y = generated_network['pore.coords'][pore1][1] * (
-                    d2 / n2)
-                pore2_x = generated_network['pore.coords'][pore2][0] * (
-                    d1 / n1)
-                pore2_y = generated_network['pore.coords'][pore2][1] * (
-                    d2 / n2)
+                pore1_x = generated_network['pore.coords'][pore1][0] * (d1 /
+                                                                        n1)
+                pore1_y = generated_network['pore.coords'][pore1][1] * (d2 /
+                                                                        n2)
+                pore2_x = generated_network['pore.coords'][pore2][0] * (d1 /
+                                                                        n1)
+                pore2_y = generated_network['pore.coords'][pore2][1] * (d2 /
+                                                                        n2)
 
                 # Adjust coordinates for the SVG coordinate system
                 pore1_coords = [pore1_x, (-pore1_y) + d2]
@@ -319,10 +333,11 @@ def network2svg(
     return design
 
 
-def network2dxf(generated_network, 
-                throat_random=1,
-                no_throats=False,
-                ):
+def network2dxf(
+    generated_network,
+    throat_random=1,
+    no_throats=False,
+):
     r"""
     Create a DXF file from an OpenPNM network.
     The network2dxf function generates a DXF file from an OpenPNM network. 
@@ -403,7 +418,8 @@ def network2dxf(generated_network,
                 distance = math.dist(pore1_coords, pore2_coords)
 
                 # Skip if the throat diameter is not defined
-                if math.isnan(generated_network['throat.diameter'][throat_index]):
+                if math.isnan(
+                        generated_network['throat.diameter'][throat_index]):
                     continue
 
                 # Calculate the number of points (circles) in the throat
@@ -414,8 +430,10 @@ def network2dxf(generated_network,
 
                 # Calculate the distance between the center of each circle along the path in x and y directions,
                 # and the total magnitude of the distance vector
-                x_segment = (pore2_coords[0] - pore1_coords[0]) / num_throat_points
-                y_segment = (pore2_coords[1] - pore1_coords[1]) / num_throat_points
+                x_segment = (pore2_coords[0] -
+                             pore1_coords[0]) / num_throat_points
+                y_segment = (pore2_coords[1] -
+                             pore1_coords[1]) / num_throat_points
                 magnitude = generated_network['throat.diameter'][throat_index]
 
                 # Loop to create circles representing the throat with random variations
@@ -445,8 +463,8 @@ def network2dxf(generated_network,
                     # Introduce randomness in the circle position based on throat diameter
                     throat_radius = generated_network['throat.diameter'][
                         throat_index] / 2
-                    random_shift = np.random.uniform(-throat_radius,
-                                                    throat_radius) * throat_random
+                    random_shift = np.random.uniform(
+                        -throat_radius, throat_radius) * throat_random
 
                     # Apply the random shift to the perpendicular vector
                     perp_vector[0] *= random_shift
@@ -457,7 +475,8 @@ def network2dxf(generated_network,
                     y_new = base_point[1] + perp_vector[1]
 
                     # Add a circle to the modelspace representing the current section of the throat
-                    modelspace.add_circle((x_new, y_new), radius=magnitude / 20)
+                    modelspace.add_circle((x_new, y_new),
+                                          radius=magnitude / 20)
 
                     # Create a hatch object (likely for defining fill properties) for the circle
                     hatch = modelspace.add_hatch(color=7)
@@ -465,7 +484,7 @@ def network2dxf(generated_network,
                     # Add an elliptical hatch for the throat circle
                     edge_path = hatch.paths.add_edge_path()
                     edge_path.add_ellipse((x_new, y_new),
-                                        major_axis=(0, magnitude / 20),
-                                        ratio=1)
+                                          major_axis=(0, magnitude / 20),
+                                          ratio=1)
 
     return document

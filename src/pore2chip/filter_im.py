@@ -4,15 +4,14 @@ import copy
 import os
 
 
-def filter_single(
-        image,
-        cropx=None,
-        cropy=None,
-        grayMinimum=None,
-        grayMaximum=None,
-        thresh=None,
-        gauss=5,
-        invert=False):
+def filter_single(image,
+                  cropx=None,
+                  cropy=None,
+                  grayMinimum=None,
+                  grayMaximum=None,
+                  thresh=None,
+                  gauss=5,
+                  invert=False):
     r"""
     Filters single image using OpenCV Gaussian Blur and thresholds images 
     using Otsu's thresholding
@@ -41,7 +40,8 @@ def filter_single(
     if cropx is not None and cropy is not None:
         y_length = cropy[1] - cropy[0]
         x_length = cropx[1] - cropx[0]
-        image_filtered = copy.deepcopy(image[cropy[0]:cropy[1], cropx[0]:cropx[1]])
+        image_filtered = copy.deepcopy(image[cropy[0]:cropy[1],
+                                             cropx[0]:cropx[1]])
     else:
         image_filtered = copy.deepcopy(image)
 
@@ -50,7 +50,6 @@ def filter_single(
         grayMin = grayMinimum  # 70
         grayMax = grayMaximum  # 90
         grayList = range(grayMin, grayMax)
-
 
     # Lighten some dark grays to separate them from the background and then
     # median blur
@@ -62,11 +61,11 @@ def filter_single(
     image_filtered = cv.GaussianBlur(image_filtered, (gauss, gauss), 0)
 
     if thresh is None:
-        ret, image_filtered = cv.threshold(
-            image_filtered, 0, 255, cv.THRESH_OTSU)
+        ret, image_filtered = cv.threshold(image_filtered, 0, 255,
+                                           cv.THRESH_OTSU)
     else:
-        ret, image_filtered = cv.threshold(
-            image_filtered, thresh, 255, cv.THRESH_BINARY)
+        ret, image_filtered = cv.threshold(image_filtered, thresh, 255,
+                                           cv.THRESH_BINARY)
 
     # Inverted Version (PoreSpy and Skimage treats white pixels as pores, so
     # this makes an inverted copy of the original filtered list)
@@ -76,16 +75,15 @@ def filter_single(
     return image_filtered
 
 
-def filter_list(
-        img_list,
-        cropx=None,
-        cropy=None,
-        crop_depth=None,
-        grayMinimum=None,
-        grayMaximum=None,
-        thresh=None,
-        gauss=5,
-        invert=False):
+def filter_list(img_list,
+                cropx=None,
+                cropy=None,
+                crop_depth=None,
+                grayMinimum=None,
+                grayMaximum=None,
+                thresh=None,
+                gauss=5,
+                invert=False):
     r"""
     Filters array of images using OpenCV Gaussian Blur and thresholds images 
     using Otsu's thresholding
@@ -120,8 +118,8 @@ def filter_list(
         y_length = cropy[1] - cropy[0]
         x_length = cropx[1] - cropx[0]
 
-    image_stack_filtered = np.zeros(
-        (depth, y_length, x_length), dtype=np.uint8)
+    image_stack_filtered = np.zeros((depth, y_length, x_length),
+                                    dtype=np.uint8)
 
     grayList = None
     if grayMinimum is not None and grayMaximum is not None:
@@ -136,7 +134,8 @@ def filter_list(
             image_stack_filtered[stride, :, :] = copy.deepcopy(
                 img_list[stride, cropy[0]:cropy[1], cropx[0]:cropx[1]])
         else:
-            image_stack_filtered[stride, :, :] = copy.deepcopy(img_list[stride, :, :])
+            image_stack_filtered[stride, :, :] = copy.deepcopy(
+                img_list[stride, :, :])
 
         # Lighten some dark grays to separate them from the background and then
         # median blur
@@ -155,7 +154,8 @@ def filter_list(
                 image_stack_filtered[stride, :, :], 0, 255, cv.THRESH_OTSU)
         else:
             ret, image_stack_filtered[stride, :, :] = cv.threshold(
-                image_stack_filtered[stride, :, :], thresh, 255, cv.THRESH_BINARY)
+                image_stack_filtered[stride, :, :], thresh, 255,
+                cv.THRESH_BINARY)
 
         # Inverted Version (PoreSpy and Skimage treats white pixels as pores,
         # so this makes an inverted copy of the original filtered list)
@@ -166,15 +166,14 @@ def filter_list(
     return image_stack_filtered
 
 
-def read_and_filter(
-        img_path,
-        cropx=None,
-        cropy=None,
-        grayMinimum=None,
-        grayMaximum=None,
-        thresh=None,
-        gauss=5,
-        invert=False):
+def read_and_filter(img_path,
+                    cropx=None,
+                    cropy=None,
+                    grayMinimum=None,
+                    grayMaximum=None,
+                    thresh=None,
+                    gauss=5,
+                    invert=False):
     r"""
     Reads and filters a single image using OpenCV Gaussian Blur and 
     thresholds images using Otsu's thresholding
@@ -203,7 +202,8 @@ def read_and_filter(
     if cropx is not None and cropy is not None:
         y_length = cropy[1] - cropy[0]
         x_length = cropx[1] - cropx[0]
-        image = copy.deepcopy(np.flipud(image[cropy[0]:cropy[1], cropx[0]:cropx[1]]))
+        image = copy.deepcopy(
+            np.flipud(image[cropy[0]:cropy[1], cropx[0]:cropx[1]]))
     else:
         y_length = image.shape[0]
         x_length = image.shape[1]
@@ -213,7 +213,6 @@ def read_and_filter(
         grayMin = grayMinimum  # 70
         grayMax = grayMaximum  # 90
         grayList = range(grayMin, grayMax)
-
 
     # Populate the filtered array by copying the original image to it
     image_filtered = copy.deepcopy(image)
@@ -236,16 +235,15 @@ def read_and_filter(
     return image_filtered
 
 
-def read_and_filter_list(
-        img_path,
-        cropx=None,
-        cropy=None,
-        crop_depth=None,
-        grayMinimum=None,
-        grayMaximum=None,
-        thresh=None,
-        gauss=5,
-        invert=False):
+def read_and_filter_list(img_path,
+                         cropx=None,
+                         cropy=None,
+                         crop_depth=None,
+                         grayMinimum=None,
+                         grayMaximum=None,
+                         thresh=None,
+                         gauss=5,
+                         invert=False):
     r"""
     Reads and filters array of images using OpenCV Gaussian Blur and 
     thresholds images using Otsu's thresholding
@@ -280,16 +278,15 @@ def read_and_filter_list(
         y_length = cropy[1] - cropy[0]
         x_length = cropx[1] - cropx[0]
     else:
-        test_img = cv.imread(
-            img_path + os.listdir(img_path)[0],
-            cv.IMREAD_GRAYSCALE)
+        test_img = cv.imread(img_path + os.listdir(img_path)[0],
+                             cv.IMREAD_GRAYSCALE)
         y_length = test_img.shape[0]
         x_length = test_img.shape[1]
     image_list_3D = np.zeros((depth, y_length, x_length), dtype=np.uint8)
 
     # Filter Images
-    image_list_3D_filtered = np.zeros(
-        (depth, y_length, x_length), dtype=np.uint8)
+    image_list_3D_filtered = np.zeros((depth, y_length, x_length),
+                                      dtype=np.uint8)
     grayList = None
     if grayMinimum is not None and grayMaximum is not None:
         grayMin = grayMinimum  # 70
@@ -298,10 +295,8 @@ def read_and_filter_list(
 
     for stride in range(depth):
         # Read Images
-        img = cv.imread(
-            img_path +
-            os.listdir(img_path)[stride],
-            cv.IMREAD_GRAYSCALE)
+        img = cv.imread(img_path + os.listdir(img_path)[stride],
+                        cv.IMREAD_GRAYSCALE)
         # Copy subsection of original image to 3D array
         if cropx is not None and cropy is not None:
             image_list_3D[stride, :, :] = copy.deepcopy(

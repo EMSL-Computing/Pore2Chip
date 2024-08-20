@@ -71,7 +71,8 @@ def coordination_nums_3D(img_list=None, pn=None, alt=True):
 
             regions = watershed(image=-dt, markers=peaks, mask=dt > 0)
             regions = randomize_colors(regions)
-            net = ps.networks.regions_to_network(regions*img_list, voxel_size=1)
+            net = ps.networks.regions_to_network(regions * img_list,
+                                                 voxel_size=1)
             pn = op.io.network_from_porespy(net)
             coordination_nums = op.models.network.coordination_number(pn)
             return coordination_nums
@@ -81,7 +82,7 @@ def coordination_nums_3D(img_list=None, pn=None, alt=True):
             coordination_nums = op.models.network.coordination_number(pn2)
 
             return coordination_nums
-    else:  
+    else:
         return None
 
 
@@ -137,13 +138,13 @@ def coordination_nums_2D(img_list):
 
     else:
         for k in range(len(img_list)):
-           # Use the Snow algorithm (included in PoreSpy) to calculate a pore
-           # network and convert it to an OpenPNM network
-           snow_output = ps.networks.snow2(img_list[k, :, :], voxel_size=1)
-           pn = op.io.network_from_porespy(snow_output.network)
-           #
-           temp_coordination = op.models.network.coordination_number(pn)
-           coordination_nums_2D = np.concatenate(
-              (coordination_nums_2D, temp_coordination))
+            # Use the Snow algorithm (included in PoreSpy) to calculate a pore
+            # network and convert it to an OpenPNM network
+            snow_output = ps.networks.snow2(img_list[k, :, :], voxel_size=1)
+            pn = op.io.network_from_porespy(snow_output.network)
+            #
+            temp_coordination = op.models.network.coordination_number(pn)
+            coordination_nums_2D = np.concatenate(
+                (coordination_nums_2D, temp_coordination))
 
         return coordination_nums_2D

@@ -14,6 +14,7 @@ import matplotlib.pyplot as plt
 #from pore2chip.src.pore2chip.export import extract_diameters, feret_diameter
 from pore2chip.metrics import extract_diameters, feret_diameter, extract_diameters_alt, extract_diameters2
 
+
 def test_feret_diameter(test_image):
     """
     Extracts feret diameters on test image and compares the 
@@ -25,6 +26,7 @@ def test_feret_diameter(test_image):
     """
     f_diameters = feret_diameter(test_image)
     return f_diameters
+
 
 def test_extract_diameters(image, alt=False):
     """
@@ -41,6 +43,7 @@ def test_extract_diameters(image, alt=False):
 
     return diameters
 
+
 def test_extract_diameters2(image):
     """
     Extracts pore sizes and pore throat sizes on test image
@@ -53,6 +56,7 @@ def test_extract_diameters2(image):
     """
     diameters = extract_diameters2(image)
     return diameters
+
 
 def main():
     # Generate a test image using skimage.draw

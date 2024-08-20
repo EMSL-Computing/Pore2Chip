@@ -17,7 +17,7 @@ def test_plot_xct(image):
 
     This function does not return anything but saves the plotted results to a specified directory.
     """
-    results_dir = "../" # Adjust directory path as needed
+    results_dir = "../"  # Adjust directory path as needed
     flow.plotting_results.plot_2d_xct_data_seg(image, results_dir=results_dir)
 
 
@@ -49,7 +49,7 @@ def main():
 
     # Draw several ellipses on the image at various positions and sizes
     rr, cc = ellipse(60, 60, 40, 60)
-    test_image[rr, cc] = 1 # Set pixels inside the ellipse to white
+    test_image[rr, cc] = 1  # Set pixels inside the ellipse to white
 
     # Add more circular regions as needed
     rr, cc = ellipse(400, 400, 80, 60)
