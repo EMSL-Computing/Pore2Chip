@@ -255,6 +255,13 @@ We appreciate all contributions, big or small! Here's how to get involved:
  ```
  yapf -i --style=pep8 <my_code>.py
  ```
+ 
+ or if you edit multiple files, you can do the following:
+
+```
+yapf -i --style=pep8 --recursive .
+```
+
 * **Contact Aramy Truong (<aramy.truong@pnnl.gov>) and/or Maruti Mudunuru (<maruti@pnnl.gov>):** If you have questions or need help getting started.
 
 Additionally, your contributions can be as simple as:
