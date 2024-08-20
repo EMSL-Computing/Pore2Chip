@@ -14,7 +14,7 @@ Mentors: Maruti K. Mudunuru and Satish Karra
 import jax
 import jax.numpy as jnp
 import optax
-import pickle as pk #Serialization library for saving and loading Python objects
+import pickle as pk  #Serialization library for saving and loading Python objects
 
 
 def generate_BCs_and_colloc_xct(xx, yy, P1, P2, dP_dy1, dP_dy2):
@@ -44,7 +44,7 @@ def generate_BCs_and_colloc_xct(xx, yy, P1, P2, dP_dy1, dP_dy2):
     # Extracting the x and y coordinates for the left boundary (x = 0)
     x_b1 = xx[:, 0]
     y_b1 = yy[:, 0]
-    left_bc = P1 # The pressure value at the left boundary is set to P1
+    left_bc = P1  # The pressure value at the left boundary is set to P1
 
     # Create a boundary condition array for the left side
     bc_1 = jnp.ones_like(y_b1) * left_bc
@@ -56,7 +56,7 @@ def generate_BCs_and_colloc_xct(xx, yy, P1, P2, dP_dy1, dP_dy2):
     # Extracting the x and y coordinates for the right boundary (x = 1)
     x_b2 = xx[:, -1]
     y_b2 = yy[:, -1]
-    right_bc = P2 # The pressure value at the right boundary is set to P2
+    right_bc = P2  # The pressure value at the right boundary is set to P2
 
     # Create a boundary condition array for the right side
     bc_2 = jnp.ones_like(y_b2) * right_bc
@@ -100,6 +100,7 @@ def generate_BCs_and_colloc_xct(xx, yy, P1, P2, dP_dy1, dP_dy2):
     # Return the boundary conditions and collocation points
     return x_b1, y_b1, bc_1, x_b2, y_b2, bc_2, x_b3, y_b3, bc_3, x_b4, y_b4, bc_4, x_c, y_c, conds, colloc
 
+
 def pde_flow_2d_hetero_resiual(x, y, P, norm_coeff):
     """
     Computes the residual of the 2D heterogeneous flow PDE.
@@ -112,7 +113,7 @@ def pde_flow_2d_hetero_resiual(x, y, P, norm_coeff):
         norm_coeff (jnp.ndarray): A 2D JAX array representing the heterogeneous normalization coefficients.
 
     Returns:
-        jnp.ndarray: Residuals of the PDE at the given collocation points.
+        jnp.ndarray: A JAX array representing the residuals of the PDE at the given collocation points.
     """
 
     # Compute the gradient of pressure with respect to x
@@ -152,11 +153,15 @@ def init_params(layers):
     Initializes parameters for a neural network using Xavier initialization.
 
     Args:
-        layers (list[int]): List of layer sizes for the neural network.
+        layers (list[int]): A list specifying the number of neurons in each layer of the neural network.
+                             For example, [2, 4, 1] represents a network with 2 input neurons, 
+                             one hidden layer with 4 neurons, and 1 output neuron.
 
     Returns:
-        list[dict]: A list of dictionaries, each containing weight ('W') and 
-                    bias ('B') matrices for a layer.
+        params (list[dict]): A list of dictionaries, each containing weight ('W') and 
+                    bias ('B') matrices for a layer. Each dictionary has two keys:
+                     - 'W': A JAX array representing the weight matrix for the layer.
+                     - 'B': A JAX array representing the bias vector for the layer.
     """
 
     # Split the random key for initializing each layer's weights and biases
@@ -170,7 +175,7 @@ def init_params(layers):
         W = lb + (ub - lb) * jax.random.uniform(key, shape=(n_in, n_out))
         B = jax.random.uniform(key, shape=(n_out, ))
         params.append({'W': W, 'B': B})
-    
+
     return params
 
 
@@ -194,9 +199,10 @@ def neural_net(params, x, y):
     # Apply each layer's weights and biases using tanh activation for hidden layers
     for layer in hidden:
         X = jax.nn.tanh(X @ layer['W'] + layer['B'])
-    
+
     # Compute the final output
     return X @ last['W'] + last['B']
+
 
 @jax.jit
 def MSE(true, pred):
@@ -251,14 +257,40 @@ def loss_fun(params, colloc, conds, norm_coeff):
 
 def save_training_data_to_file(sim_name, best_params, best_epoch, best_loss,
                                all_losses, all_epochs, results_dir):
+    """
+    Saves the training data, including the best model parameters and the training history, to a file.
+
+    Args:
+        sim_name (str): The name of the simulation or model, which will be used as the filename.
+        best_params (list): A list of dictionaries containing the best parameters (weights and biases) of the neural network.
+        best_epoch (int): The epoch number at which the best model (with the lowest loss) was found.
+        best_loss (float): The minimum loss value achieved during training.
+        all_losses (list): A list containing the loss values for each epoch during training.
+        all_epochs (list): A list containing the epoch numbers corresponding to the `all_losses`.
+        results_dir (str): The directory where the results file will be saved.
+
+    Returns:
+        None: The function does not return anything. It saves the data to a file.
+    """
+
+    # Organize all the data into a dictionary.
+    # This dictionary will contain the best parameters, the epoch at which the best parameters were found,
+    # the minimum loss achieved, and the history of losses and epochs during training.
     data = {
-        'best_params': best_params,
-        'best_epoch': best_epoch,
-        'min_loss': best_loss,
-        'all_losses': all_losses,
-        'all_epochs': all_epochs
+        'best_params':
+        best_params,  # The best parameters (weights and biases) of the neural network.
+        'best_epoch':
+        best_epoch,  # The epoch number corresponding to the best parameters.
+        'min_loss':
+        best_loss,  # The minimum loss value achieved during training.
+        'all_losses': all_losses,  # A list of loss values for each epoch.
+        'all_epochs':
+        all_epochs  # A list of epoch numbers corresponding to the losses.
     }
 
+    # Create the full file path where the data will be saved.
+    # The file path is constructed by concatenating the results directory, the simulation name, and the file extension '.pkl'
+    # which allows for storing Python objects in a binary format.
     file_path = results_dir + sim_name + '.pkl'
     with open(file_path, 'wb') as f:
         pk.dump(data, f)
