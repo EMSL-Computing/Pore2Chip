@@ -20,9 +20,10 @@ This python script through `test_network2svg` and `test_network2dxf` functions d
 
 ## Purpose and functionality of `test_filter_im.py`
 
-This python script through
+This python script applies applies image filters and displays the results for both 2D and 3D cases.
 
-
+- The `test_filter` demonstrates how to apply various filters and cropping to an image.
+- The `test_filter_list` applies a single type of filter across a stack of images, demonstrating handling of 3D data
 
 ## Purpose and functionality of `test_flow.py`
 
