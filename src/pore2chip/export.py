@@ -16,6 +16,8 @@ def network2svg(
     d2,  # y dimension of the SVG image
     pore_shape='blob',  # Shape of the pores ('blob' or 'circle')
     throat_random=1,  # Multiplier for throat randomness (0: straight, 1: random)
+    throat_shape='circle', # Shape of the throat parts ('circle' or 'line')
+    throat_line_min=0, # Minimum throat diameter to keep as normal shape. Anything below is drawn as a line
     pore_debug=False,  # Boolean to draw blue circles for pores (debugging)
     throat_debug=False,  # Boolean to draw red lines for throats (debugging)
     throat_random_debug=False,
@@ -171,6 +173,10 @@ def network2svg(
         print('Error: Invalid shape for pore body (Must be \'blob\' or \'circle\')')
         return None  # This section handles an invalid pore_shape argument (anything other than 'blob' or 'circle')
 
+    #############################################################################
+    # Generating throats                                                        #
+    #############################################################################
+
     # Check if 'throat.conns' data exists in the network
     if generated_network.get('throat.conns') is not None and no_throats == False:
         # Get the number of throats
@@ -199,6 +205,12 @@ def network2svg(
             # Distance between the two pores
             distance = math.dist(pore1_coords, pore2_coords)
 
+            throat_radius = generated_network['throat.diameter'][
+                throat_index]  /2
+
+            if (throat_radius * 2) >= distance:
+                throat_radius = distance
+
             # Skip if the throat diameter is not defined
             if math.isnan(generated_network['throat.diameter'][throat_index]):
                 continue
@@ -209,15 +221,30 @@ def network2svg(
                 (generated_network['throat.diameter'][throat_index]))
             num_throat_points += round(num_throat_points / 2)
 
+            if num_throat_points <= 0:
+                num_throat_points = 1
+
             # Calculate the segment distances and magnitude
             x_segment = (pore2_coords[0] - pore1_coords[0]) / num_throat_points
             y_segment = (pore2_coords[1] - pore1_coords[1]) / num_throat_points
             magnitude = 2 * (
                 generated_network['throat.diameter'][throat_index] / 2)
 
-            # Loop to create each circle representing the throat
+            # Path object if throat_shape  is 'line' 
+            p = dr.Path(fill='blue',
+                        fill_opacity=1.0,
+                        stroke_width = 1.0,
+                        #transform='translate(' + str(pore1_x) + ',' +
+                        #str((-pore1_y)) + ')'
+                        )
+            
+            positions_throat = []
+
+            current_pos_x = pore1_coords[0]
+            current_pos_y = pore1_coords[1]
+            # Loop to create each circle/line segment representing the throat
             for i in range(num_throat_points):
-                # Base point for each circle
+                # Base point for each circle/line segment
                 base_point = [
                     pore1_coords[0] + (x_segment * i),
                     pore1_coords[1] + (y_segment * i)
@@ -239,8 +266,15 @@ def network2svg(
                     ]
 
                 # Random shift based on throat diameter and throat_random parameter
+<<<<<<< Updated upstream
                 throat_radius = generated_network['throat.diameter'][
+<<<<<<< Updated upstream
                     throat_index]  /2
+=======
+                    throat_index] / 2
+=======
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
                 random_shift = np.random.uniform(-throat_radius,
                                                  throat_radius) * throat_random
                 perp_vector[0] *= random_shift
@@ -255,13 +289,53 @@ def network2svg(
                 if disconnected is not None:
                     if pore1 in disconnected or pore2 in disconnected:
                         throat_fill = 'red'
+<<<<<<< Updated upstream
                 
+=======
+<<<<<<< Updated upstream
+
+>>>>>>> Stashed changes
                 design.append(
                     dr.Circle(x_new,
                               y_new,
                               throat_radius,
                               fill=throat_fill,
                               fill_opacity=1.0))
+=======
+                
+                if throat_shape =='circle':
+                    if ((throat_radius * 2 * 35)) > throat_line_min:
+                        design.append(
+                            dr.Circle(x_new,
+                                    y_new,
+                                    throat_radius,
+                                    fill=throat_fill,
+                                    fill_opacity=1.0))
+                        current_pos_x = x_new
+                        current_pos_y = y_new
+                    else:
+                        line = dr.Line(current_pos_x, current_pos_y, x_new, y_new, 
+                                stroke_width=1.0, stroke='blue', fill='none', stroke_linecap='round')
+                        design.append(line)
+                        current_pos_x = x_new
+                        current_pos_y = y_new
+
+
+                elif throat_shape == 'line':
+                    line = dr.Line(current_pos_x, current_pos_y, x_new, y_new, 
+                            stroke_width=1.0, stroke='blue', fill='none', stroke_linecap='round')
+                    design.append(line)
+                    current_pos_x = x_new
+                    current_pos_y = y_new
+                else:
+                    print('Error: Invalid shape for throat body (Must be \'circle\' or \'line\')')
+                    return None  # This section handles an invalid throat_shape argument (anything other than 'line' or 'circle')
+            # Finish off line
+            if throat_shape == 'line':
+                line = dr.Line(current_pos_x, current_pos_y, pore2_coords[0], pore2_coords[1], 
+                        stroke_width=1.0, stroke='blue', fill='none', stroke_linecap='round')
+                design.append(line)
+>>>>>>> Stashed changes
 
         # Draw lines for debugging throats (visible only if throat_debug is True)
         if throat_debug:
