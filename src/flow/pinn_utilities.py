@@ -9,72 +9,117 @@ Developed by:
 Mentors: Maruti K. Mudunuru and Satish Karra
 """
 
+# `jax` and `jax.numpy` are used for automatic differentiation and working with numerical arrays.
+# `optax` is a library that provides optimization algorithms.
 import jax
 import jax.numpy as jnp
 import optax
 import pickle as pk
-import optax
 
 
 def generate_BCs_and_colloc_xct(xx, yy, P1, P2, dP_dy1, dP_dy2):
     """
-    Generates boundary conditions and collocation points.
+    Generates boundary conditions and collocation points for a micromodel.
 
-    Parameters:
-    - ymin, ymax: Minimum and maximum values for y.
-    - xmin, xmax: Minimum and maximum values for x.
-    - left_bc: Boundary condition value at x=0.
-    - right_bc: Boundary condition value at x=1.
+    Args:
+        xx (jnp.ndarray): 2D array of x coordinates.
+        yy (jnp.ndarray): 2D array of y coordinates.
+        P1 (float): Pressure value at the left boundary.
+        P2 (float): Pressure value at the right boundary.
+        dP_dy1 (float): Derivative of pressure with respect to y at the bottom boundary.
+        dP_dy2 (float): Derivative of pressure with respect to y at the top boundary.
 
     Returns:
-    - conds: A list of arrays for each boundary condition.
-    - colloc: An array of collocation points.
+        tuple: Contains boundary condition points (x_b1, y_b1, bc_1, ...), 
+               collocation points, and boundary conditions.
+            - conds: A list of arrays for each boundary condition.
+            - colloc: An array of collocation points.
     """
 
-    # Left BC: P[0,y] = left_bc
+    # Left BC: P[0,y] = left_bc (which is P1)
+    # Extracting the x and y coordinates for the left boundary (x = 0)
     x_b1 = xx[:, 0]
     y_b1 = yy[:, 0]
-    left_bc = P1
+    left_bc = P1 # The pressure value at the left boundary is set to P1
+
+    # Create a boundary condition array for the left side
     bc_1 = jnp.ones_like(y_b1) * left_bc
+
+    # Stack the x, y, and boundary condition values into a single array
     BC_1 = jnp.column_stack([x_b1, y_b1, bc_1])
 
-    # Right BC: P[1,y] = right_bc
+    # Right BC: P[1,y] = right_bc (which is P2)
+    # Extracting the x and y coordinates for the right boundary (x = 1)
     x_b2 = xx[:, -1]
     y_b2 = yy[:, -1]
-    right_bc = P2
+    right_bc = P2 # The pressure value at the right boundary is set to P2
+
+    # Create a boundary condition array for the right side
     bc_2 = jnp.ones_like(y_b2) * right_bc
+
+    # Stack the x, y, and boundary condition values into a single array
     BC_2 = jnp.column_stack([x_b2, y_b2, bc_2])
 
-    # Bottom BC: P_y[x,0] = 0
+    # Bottom BC: ∂P/∂y[x,0] = 0 (which is dP_dy1)
+    # Extracting the x and y coordinates for the bottom boundary (y = 0), excluding the corners
     x_b3 = xx[0, 1:-1]
     y_b3 = yy[0, 1:-1]
+
+    # The derivative of pressure with respect to y at the bottom boundary is set to dP_dy1
     bc_3 = jnp.ones_like(x_b3) * dP_dy1
+
+    # Stack the x, y, and boundary condition values into a single array
     BC_3 = jnp.column_stack([x_b3, y_b3, bc_3])
 
-    # Top BC: P_y[x,1] = 0
+    # Top BC: ∂P/∂y[x,1] = 0 (which is dP_dy2)
+    # Extracting the x and y coordinates for the top boundary (y = 1), excluding the corners
     x_b4 = xx[-1, 1:-1]
     y_b4 = yy[-1, 1:-1]
+
+    # The derivative of pressure with respect to y at the top boundary is set to dP_dy2
     bc_4 = jnp.ones_like(x_b4) * dP_dy1
+
+    # Stack the x, y, and boundary condition values into a single array
     BC_4 = jnp.column_stack([x_b4, y_b4, bc_4])
 
+    # Combine all boundary condition arrays into a list for easy access
     conds = [BC_1, BC_2, BC_3, BC_4]
 
-    # Collocation points
+    # Collocation points inside the domain (excluding boundaries)
+    # Flatten the x and y coordinates for the interior points
     x_c = xx[1:-1, 1:-1].flatten()
     y_c = yy[1:-1, 1:-1].flatten()
+
+    # Stack the x and y coordinates into a single array for collocation points
     colloc = jnp.column_stack([x_c, y_c])
 
+    # Return the boundary conditions and collocation points
     return x_b1, y_b1, bc_1, x_b2, y_b2, bc_2, x_b3, y_b3, bc_3, x_b4, y_b4, bc_4, x_c, y_c, conds, colloc
 
-
-#  ∂/∂x(norm_coeff * ∂P/∂x) + ∂/∂y(norm_coeff * ∂P/∂y) = 0
 def pde_flow_2d_hetero_resiual(x, y, P, norm_coeff):
-    # Define the gradients of P with respect to x and y
+    """
+    Computes the residual of the 2D heterogeneous flow PDE.
+    ∂/∂x(norm_coeff * ∂P/∂x) + ∂/∂y(norm_coeff * ∂P/∂y) = 0
+
+    Args:
+        x (jnp.ndarray): x coordinates of collocation points.
+        y (jnp.ndarray): y coordinates of collocation points.
+        P (function): Neural network function that predicts pressure.
+        norm_coeff (jnp.ndarray): Normalization coefficients for heterogeneity.
+
+    Returns:
+        jnp.ndarray: Residuals of the PDE at the given collocation points.
+    """
+
+    # Compute the gradient of pressure with respect to x
     P_x = lambda x, y: jax.grad(lambda x, y: jnp.sum(P(x, y)), 0)(x, y)
+
+    # Compute the gradient of pressure with respect to y
     P_y = lambda x, y: jax.grad(lambda x, y: jnp.sum(P(x, y)), 1)(x, y)
     #print("P_x = ", P_x(x,y))
 
     # Extract k_x and k_y from the given field k_hetero
+    # Normalization coefficients for the interior points
     norm_coeff_x = jnp.array(norm_coeff[1:-1, 1:-1])  # Convert to jnp.array
     norm_coeff_x = norm_coeff_x.flatten()
     norm_coeff_x = norm_coeff_x.reshape(-1, 1)
@@ -85,6 +130,7 @@ def pde_flow_2d_hetero_resiual(x, y, P, norm_coeff):
     norm_coeff_y = norm_coeff_y.reshape(-1, 1)
 
     # Define callable functions for term_x and term_y
+    # Define the terms involving the normalization coefficients and gradients
     term_x = lambda x, y: (norm_coeff_x * P_x(x, y))
     term_y = lambda x, y: (norm_coeff_y * P_y(x, y))
     #print("term_x = ", term_x(x, y))
@@ -93,47 +139,104 @@ def pde_flow_2d_hetero_resiual(x, y, P, norm_coeff):
     P_xx = lambda x, y: jax.grad(lambda x, y: jnp.sum(term_x(x, y)), 0)(x, y)
     P_yy = lambda x, y: jax.grad(lambda x, y: jnp.sum(term_y(x, y)), 1)(x, y)
 
+    # Return the residual of the PDE
     return P_xx(x, y) + P_yy(x, y)
 
 
 def init_params(layers):
+    """
+    Initializes parameters for a neural network using Xavier initialization.
+
+    Args:
+        layers (list[int]): List of layer sizes for the neural network.
+
+    Returns:
+        list[dict]: A list of dictionaries, each containing weight ('W') and 
+                    bias ('B') matrices for a layer.
+    """
+
+    # Split the random key for initializing each layer's weights and biases
     keys = jax.random.split(jax.random.PRNGKey(0), len(layers) - 1)
     params = list()
+
+    # Initialize weights and biases for each layer using Xavier initialization
     for key, n_in, n_out in zip(keys, layers[:-1], layers[1:]):
         lb, ub = -(1 / jnp.sqrt(n_in)), (
             1 / jnp.sqrt(n_in))  # xavier initialization lower and upper bound
         W = lb + (ub - lb) * jax.random.uniform(key, shape=(n_in, n_out))
         B = jax.random.uniform(key, shape=(n_out, ))
         params.append({'W': W, 'B': B})
+    
     return params
 
 
 def neural_net(params, x, y):
+    """
+    Forward pass through a neural network.
+
+    Args:
+        params (list[dict]): List of parameters for the network (weights and biases).
+        x (jnp.ndarray): Input x values.
+        y (jnp.ndarray): Input y values.
+
+    Returns:
+        jnp.ndarray: Output of the neural network.
+    """
+
+    # Concatenate x and y into a single input matrix
     X = jnp.concatenate([x, y], axis=1)
     *hidden, last = params
+
+    # Apply each layer's weights and biases using tanh activation for hidden layers
     for layer in hidden:
         X = jax.nn.tanh(X @ layer['W'] + layer['B'])
+    
+    # Compute the final output
     return X @ last['W'] + last['B']
 
-
-# MSE function to calculates loss
 @jax.jit
 def MSE(true, pred):
+    """
+    Computes the Mean Squared Error (MSE) between the true and predicted values for the loss function.
+
+    Args:
+        true (jnp.ndarray): Ground truth values.
+        pred (jnp.ndarray): Predicted values.
+
+    Returns:
+        jnp.ndarray: The mean squared error.
+    """
     return jnp.mean((true - pred)**2)
 
 
 @jax.jit
 def loss_fun(params, colloc, conds, norm_coeff):
+    """
+    Computes the total loss for training the PINN model, including PDE residuals and boundary conditions.
+
+    Args:
+        params (list[dict]): List of parameters for the neural network.
+        colloc (jnp.ndarray): Collocation points within the domain.
+        conds (list[jnp.ndarray]): Boundary conditions for the domain.
+        norm_coeff (jnp.ndarray): Normalization coefficients for heterogeneity.
+
+    Returns:
+        jnp.ndarray: The total loss.
+    """
+
+    # Extract collocation points for x and y
     x_c, y_c = colloc[:, [0]], colloc[:, [1]]
     P_nn = lambda x, y: neural_net(params, x, y)
+
+    # Compute PDE residual loss
     loss = jnp.mean(pde_flow_2d_hetero_resiual(x_c, y_c, P_nn, norm_coeff)**2)
 
-    # loss at the left and right Dirichlet BCs
+    # Compute Dirichlet BC loss (left and right boundaries)
     for cond in conds[0:2]:
         x_b, y_b, u_b = cond[:, [0]], cond[:, [1]], cond[:, [2]]
         loss += MSE(P_nn(x_b, y_b), u_b)
 
-    # loss at the bottom and top Neumann BCs
+    # Compute Neumann BC loss (bottom and top boundaries)
     P_nn_y = lambda x, y: jax.grad(lambda x, y: jnp.sum(P_nn(x, y)), 1)(
         x, y)  # single derivative of P for Neumann BCs
     for cond in conds[2:4]:
