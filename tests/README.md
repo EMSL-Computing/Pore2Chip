@@ -27,7 +27,7 @@ This python script applies applies image filters and displays the results for bo
 
 ## Purpose and functionality of `test_flow.py`
 
-
+This python script provides simple test case (`test_plot_xct`) for visualizing xct intensity results. For more detailed and complex example, please see the Jupyter notebooks `example_6_flow_2d_numerical_on_XCT.ipynb` and `example_7_flow_2d_pinn_on_XCT.ipynb`
 
 ## Purpose and functionality of `test_generate.py`
 
