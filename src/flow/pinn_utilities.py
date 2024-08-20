@@ -14,7 +14,7 @@ Mentors: Maruti K. Mudunuru and Satish Karra
 import jax
 import jax.numpy as jnp
 import optax
-import pickle as pk
+import pickle as pk #Serialization library for saving and loading Python objects
 
 
 def generate_BCs_and_colloc_xct(xx, yy, P1, P2, dP_dy1, dP_dy2):
@@ -22,18 +22,22 @@ def generate_BCs_and_colloc_xct(xx, yy, P1, P2, dP_dy1, dP_dy2):
     Generates boundary conditions and collocation points for a micromodel.
 
     Args:
-        xx (jnp.ndarray): 2D array of x coordinates.
-        yy (jnp.ndarray): 2D array of y coordinates.
-        P1 (float): Pressure value at the left boundary.
-        P2 (float): Pressure value at the right boundary.
-        dP_dy1 (float): Derivative of pressure with respect to y at the bottom boundary.
-        dP_dy2 (float): Derivative of pressure with respect to y at the top boundary.
+        xx (jnp.ndarray): A 2D array representing the x-coordinates of the grid points..
+        yy (jnp.ndarray): A 2D array representing the y-coordinates of the grid points.
+        P1 (float): Pressure value at the left boundary (x=0).
+        P2 (float): Pressure value at the right boundary (x=1).
+        dP_dy1 (float): Derivative of pressure with respect to y at the bottom boundary (y=0).
+        dP_dy2 (float): Derivative of pressure with respect to y at the top boundary (y=1).
 
     Returns:
-        tuple: Contains boundary condition points (x_b1, y_b1, bc_1, ...), 
-               collocation points, and boundary conditions.
-            - conds: A list of arrays for each boundary condition.
-            - colloc: An array of collocation points.
+        tuple: Contains boundary condition points (x_b1, y_b1, bc_1, ...), collocation points, and boundary conditions.
+            - x_b1, y_b1, bc_1: Arrays representing x-coordinates, y-coordinates, and pressure values at the left boundary.
+            - x_b2, y_b2, bc_2: Arrays representing x-coordinates, y-coordinates, and pressure values at the right boundary.
+            - x_b3, y_b3, bc_3: Arrays representing x-coordinates, y-coordinates, and derivative values at the bottom boundary.
+            - x_b4, y_b4, bc_4: Arrays representing x-coordinates, y-coordinates, and derivative values at the top boundary.
+            - x_c, y_c: Arrays representing x-coordinates and y-coordinates of the collocation points.
+            - conds: A list of arrays for each boundary condition, where each array has three columns (x, y, value/derivative).
+            - colloc: An array of collocation points, where each row represents a point (x, y).
     """
 
     # Left BC: P[0,y] = left_bc (which is P1)
@@ -102,10 +106,10 @@ def pde_flow_2d_hetero_resiual(x, y, P, norm_coeff):
     ∂/∂x(norm_coeff * ∂P/∂x) + ∂/∂y(norm_coeff * ∂P/∂y) = 0
 
     Args:
-        x (jnp.ndarray): x coordinates of collocation points.
-        y (jnp.ndarray): y coordinates of collocation points.
-        P (function): Neural network function that predicts pressure.
-        norm_coeff (jnp.ndarray): Normalization coefficients for heterogeneity.
+        x (jnp.ndarray): A JAX array representing the x coordinates of collocation points.
+        y (jnp.ndarray): A JAX array representing the y coordinates of collocation points.
+        P (function): A callable function representing the neural network approximation of the pressure field..
+        norm_coeff (jnp.ndarray): A 2D JAX array representing the heterogeneous normalization coefficients.
 
     Returns:
         jnp.ndarray: Residuals of the PDE at the given collocation points.

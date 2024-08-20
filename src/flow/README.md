@@ -1,6 +1,6 @@
 # Description of the files in the `flow` folder
 
-This readme summarizes and focuses on the flow modeling functionalities using physics-informed neural networks within the Pore2Chip repository.
+This readme summarizes and focuses on the flow modeling functionalities using physics-informed neural network (PINN) within the Pore2Chip repository.
 
 ## Purpose and functionality of `pinn_utilities.py`
 
