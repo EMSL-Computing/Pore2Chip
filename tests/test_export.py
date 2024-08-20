@@ -5,7 +5,9 @@ import numpy as np
 import drawsvg as dr
 import math
 import ezdxf
-import cairosvg
+#import cairosvg
+from svglib.svglib import svg2rlg
+from reportlab.graphics import renderPM
 from pathlib import Path
 
 # Set up the module path (I am in tests folder)
@@ -66,7 +68,11 @@ def test_network2svg(network):
     svg_result.save_svg('grain_network.svg')
 
     # Convert the SVG to PNG using cairosvg for additional usability
-    cairosvg.svg2png(url="grain_network.svg", write_to="grain_network.png")
+    #cairosvg.svg2png(url="grain_network.svg", write_to="grain_network.png")
+
+    # Convert the SVG to PNG using renderlab for additional usability
+    rldrawing = svg2rlg('grain_network.svg')
+    renderPM.drawToFile(rldrawing, 'grain_network.png', fmt='PNG')
 
 
 def test_network2dxf(network):
