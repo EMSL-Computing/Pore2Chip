@@ -266,15 +266,8 @@ def network2svg(
                     ]
 
                 # Random shift based on throat diameter and throat_random parameter
-<<<<<<< Updated upstream
                 throat_radius = generated_network['throat.diameter'][
-<<<<<<< Updated upstream
                     throat_index]  /2
-=======
-                    throat_index] / 2
-=======
->>>>>>> Stashed changes
->>>>>>> Stashed changes
                 random_shift = np.random.uniform(-throat_radius,
                                                  throat_radius) * throat_random
                 perp_vector[0] *= random_shift
@@ -289,19 +282,12 @@ def network2svg(
                 if disconnected is not None:
                     if pore1 in disconnected or pore2 in disconnected:
                         throat_fill = 'red'
-<<<<<<< Updated upstream
-                
-=======
-<<<<<<< Updated upstream
-
->>>>>>> Stashed changes
                 design.append(
                     dr.Circle(x_new,
                               y_new,
                               throat_radius,
                               fill=throat_fill,
                               fill_opacity=1.0))
-=======
                 
                 if throat_shape =='circle':
                     if ((throat_radius * 2 * 35)) > throat_line_min:
@@ -335,7 +321,6 @@ def network2svg(
                 line = dr.Line(current_pos_x, current_pos_y, pore2_coords[0], pore2_coords[1], 
                         stroke_width=1.0, stroke='blue', fill='none', stroke_linecap='round')
                 design.append(line)
->>>>>>> Stashed changes
 
         # Draw lines for debugging throats (visible only if throat_debug is True)
         if throat_debug:
