@@ -25,4 +25,5 @@ example_outputs/micromodel.vtk
 isrc/pore2chip.egg-info/PKG-INFO/*
 src/pore2chip/gencoord.py
 src/pore2chip.egg-info
+tests/results/
 tests/resultspinn_*

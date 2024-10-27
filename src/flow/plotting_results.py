@@ -2,8 +2,8 @@
 Developed by: 
     Lal Mamud, 
     Postdoc - Subsurface Modeler, 
-    Environmental Subsurface Science Group, 
-    Energy & Environment Division, 
+    Subsurface Science Group, 
+    Earth System Science Division, 
     Pacific Northwest National Laboratory, 
     Richland, WA, USA.
 Mentors: Maruti K. Mudunuru and Satish Karra

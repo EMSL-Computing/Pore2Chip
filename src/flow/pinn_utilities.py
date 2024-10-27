@@ -488,7 +488,7 @@ def train_PINN(params, epochs, optimizer, loss_fun, colloc, conds, norm_coeff,
         """
         print(f"RuntimeError: {str(e)}")
         return None
-        
+
     except Exception as e:
         """
         Handles any other generic or unexpected exceptions. This block serves as a catch-all handler for any exception that was not explicitly captured 
