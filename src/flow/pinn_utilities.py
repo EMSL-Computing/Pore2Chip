@@ -445,6 +445,7 @@ def train_PINN(params, epochs, optimizer, loss_fun, colloc, conds, norm_coeff,
         """
         print(f"JAX TypeError: {str(e)}")
         return None
+
     except ValueError as e:
         """
         Handles `ValueError` exceptions. This block catches a `ValueError`, which might occur if an operation receives an argument
@@ -459,6 +460,7 @@ def train_PINN(params, epochs, optimizer, loss_fun, colloc, conds, norm_coeff,
         """
         print(f"ValueError: {str(e)}")
         return None
+
     except optax.OptaxError as e:
         """
         Handles Optax-specific exceptions. This block captures an error raised by the `Optax` library, which may occur during 
@@ -472,6 +474,7 @@ def train_PINN(params, epochs, optimizer, loss_fun, colloc, conds, norm_coeff,
         """
         print(f"OptaxError: {str(e)}")
         return None
+
     except RuntimeError as e:
         """
         Handles `RuntimeError` exceptions. This block catches `RuntimeError` exceptions, which may occur due to issues like 
@@ -485,6 +488,7 @@ def train_PINN(params, epochs, optimizer, loss_fun, colloc, conds, norm_coeff,
         """
         print(f"RuntimeError: {str(e)}")
         return None
+        
     except Exception as e:
         """
         Handles any other generic or unexpected exceptions. This block serves as a catch-all handler for any exception that was not explicitly captured 
