@@ -1,7 +1,7 @@
 """
-Unit tests for the train_PINN function in src.flow.pinn_utilities.py.
+Unit tests for the `train_PINN` function in src.flow.pinn_utilities.py.
 
-This test suite checks the output, type, shape, and values of the train_PINN function.
+This test suite checks the output, type, shape, and values of the `train_PINN` function.
 It also tests for exceptions and edge cases.
 """
 
@@ -24,13 +24,19 @@ from src.flow.pinn_utilities import train_PINN  # Import the function to be test
 
 class TestTrainPINN(unittest.TestCase):
     """
-    Unit tests for the train_PINN function.
+    Comprehensive test suite for the `train_PINN` function.
+
+    This test suite includes tests for:
+    - Output validation: Checks the types, shapes, and values of the outputs.
+    - Exception handling: Verifies that the function raises appropriate exceptions for invalid inputs.
+    - Edge cases: Tests the function's behavior with edge case inputs (e.g., zero and negative epochs).
+    - Different optimizers and loss functions: Ensures the function works correctly with various optimizers and loss functions.
+    - Multiple layers and nodes: Tests the function with different feed-forward neural network architectures.
     """
 
     def setUp(self):
         """
-        Setup test parameters.
-
+        Setup test parameters. 
         Initializes test parameters before each test.
         """
         # Initialize test parameters
@@ -56,11 +62,10 @@ class TestTrainPINN(unittest.TestCase):
 
     def test_train_PINN_output(self):
         """
-        Test the output of the train_PINN function.
-
+        Test the output of the `train_PINN` function. 
         Checks if the output is not None and the loss is finite.
         """
-        # Call train_PINN with test parameters
+        # Call `train_PINN` with test parameters
         best_params, best_loss, all_losses, all_epochs = train_PINN(
             self.params, self.epochs, self.optimizer, self.loss_fun,
             self.colloc, self.conds, self.norm_coeff, self.hidden_layers,
@@ -75,11 +80,10 @@ class TestTrainPINN(unittest.TestCase):
 
     def test_train_PINN_type(self):
         """
-        Test the type of the output of the train_PINN function.
-
+        Test the type of the output of the `train_PINN` function.
         Checks if the output has the correct type.
         """
-        # Call train_PINN with test parameters
+        # Call `train_PINN` with test parameters
         best_params, best_loss, all_losses, all_epochs = train_PINN(
             self.params, self.epochs, self.optimizer, self.loss_fun,
             self.colloc, self.conds, self.norm_coeff, self.hidden_layers,
@@ -92,11 +96,10 @@ class TestTrainPINN(unittest.TestCase):
 
     def test_train_PINN_shape(self):
         """
-        Test the shape of the output of the train_PINN function.
-
+        Test the shape of the output of the `train_PINN` function.
         Checks if the output has the correct shape.
         """
-        # Call train_PINN with test parameters
+        # Call `train_PINN` with test parameters
         best_params, best_loss, all_losses, all_epochs = train_PINN(
             self.params, self.epochs, self.optimizer, self.loss_fun,
             self.colloc, self.conds, self.norm_coeff, self.hidden_layers,
@@ -110,11 +113,10 @@ class TestTrainPINN(unittest.TestCase):
 
     def test_train_PINN_values(self):
         """
-        Test the values of the output of the train_PINN function.
-
+        Test the values of the output of the `train_PINN` function.
         Checks if the loss is less than or equal to the initial loss.
         """
-        # Call train_PINN with test parameters
+        # Call `train_PINN` with test parameters
         best_params, best_loss, all_losses, all_epochs = train_PINN(
             self.params, self.epochs, self.optimizer, self.loss_fun,
             self.colloc, self.conds, self.norm_coeff, self.hidden_layers,
@@ -127,8 +129,7 @@ class TestTrainPINN(unittest.TestCase):
 
     def test_train_PINN_exceptions(self):
         """
-        Test the exceptions raised by the train_PINN function.
-
+        Test the exceptions raised by the `train_PINN` function.
         Checks if the function raises TypeError and ValueError.
         """
         # Test TypeError
@@ -151,8 +152,7 @@ class TestTrainPINN(unittest.TestCase):
 
     def test_train_PINN_edge_cases(self):
         """
-        Test train_PINN with edge cases.
-
+        Test `train_PINN` with edge cases.
         Checks if the function works correctly with zero and negative epochs.
         """
         # Test with zero epochs
@@ -163,7 +163,7 @@ class TestTrainPINN(unittest.TestCase):
                        self.hidden_layers, self.hidden_nodes, self.lr,
                        self.results_dir)
 
-        # Test with negative epochs
+        # Test with negative values for epochs
         epochs = -1
         with self.assertRaises(ValueError):
             train_PINN(self.params, epochs, self.optimizer, self.loss_fun,
@@ -171,7 +171,7 @@ class TestTrainPINN(unittest.TestCase):
                        self.hidden_layers, self.hidden_nodes, self.lr,
                        self.results_dir)
 
-        # Test with positive epochs
+        # Test with small positive integer for epochs
         epochs = 1
         best_params, best_loss, all_losses, all_epochs = train_PINN(
             self.params, epochs, self.optimizer, self.loss_fun, self.colloc,
@@ -191,9 +191,12 @@ class TestTrainPINN(unittest.TestCase):
 
     def test_train_PINN_different_optimizers(self):
         """
-        Test train_PINN with different optimizers.
-
-        Checks if the function works correctly with different optimizers.
+        Test `train_PINN` with different optimizers.
+        Checks if the function works correctly with different optimizers. 
+        This test ensures that the `train_PINN` function can successfully train 
+        a PINN model using various optimizers from the `optax` library. It checks 
+        if the function completes without errors and produces valid outputs (best 
+        parameters and a finite best loss) for each optimizer.
         """
         # Define list of optimizers
         optimizers = [
@@ -214,9 +217,12 @@ class TestTrainPINN(unittest.TestCase):
 
     def test_train_PINN_different_loss_functions(self):
         """
-        Test train_PINN with different loss functions.
-
+        Test `train_PINN` with different loss functions.
         Checks if the function works correctly with different loss functions.
+        This test verifies that the `train_PINN` function can correctly train 
+        a PINN model using different loss functions. It checks if the function 
+        completes the training process without errors and produces valid outputs 
+        (best parameters and a finite best loss) for each loss function.
         """
         # Define list of loss functions
         loss_functions = [
@@ -238,9 +244,13 @@ class TestTrainPINN(unittest.TestCase):
 
     def test_train_PINN_multiple_layers_nodes(self):
         """
-        Test train_PINN with multiple layers and nodes.
-
+        Test `train_PINN` with multiple layers and nodes.
         Checks if the function works correctly with different architectures.
+        This test ensures that the `train_PINN` function can properly handle 
+        different neural network architectures with varying numbers of hidden 
+        layers and nodes. It checks if the function can train the PINN model 
+        without errors and produces valid outputs (best parameters and a finite 
+        best loss) for different combinations of layers and nodes.
         """
         # Define list of hidden layers and nodes
         hidden_layers = [1, 2, 3]
