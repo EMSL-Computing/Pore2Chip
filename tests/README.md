@@ -43,3 +43,45 @@ This python script demonstrates generating a test image with simple ellipses, ap
 
 - This `test_feret_diameter` function processes an image to calculate and return the feret diameters, which describe the extent of a projected area of the image.
 - The `test_extract_diameters` and `test_extract_diameters2` functions extract pore and throat diameters from images. They showcase different methodologies, with `test_extract_diameters2` using a method that doesn't rely on `PoreSpy's` built-in SNOW algorithm. For more complex image analysis tasks, we will need to explore advanced techniques like watershed segmentation or ML-based segmentation methods.
+
+## Purpose and functionality of `test_train_pinn.py`
+
+This python script is designed to validate the functionality of the `train_PINN` function, which trains a PINN for flow on a micromodel. The tests are built using the `unittest` framework. It ensures that the `train_PINN` function behaves correctly under various scenarios, including typical use cases, edge cases, and error scenarios. The test can be executed by running the script directly `python test_train_pinn.py`, which invokes `unittest.main()` (entry point for running the unit tests). This will run all the defined tests within the `test_train_pinn.py` and provide a terminal report on their success or failure.
+
+- **`setUp()`**: Initializes test parameters such as neural network weights, biases, optimizer, loss function, collocation points, and boundary conditions. This method runs before each test case.
+
+- **`test_train_PINN_output()`**:
+    - **Purpose**: Tests the output of `train_PINN` function to ensure that valid results (best parameters, best loss, all losses, all epochs) are returned after PINNs training.
+    - **Assertions**: Checks if the results are not `None` and if the lengths of the loss and epoch lists match the number of epochs.
+
+- **`test_train_PINN_type()`**:
+    - **Purpose**: Verifies the type of each output from `train_PINN` function.
+    - **Assertions**: Ensures that the outputs (trainable parameters, loss, losses, epochs) have the expected data types.
+
+- **`test_train_PINN_shape()`**:
+    - **Purpose**: Checks if the shape (length) of the returned parameters and loss/epoch lists match the expected values.
+    - **Assertions**: Confirms that the number of returned parameters matches the input, and the loss and epoch lists have the correct length.
+
+- **`test_train_PINN_values()`**:
+    - **Purpose**: Ensures that the best loss returned by `train_PINN` function is less than or equal to the initial loss from the loss function.
+    - **Assertions**: Verifies that the best loss is reasonable by comparing it with the initial loss.
+
+- **`test_train_PINN_exceptions()`**:
+    - **Purpose**: Tests that `train_PINN` raises appropriate exceptions for invalid inputs.
+    - **Assertions**: Checks that `TypeError` is raised for invalid parameter types and that `ValueError` is raised for invalid epoch values (e.g., negative epochs).
+
+- **`test_train_PINN_edge_cases()`**:
+    - **Purpose**: Tests edge cases for the `train_PINN` function, such as training with zero or negative epochs.
+    - **Assertions**: Ensures that `ValueError` is raised when invalid epoch values are passed, and verifies that valid results are returned for small and large epoch values.
+
+- **`test_train_PINN_different_optimizers()`**:
+    - **Purpose**: Tests `train_PINN` function with different `optax` optimizers (e.g., SGD, Adam, RMSProp).
+    - **Assertions**: Ensures that valid parameters and losses are returned for each optimizer.
+
+- **`test_train_PINN_different_loss_functions()`**:
+    - **Purpose**: Validates that `train_PINN` function works correctly with different loss functions.
+    - **Assertions**: Checks that valid parameters and finite loss values are returned for each loss function.
+
+- **`test_train_PINN_multiple_layers_nodes()`**:
+    - **Purpose**: Tests `train_PINN` function with different numbers of hidden layers and nodes.
+    - **Assertions**: Ensures that valid parameters and losses are returned for each combination of hidden layers and nodes.
