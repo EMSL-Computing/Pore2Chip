@@ -63,11 +63,11 @@ These 3D-printed designs accurately depict the XCT-resolved pore networks for so
 # Statement of need
 
 The resilience of agricultural and natural landscapes is intrinsically connected to soil structure. 
-Land management (e.g., tillage, grazing, and fire) and associated impacts (e.g., compaction and pore-clogging) along with climate disturbances (e.g., freeze-thaw, flooding, and sea level rise) can transform soil microstructure [@Stoof2016; @Liu2018; @Feng2020]. 
-These changes in the soil microstructure determine the flow of water, solutes, and gases, as well as SOM retention, transport, and distribution [@Waring2020; @deOliveira2022; @Rooney2022]. 
+Land management (e.g., tillage, grazing, and fire) and associated impacts (e.g., compaction and pore-clogging) along with climate disturbances (e.g., freeze-thaw, flooding, and sea level rise) can transform soil microstructure [@Stoof2016; @Liu2018; @Feng2020; @deOliveira2022; @Rooney2022]. 
+These changes in the soil microstructure determine the flow of water, solutes, and gases, as well as SOM retention, transport, and distribution [@hamamoto2010excluded; @bailey2017differences; @Waring2020]. 
 Simplified, homogeneous pore networks provide innovative demonstrations of how water, solutes, and microbes interact [@Bhattacharjee2022] but need more accurate representations of soil properties. 
 Heterogeneous synthetic habitats are more realistic but time-consuming to design and do not include pore network characteristics, such as pore connectivity or pore throat measurements. 
-Incorporating pore dynamics into soil models, such as SOM degradation, enables dynamic predictions for soil responses under changing pore networks [@davidson2011; @moyano2018].
+Incorporating pore dynamics into soil models, such as SOM degradation, enables dynamic predictions for soil responses under changing pore networks [@davidson2012d; @moyano2018diffusion].
 
 Our understanding of how pore network characteristics govern hydrobiogeochemical processes in pre- and post-disturbance soils and across soil types is constrained by current micromodel-based experimental designs. Currently, there is no software available to seamlessly provide various micromodel designs that researchers can test and validate with minimal computational cost [@Dentz2023; @Oostrom2014]. 
 `Pore2Chip` allows us to overcome this barrier by providing the intended users, such as earth scientists and lab-on-chip instrument specialists, with easy-to-use research software for lab-on-chip designs. 
