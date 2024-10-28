@@ -97,12 +97,15 @@ Output designs are scalable and adjustable based on the target porosity of the m
 While the pore sizes, throat sizes, and coordination numbers are required for generation, other information, such as the number of pores per XCT image slice, can be used to adjust the final micromodel. 
 The user can change the number of pores in the generated pore network and adjust the image’s final output size to modify the micromodel’s total porosity. 
 Once the network is generated, it can be exported as micromodel data in SVG or DXF formats and VTK formats for visualization in `Paraview` or microfluidic simulations with open-source software such as `PFLOTRAN` (<https://www.pflotran.org>), `OpenFOAM` (<https://www.openfoam.com>), and other physics-informed neural network modules.
-If the user wants to extract data from XCT images, `Pore2Chip` has image filtering and network extraction modules utilizing Otsu thresholding and `PoreSpy`. 
+If the user wants to extract data from XCT images, `Pore2Chip` has image filtering and network extraction modules utilizing Otsu thresholding, Gaussian blur filters, and `PoreSpy`. 
 The generation function can also work with data extracted by other means if it is an array of values that Python can read.
 
-
-
-
+\autoref{fig:fig2} provides a high-level overview of the repository structure and example use cases (\autoref{fig:fig1}) within the `Pore2Chip` repository. 
+The package is hosted on the Python Package Index and can be installed using `pip` on any operating system with Python installed.
+Docker files exist for users who want to build an image that starts a JupyterLab server. 
+These JupyterLab-based notebooks provide various examples for users to better understand the `Pore2Chip` micromodel design and flow capabilities. 
+The `tests` folder in the repository contains Python files used to test the `Pore2Chip` functionalities. 
+All source code is available via Git, so the user can build the package if desired.
 
 # Figures
 
