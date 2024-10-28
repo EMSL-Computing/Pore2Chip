@@ -57,12 +57,12 @@ This `Pore2Chip` package helps analyze soil structure and function, allowing for
 It can produce pore networks that accurately represent soils, convert any 3D pore network into scalable SVG images with precise pore and pore throat sizes, and conduct computational simulations on these images. 
 The extracted data includes characterizations of the pore network using major water retention and flow metrics relevant to porous materials. 
 Key metrics encompass pore size distributions, pore throat size distributions, porosity, tortuosity, and connectivity (pore coordination numbers).
-The software's final output is a 2D lab-on-chip micromodel designs representing a soil core or its aggregate. It can be printed using additive manufacturing methods such as laser etching, 3D printing, and photolithography. 
+The software's final output is a 2D lab-on-chip micromodel design representing a soil core or its aggregate. It can be printed using additive manufacturing methods such as 3D printing and photolithography, or subtracted using laser etching.
 These 3D-printed designs accurately depict the XCT-resolved pore networks for soil science applications.
 
 # Statement of need
 
-The resilience of agricultural and natural landscapes is intrinsically connected to soil structure. 
+The resilience of agricultural and natural landscapes are intrinsically connected to soil structure. 
 Land management (e.g., tillage, grazing, and fire) and associated impacts (e.g., compaction and pore-clogging) along with climate disturbances (e.g., freeze-thaw, flooding, and sea level rise) can transform soil microstructure [@Stoof2016; @Liu2018; @Feng2020; @deOliveira2022; @Rooney2022]. 
 These changes in the soil microstructure determine the flow of water, solutes, and gases, as well as SOM retention, transport, and distribution [@hamamoto2010excluded; @bailey2017differences; @Waring2020]. 
 Simplified, homogeneous pore networks provide innovative demonstrations of how water, solutes, and microbes interact [@Bhattacharjee2022] but need more accurate representations of soil properties. 
