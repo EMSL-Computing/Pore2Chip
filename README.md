@@ -161,7 +161,7 @@ Another example of fabricating lab-on-chip micromodels is using the design to et
 
 ![fabricated](https://github.com/EMSL-Computing/Pore2Chip/blob/main/example_outputs/fabricated_chip.jpg)
 
-This laser etching functionality is available at EMSL. Please see contact for more information.
+This laser etching functionality is available at EMSL. Please contact us for more information as you develop these micromodels for fabrication.
 
 It is highly recommended to try the Python library ```svglob``` to combine SVG paths without using an external program:
 https://github.com/deckar01/svglob/tree/master
@@ -191,9 +191,9 @@ For more information, see [user guide for EMSL Open OnDemand](https://www.emsl.p
 ## Known Issues
 * The coordination algorithm may create pores of coordination of 1, despite the given coordination list not having 1's. This is being worked on.
 
-## Work in Progress
+## Work-in-progress
 * The ability to import and export pore networks in CSV or VTK file formats needed for multi-physics process modeling (e.g., using PFLOTRAN)
-* Physics-informed machine learning needed for flow, thermal, and reactive-transport modeling (e.g., physics-informed neural networks)
+* Physics-informed machine learning needed for flow, thermal, and reactive-transport modeling (e.g., advanced physics-informed neural networks, operator learning methods)
 * Meshfiles needed for CFD modeling (e.g., using OpenFOAM)
 * GUI for the Docker container
 

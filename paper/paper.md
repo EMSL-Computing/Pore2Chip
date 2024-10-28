@@ -69,14 +69,13 @@ Simplified, homogeneous pore networks provide innovative demonstrations of how w
 Heterogeneous synthetic habitats are more realistic but time-consuming to design and do not include pore network characteristics, such as pore connectivity or pore throat measurements. 
 Incorporating pore dynamics into soil models, such as SOM degradation, enables dynamic predictions for soil responses under changing pore networks [@davidson2012d; @moyano2018diffusion].
 
-Our understanding of how pore network characteristics govern hydrobiogeochemical processes in pre- and post-disturbance soils and across soil types is constrained by current micromodel-based experimental designs. Currently, there is no software available to seamlessly provide various micromodel designs that researchers can test and validate with minimal computational cost [@Dentz2023; @Oostrom2014]. 
+Our understanding of how pore network characteristics govern hydrobiogeochemical processes in pre- and post-disturbance soils and across soil types is constrained by current micromodel-based experimental designs. Currently, there is no software available to seamlessly provide various micromodel designs that researchers can test and validate with minimal experimental and computational cost [@Dentz2023; @Oostrom2014]. 
 `Pore2Chip` allows us to overcome this barrier by providing the intended users, such as earth scientists and lab-on-chip instrument specialists, with easy-to-use research software for lab-on-chip designs. 
 Specifically, the `Pore2Chip`-based data worth analysis of high-resolution XCT images allows us to fill this experimental design gap by providing a 3D model of the microscale pore structure. 
-This `Pore2Chip` capability allows the users to build a representative quasi-2D pore network along with first-order, fast, and reasonably accurate flow models that can be linked with soil experiments. 
+Moreover, this `Pore2Chip` capability allows the users to build a representative quasi-2D pore network along with first-order, fast, and reasonably accurate flow models that can be linked with soil experiments. 
 These `Pore2Chip` flow models are built using recent advances in physics-informed neural networks [@New2024], laying the foundation to accelerate numerical simulations and improve the fidelity of predictions in microscale environments. 
 Moreover, `Pore2Chip` allows one to assess the impact of various system parameters, such as pore structures, fluid properties, and flow conditions, needed to develop optimal micromodel experiments. 
-Such a capability can guide model-experiment-data (ModEx) integration at the microscale, allowing for upscaling microscale processes and predictions of dynamic soil properties and functions. 
-See \autoref{fig:fig1}.
+Such a capability can guide model-experiment-data (ModEx) integration at the microscale, allowing for upscaling microscale processes and predictions of dynamic soil properties and functions (see \autoref{fig:fig1}).
 
 ## Main features and differences with other tools
 
@@ -87,7 +86,7 @@ This enables users to easily create and control pore networks representing vario
 While `Pore2Chip` does not control the shape of the solid space like sphere packing algorithms, it can be adjusted by altering overall micromodel properties, such as changing the number of pores or the micromodel size in pixels. 
 `Pore2Chip` offers experimental design capabilities that cannot be achieved by existing software such as `epyc` [@Dobson2022]. 
 It is similar in spirit to `PoreSpy` [@Gostick2016], emphasizing quantitative analysis of porous media images. 
-However, `Pore2Chip` provides better support and reproducibility for developing lab-on-chip experimental designs uniformly across different soil datasets with fast, reasonably accurate, first-order flow modeling capabilities. 
+However, `Pore2Chip` provides better support and reproducibility for developing efficient lab-on-chip experimental designs uniformly across different soil datasets with fast, reasonably accurate, first-order flow modeling capabilities. 
 Microscale experimental designs using printed `Pore2Chip`-based micromodels may target both abiotic and biotic processes and be integrated into modeling efforts such as fluid flow modeling, reactive transport modeling, and microbial activity simulations.
 
 ## Implementation details and support libraries
@@ -103,9 +102,9 @@ The generation function can also work with data extracted by other means if it i
 \autoref{fig:fig2} provides a high-level overview of the repository structure and example use cases (\autoref{fig:fig1}) within the `Pore2Chip` repository. 
 The package is hosted on the Python Package Index and can be installed using `pip` on any operating system with Python installed.
 Docker files exist for users who want to build an image that starts a JupyterLab server. 
-These JupyterLab-based notebooks provide various examples for users to better understand the `Pore2Chip` micromodel design and flow capabilities. 
+These JupyterLab-based notebooks provide various examples for users to better understand the `Pore2Chip` micromodel design and first-order flow capabilities. 
 The `tests` folder in the repository contains Python files used to test the `Pore2Chip` functionalities. 
-All source code is available via Git, so the user can build the package if desired.
+All source code is available via Git, so the user can build and upgrade the package if desired.
 
 # Figures
 
