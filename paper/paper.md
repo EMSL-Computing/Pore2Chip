@@ -78,5 +78,13 @@ Moreover, `Pore2Chip` allows one to assess the impact of various system paramete
 Such a capability can guide model-experiment-data (ModEx) integration at the microscale, allowing for upscaling microscale processes and predictions of dynamic soil properties and functions. 
 See \autoref{fig:fig1}.
 
+# Figures
+
 ![A high-level overview of essential steps in Pore2Chip-based micromodel designs informed by soil dataset. The iterative ModEx loop continuously improves multi-physics process models by integrating experimental data, leading to more accurate predictions for soil carbon cycling and rhizosphere function applications.\label{fig:fig1}](figures/2_ModEx_Loop_SoilChip.png)
 
+# Acknowledgement and disclaimer
+
+This research was performed with support from the Environmental Molecular Sciences Laboratory, a DOE Office of Science User Facility sponsored by the Biological and Environmental Research program under contract no. DE-AC05-76RL01830. 
+The views and opinions of authors expressed herein do not necessarily state or reflect those of the United States Government or any agency thereof. 
+
+# References
