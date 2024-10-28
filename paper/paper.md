@@ -69,4 +69,14 @@ Simplified, homogeneous pore networks provide innovative demonstrations of how w
 Heterogeneous synthetic habitats are more realistic but time-consuming to design and do not include pore network characteristics, such as pore connectivity or pore throat measurements. 
 Incorporating pore dynamics into soil models, such as SOM degradation, enables dynamic predictions for soil responses under changing pore networks [@davidson2011; @moyano2018].
 
+Our understanding of how pore network characteristics govern hydrobiogeochemical processes in pre- and post-disturbance soils and across soil types is constrained by current micromodel-based experimental designs. Currently, there is no software available to seamlessly provide various micromodel designs that researchers can test and validate with minimal computational cost [@dentz2023; @oostrom2014]. 
+`Pore2Chip` allows us to overcome this barrier by providing the intended users, such as earth scientists and lab-on-chip instrument specialists, with easy-to-use research software for lab-on-chip designs. 
+Specifically, the `Pore2Chip`-based data worth analysis of high-resolution XCT images allows us to fill this experimental design gap by providing a 3D model of the microscale pore structure. 
+This `Pore2Chip` capability allows the users to build a representative quasi-2D pore network along with first-order, fast, and reasonably accurate flow models that can be linked with soil experiments. 
+These `Pore2Chip` flow models are built using recent advances in physics-informed neural networks [@new2024], laying the foundation to accelerate numerical simulations and improve the fidelity of predictions in microscale environments. 
+Moreover, `Pore2Chip` allows one to assess the impact of various system parameters, such as pore structures, fluid properties, and flow conditions, needed to develop optimal micromodel experiments. 
+Such a capability can guide model-experiment-data (ModEx) integration at the microscale, allowing for upscaling microscale processes and predictions of dynamic soil properties and functions (see \autoref{fig:fig1}).
+
+![A high-level overview of essential steps in Pore2Chip-based micromodel designs informed by soil dataset. 
+The iterative ModEx loop continuously improves multi-physics process models by integrating experimental data, leading to more accurate predictions for soil carbon cycling and rhizosphere function applications.\label{fig:fig1}](figures/2_ModEx_Loop_SoilChip.png)
 
