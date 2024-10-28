@@ -75,8 +75,8 @@ Specifically, the `Pore2Chip`-based data worth analysis of high-resolution XCT i
 This `Pore2Chip` capability allows the users to build a representative quasi-2D pore network along with first-order, fast, and reasonably accurate flow models that can be linked with soil experiments. 
 These `Pore2Chip` flow models are built using recent advances in physics-informed neural networks [@new2024], laying the foundation to accelerate numerical simulations and improve the fidelity of predictions in microscale environments. 
 Moreover, `Pore2Chip` allows one to assess the impact of various system parameters, such as pore structures, fluid properties, and flow conditions, needed to develop optimal micromodel experiments. 
-Such a capability can guide model-experiment-data (ModEx) integration at the microscale, allowing for upscaling microscale processes and predictions of dynamic soil properties and functions. See \autoref{fig:fig1}.
+Such a capability can guide model-experiment-data (ModEx) integration at the microscale, allowing for upscaling microscale processes and predictions of dynamic soil properties and functions. 
+See \autoref{fig:fig1}.
 
-![A high-level overview of essential steps in Pore2Chip-based micromodel designs informed by soil dataset. 
-The iterative ModEx loop continuously improves multi-physics process models by integrating experimental data, leading to more accurate predictions for soil carbon cycling and rhizosphere function applications.\label{fig:fig1}](figures/2_ModEx_Loop_SoilChip.png)
+![A high-level overview of essential steps in Pore2Chip-based micromodel designs informed by soil dataset. The iterative ModEx loop continuously improves multi-physics process models by integrating experimental data, leading to more accurate predictions for soil carbon cycling and rhizosphere function applications.\label{fig:fig1}](figures/2_ModEx_Loop_SoilChip.png)
 
