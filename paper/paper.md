@@ -37,9 +37,9 @@ authors:
     orcid: 0000-0001-7847-6293
     affiliation: "1"
 affiliations:
- - name: Environmental Molecular Sciences Laboratory, Pacific Northwest National Laboratory, Richland, WA, USA
+ - name: Environmental Molecular Sciences Laboratory (EMSL), Pacific Northwest National Laboratory, Richland, WA, USA
    index: 1
- - name: Pacific Northwest National Laboratory, Richland, WA, USA
+ - name: Pacific Northwest National Laboratory (PNNL), Richland, WA, USA
    index: 2
  - name: USDA-NRCS National Soil Survey Center, Lincoln, NE, USA
    index: 3
@@ -52,7 +52,7 @@ bibliography: paper.bib
 
 The `Pore2Chip` is a Python package designed to create two-dimensional micromodels using extracted data from three-dimensional X-ray computed tomography (XCT) images. 
 Micromodels are two-dimensional representations of pore systems that replicate natural porous media, enabling detailed study of fluid dynamics, reactive-transport, and thermal energy at the pore scale [@karadimitriou2012review; @anbari2018microfluidic]. 
-These models are crucial for advancing soil science by providing insights into microbial interactions and chemical processes in Earth and energy systems [@isah2022fluid; @zhu2022microfluidics; @@aralekallu2023development].
+These models are crucial for advancing soil science by providing insights into microbial interactions and chemical processes in Earth and energy systems [@isah2022fluid; @zhu2022microfluidics; @aralekallu2023development].
 This `Pore2Chip` package helps analyze soil structure and function, allowing for the investigation of environmentally significant biogeochemical processes that impact soil organic matter (SOM) decomposition and loss, oxygen concentrations, and nutrient availability in disturbed or managed soils.
 It can produce pore networks that accurately represent soils, convert any 3D pore network into scalable SVG images with precise pore and pore throat sizes, and conduct computational simulations on these images. 
 The extracted data includes characterizations of the pore network using major water retention and flow metrics relevant to porous materials. 
@@ -63,17 +63,17 @@ These 3D-printed designs accurately depict the XCT-resolved pore networks for so
 # Statement of need
 
 The resilience of agricultural and natural landscapes is intrinsically connected to soil structure. 
-Land management (e.g., tillage, grazing, and fire) and associated impacts (e.g., compaction and pore-clogging) along with climate disturbances (e.g., freeze-thaw, flooding, and sea level rise) can transform soil microstructure [@liu2018; @feng2020; @stoof2016; @oliveira2022; @rooney2022]. 
-These changes in the soil microstructure determine the flow of water, solutes, and gases, as well as SOM retention, transport, and distribution [@hamamoto2010; @waring2020; @guo2024; @bailey2017]. 
-Simplified, homogeneous pore networks provide innovative demonstrations of how water, solutes, and microbes interact [@bhattacharjee2022] but need more accurate representations of soil properties. 
+Land management (e.g., tillage, grazing, and fire) and associated impacts (e.g., compaction and pore-clogging) along with climate disturbances (e.g., freeze-thaw, flooding, and sea level rise) can transform soil microstructure [@Stoof2016; @Liu2018; @Feng2020]. 
+These changes in the soil microstructure determine the flow of water, solutes, and gases, as well as SOM retention, transport, and distribution [@Waring2020; @deOliveira2022; @Rooney2022]. 
+Simplified, homogeneous pore networks provide innovative demonstrations of how water, solutes, and microbes interact [@Bhattacharjee2022] but need more accurate representations of soil properties. 
 Heterogeneous synthetic habitats are more realistic but time-consuming to design and do not include pore network characteristics, such as pore connectivity or pore throat measurements. 
 Incorporating pore dynamics into soil models, such as SOM degradation, enables dynamic predictions for soil responses under changing pore networks [@davidson2011; @moyano2018].
 
-Our understanding of how pore network characteristics govern hydrobiogeochemical processes in pre- and post-disturbance soils and across soil types is constrained by current micromodel-based experimental designs. Currently, there is no software available to seamlessly provide various micromodel designs that researchers can test and validate with minimal computational cost [@dentz2023; @oostrom2014]. 
+Our understanding of how pore network characteristics govern hydrobiogeochemical processes in pre- and post-disturbance soils and across soil types is constrained by current micromodel-based experimental designs. Currently, there is no software available to seamlessly provide various micromodel designs that researchers can test and validate with minimal computational cost [@Dentz2023; @Oostrom2014]. 
 `Pore2Chip` allows us to overcome this barrier by providing the intended users, such as earth scientists and lab-on-chip instrument specialists, with easy-to-use research software for lab-on-chip designs. 
 Specifically, the `Pore2Chip`-based data worth analysis of high-resolution XCT images allows us to fill this experimental design gap by providing a 3D model of the microscale pore structure. 
 This `Pore2Chip` capability allows the users to build a representative quasi-2D pore network along with first-order, fast, and reasonably accurate flow models that can be linked with soil experiments. 
-These `Pore2Chip` flow models are built using recent advances in physics-informed neural networks [@new2024], laying the foundation to accelerate numerical simulations and improve the fidelity of predictions in microscale environments. 
+These `Pore2Chip` flow models are built using recent advances in physics-informed neural networks [@New2024], laying the foundation to accelerate numerical simulations and improve the fidelity of predictions in microscale environments. 
 Moreover, `Pore2Chip` allows one to assess the impact of various system parameters, such as pore structures, fluid properties, and flow conditions, needed to develop optimal micromodel experiments. 
 Such a capability can guide model-experiment-data (ModEx) integration at the microscale, allowing for upscaling microscale processes and predictions of dynamic soil properties and functions. 
 See \autoref{fig:fig1}.
@@ -85,14 +85,14 @@ However, this approach only deals with individual grain size distributions and g
 `Pore2Chip` addresses this limitation by representing pore networks as connected shapes. 
 This enables users to easily create and control pore networks representing various real-world conditions. 
 While `Pore2Chip` does not control the shape of the solid space like sphere packing algorithms, it can be adjusted by altering overall micromodel properties, such as changing the number of pores or the micromodel size in pixels. 
-`Pore2Chip` offers experimental design capabilities that cannot be achieved by existing software such as `epyc` [@dobson2022]. 
-It is similar in spirit to `PoreSpy` [@gostick2016], emphasizing quantitative analysis of porous media images. 
+`Pore2Chip` offers experimental design capabilities that cannot be achieved by existing software such as `epyc` [@Dobson2022]. 
+It is similar in spirit to `PoreSpy` [@Gostick2016], emphasizing quantitative analysis of porous media images. 
 However, `Pore2Chip` provides better support and reproducibility for developing lab-on-chip experimental designs uniformly across different soil datasets with fast, reasonably accurate, first-order flow modeling capabilities. 
 Microscale experimental designs using printed `Pore2Chip`-based micromodels may target both abiotic and biotic processes and be integrated into modeling efforts such as fluid flow modeling, reactive transport modeling, and microbial activity simulations.
 
 ## Implementation details and support libraries
 
-Using `OpenPNM` [@gostick2016] and various graphics rendering libraries (e.g., `drawsvg`, `ezdxf`, `svglib`, `cairosvg`, `reportlab`), `Pore2Chip` renders SVG or DXF micromodel designs using porous properties of the desired XCT images or similar 3D imaging sources. 
+Using `OpenPNM` [@Gostick2016] and various graphics rendering libraries (e.g., `drawsvg`, `ezdxf`, `svglib`, `cairosvg`, `reportlab`), `Pore2Chip` renders SVG or DXF micromodel designs using porous properties of the desired XCT images or similar 3D imaging sources. 
 Output designs are scalable and adjustable based on the target porosity of the micromodel. 
 While the pore sizes, throat sizes, and coordination numbers are required for generation, other information, such as the number of pores per XCT image slice, can be used to adjust the final micromodel. 
 The user can change the number of pores in the generated pore network and adjust the image’s final output size to modify the micromodel’s total porosity. 
