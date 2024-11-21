@@ -5,7 +5,9 @@ tags:
   - Micromodel design
   - Model-data-experiment
   - Visualization
-  - Porous media
+  - porous-media
+  - flow
+  - data-analysis
 authors:
   - name: Aramy Truong
     corresponding: true
@@ -50,7 +52,7 @@ bibliography: paper.bib
 
 # Summary
 
-The `Pore2Chip` is a Python package designed to create two-dimensional micromodels using extracted data from three-dimensional X-ray computed tomography (XCT) images. 
+The `Pore2Chip` Python package is designed to create two-dimensional micromodels using extracted data from three-dimensional X-ray computed tomography (XCT) images. 
 Micromodels are two-dimensional representations of pore systems that replicate natural porous media, enabling detailed study of fluid dynamics, reactive-transport, and thermal energy at the pore scale [@karadimitriou2012review; @anbari2018microfluidic]. 
 These models are crucial for advancing soil science by providing insights into microbial interactions and chemical processes in Earth and energy systems [@isah2022fluid; @zhu2022microfluidics; @aralekallu2023development].
 This `Pore2Chip` package helps analyze soil structure and function, allowing for the investigation of environmentally significant biogeochemical processes that impact soil organic matter (SOM) decomposition and loss, oxygen concentrations, and nutrient availability in disturbed or managed soils.
