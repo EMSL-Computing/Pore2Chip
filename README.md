@@ -7,7 +7,7 @@ Pore2Chip is a Python module designed to streamline the process of analyzing X-r
 
 Below is a conceptual figure, workflow, and vision for this all-in-one Python tool. The working principle starts with XCT imaging files, which will be characterized for soil structure-property relationships and then transformed into a 2D rendering applicable to pore-scale micromodel building. Micromodel experiments will then be used with PFLOTRAN/OpenFOAM/PINNs process models to simulate flow and reactive transport for calibration and V&V.
 
-**ModEx for SoilChip**: Lab-on-a-chip designs to accelerate ModEx workflows informed by soil dataset. Key Steps in the ModEx loop include:
+**ModEx for SoilChip**: Lab-on-a-chip designs to accelerate ModEx workflows informed by soil datasets. Key Steps in the ModEx loop include:
 
 1. **XCT Imaging of Soil Core and Aggregates:** High-resolution X-ray computed tomography (XCT) imaging captures detailed 3D structures, providing a foundational understanding of the physical characteristics.
 
