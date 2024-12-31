@@ -3,7 +3,8 @@ import numpy as np
 import openpnm as op
 import random
 from skimage.morphology import diamond
-
+from itertools import chain
+ 
 
 def generate_network(n1,
                      n2,
@@ -23,7 +24,8 @@ def generate_network(n1,
                      pore_random_shift=0.2,
                      lone_pores=True,
                      center_channel=None,
-                     return_middle_pores=False):
+                     return_middle_pores=False,
+                     sd=0):
     r"""
     Create 2D OpenPNM network with given pore, throat, and coordination 
     information
@@ -52,7 +54,8 @@ def generate_network(n1,
         generated_network : OpenPNM network
     """
 
-    random.seed()
+    random.seed(sd)
+    np.random.seed(sd)
 
     generated_network = op.network.BodyCenteredCubic([n1, n2, 2])
     op.topotools.trim(generated_network, pores=generated_network.pores('zmax'))
@@ -112,29 +115,15 @@ def generate_network(n1,
                           throats=generated_network['throat.all'])
         return generated_network
 
+    # Create list of already visited pores
+    visited = []
+    random.seed(0)
+
     # edit connections to get specified coordination numbers
     for pore_index in range(num_pores):
 
-        if min_pore_diameter is not None:
-            if generated_network['pore.diameter'][
-                    pore_index] > min_pore_diameter:
-                generated_network['pore.diameter'][
-                    pore_index] = min_pore_diameter
-        if max_pore_diameter is not None:
-            if generated_network['pore.diameter'][
-                    pore_index] > max_pore_diameter:
-                generated_network['pore.diameter'][
-                    pore_index] = max_pore_diameter
-
         # Get connected throats
         neighbor_throats = generated_network.find_neighbor_throats(pore_index)
-
-        if min_coordination is not None:
-            if random_coordination[pore_index] < min_coordination:
-                random_coordination[pore_index] = min_coordination
-        if max_coordination is not None:
-            if random_coordination[pore_index] > max_coordination:
-                random_coordination[pore_index] = max_coordination
 
         # If the pore has more throats than what we want...
         if (len(neighbor_throats) > random_coordination[pore_index]
@@ -142,31 +131,73 @@ def generate_network(n1,
             if len(neighbor_throats) == 0:
                 continue
 
-            for throat_index in neighbor_throats:
-                # Disconnect the extra throats
-                if throat_index < len(generated_network['throat.conns']):
-                    op.topotools.trim(generated_network,
-                                      throats=[throat_index])
+            neighbor_pores = generated_network.find_neighbor_pores(
+                pore_index, flatten=True)
+
+            # Number of connections to remove
+            i = len(neighbor_throats) - random_coordination[pore_index]
+            # Number of connections that have been removed
+            j = 0
+            while (i > 0):
+                # If we have made the maximum number of throat removals.
+                # Otherwise, break the loop
+                if j < len(neighbor_pores):
+                    # Pick random neighbor throat
+                    random_throat = np.random.choice(neighbor_throats)
+
+                    # Makes sure throat index is not above number of throats
+                    if random_throat < len(generated_network['throat.conns']):
+
+                        # Connections of the selected throat (tuple of pores the throat connects)
+                        conn = generated_network['throat.conns'][random_throat]
+
+                        # If any of the pores in the tuple have not be visited already
+                        if conn[0] not in visited or conn[1] not in visited:
+                            op.topotools.trim(generated_network,
+                                              throats=[random_throat])
+                            i -= 1  # One less disconnection that needs to be made
+
+                else:
+                    break
+                j += 1  # One more disconnection made
 
         # If the pore has less throats than what we want...
         elif len(neighbor_throats) < random_coordination[pore_index]:
             # Find pores around the vicinity of this pore
             neighbor_pores = generated_network.find_nearby_pores(
-                pores=[pore_index], r=1.5, flatten=True)
+                pores=[pore_index], r=1.4, flatten=True)
 
-            for pore in range(random_coordination[pore_index] -
-                              len(neighbor_throats)):
-                # Connect the pores to a new neighbor
-                if (len(neighbor_throats) +
-                        pore) > 8:  # Limits coordination to 8
-                    if pore_index < neighbor_pores[-1]:
-                        op.topotools.connect_pores(generated_network,
-                                                   pore_index,
-                                                   neighbor_pores[-1])
-                    else:
-                        op.topotools.connect_pores(generated_network,
-                                                   neighbor_pores[-1],
-                                                   pore_index)
+            # Number of connections to add
+            i = random_coordination[pore_index] - len(neighbor_throats)
+            # Number of connections made
+            j = 0
+            while (i > 0
+                   ):  # Iterate until all the necessary connections are made
+                # If we have made the maximum number of throat connections.
+                # Otherwise, break the loop
+                if j < len(neighbor_pores):
+                    # Pick a random neighbor pore
+                    random_pore = np.random.choice(neighbor_pores)
+
+                    # If the pore has not already been visited
+                    if random_pore not in visited:
+                        # This 'if' statement makes sure that the throat connection is
+                        # upper triangular (the first pore index is smaller than the second).
+                        # Reduces error messages from OpenPNM
+                        if pore_index < random_pore:
+                            op.topotools.connect_pores(
+                                generated_network, pore_index,
+                                random_pore)  # neighbor_pores[-1]
+                        else:
+                            op.topotools.connect_pores(generated_network,
+                                                       random_pore, pore_index)
+                        i -= 1  # One less connection that needs to be made
+                else:
+                    break
+                j += 1  # One more connection made
+
+        # Finished assigning coordination to pore. Now we add it to visited pores
+        visited.append(pore_index)
 
     ##### Middle Throats #####
     # Getting middle pores
@@ -219,9 +250,58 @@ def generate_network(n1,
     dupes = op.models.network.duplicate_throats(generated_network)
     op.topotools.trim(generated_network, throats=dupes)
 
-    # Remove non-connected pores
+    # Zero Coordination Fixes
+    coord = op.models.network.coordination_number(generated_network)
+    # If there is no coordination value of 0 in our random selection
+    # but we still see some pores with a coordination of 0,
+    # connect them with a neighbor
+    if 0 not in random_coordination and 0 in coord:
+        indicies = list(chain.from_iterable(np.where(coord == 0)))
+        for ind in indicies:
+            neighbor_pores = generated_network.find_nearby_pores(
+                pores=ind, r=1.5, flatten=True)
+            pore_to_connect = None
+            for neighbor in neighbor_pores:
+                coordination = len(generated_network.find_neighbor_throats(neighbor))
+                if coordination >= max(random_coordination):
+                    continue
+                else:
+                    pore_to_connect = neighbor
+            if pore_to_connect is None:
+                pore_to_connect = neighbor_pores[0]
+            if ind < pore_to_connect:
+                op.topotools.connect_pores(generated_network, ind, pore_to_connect)
+            else:
+                op.topotools.connect_pores(generated_network, pore_to_connect, ind)
+
+    # Higher Coordination Fixes
+    if max(coord) > max(random_coordination):
+        max_possible = max(random_coordination)
+        indicies = list(chain.from_iterable(np.where(coord > max_possible)))
+        for ind in indicies:
+            neighbor_pores = generated_network.find_neighbor_pores(ind)
+            current_coord = len(neighbor_pores)
+            i = current_coord - max_possible
+            j = 0
+            while(i > 0):
+                if j > (current_coord - max_possible):
+                    print('Failed to change higher coordination. Continuing...')
+                    break
+                neighbor = neighbor_pores[j]
+                print('neighbor:', neighbor)
+                neighbors_throats = generated_network.find_neighbor_throats(neighbor)
+                if len(neighbors_throats) > min(random_coordination):
+                    if ind < neighbor:
+                        op.topotools.trim(generated_network,
+                                            throats=[[ind, neighbor]])
+                    else:
+                        op.topotools.trim(generated_network,
+                                            throats=[[neighbor, ind]])
+                    i -= 1
+                j += 1
+
+    # Remove non-connected pores if flag is true
     if not lone_pores:
-        coord = op.models.network.coordination_number(generated_network)
         op.topotools.trim(generated_network, pores=np.where(coord == 0))
 
     # Reduce even further to an average coordination

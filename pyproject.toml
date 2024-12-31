@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pore2chip"
-version = "0.1.0"
+version = "0.1.1"
 authors = [
   { name="Aramy Truong", email="aramy.truong@pnnl.gov" },
   { name="Maruti Mudunuru", email="maruti@pnnl.gov" },
@@ -13,7 +13,7 @@ authors = [
   { name="Tamas Varga", email="tamas.varga@pnnl.gov" },
   { name="Lal Mamud", email="lal.mamud@pnnl.gov" },
   { name="Xiaoliang (Bryan) He", email="xiaoliang.he@pnnl.gov" },
-  { name="Anil Krishna Battu", email="anilkrishna.battu@pnnl.gov" },
+  { name="Anil Krishna Battu", email="anilkrishna.battu@gmail.com" },
   { name="Satish Karra", email="karra@pnnl.gov" },
 ]
 description = "A package that takes 3D images of porous materials and generates representative micromodels"

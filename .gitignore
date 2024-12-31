@@ -27,3 +27,4 @@ src/pore2chip/gencoord.py
 src/pore2chip.egg-info
 tests/results/
 tests/resultspinn_*
+src/pore2chip/prototype2.ipynb

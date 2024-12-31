@@ -45,8 +45,7 @@ def generate_network(n1,
     Output:
         generated_network : OpenPNM network
     """
-
-    random.seed()
+    print("WARNING: This module is deprecated. Use \"pore2chip.generate\" instead.")
 
     generated_network = op.network.BodyCenteredCubic([n1, n2, 2])
     op.topotools.trim(generated_network, pores=generated_network.pores('zmax'))
