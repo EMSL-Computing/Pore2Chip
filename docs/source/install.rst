@@ -35,8 +35,8 @@ Install from source:
    python3 -m build
    python3 -m pip install pore2chip --no-index --find-links dist/
 
-Conda Environmental
--------------------
+Conda Environment
+-----------------
 Creating a Conda environment:
 
 .. code-block:: bash
@@ -56,6 +56,8 @@ Building a Docker Image with Jupyter Notebook:
    docker build -t pore2chip
    docker run -p 8888:8888 pore2chip
 
+This will automatically run a Jupyter Notebook server in the browser with a python environment that 
+has Pore2Chip and all of its dependencies installed.
 
 .. note::
 
