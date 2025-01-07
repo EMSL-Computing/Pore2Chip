@@ -24,5 +24,11 @@ exclude_patterns = []
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'nature'
+html_theme = 'conestack'
 html_static_path = ['_static']
+html_theme_options ={
+    'logo_url': '_static/p2c_logo.svg',
+    'logo_title': 'Pore2Chip',
+    'logo_width': '70px',
+    'logo_height': '70px'
+}

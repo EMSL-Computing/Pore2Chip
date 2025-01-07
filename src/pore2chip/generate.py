@@ -117,7 +117,6 @@ def generate_network(n1,
 
     # Create list of already visited pores
     visited = []
-    random.seed(0)
 
     # edit connections to get specified coordination numbers
     for pore_index in range(num_pores):
