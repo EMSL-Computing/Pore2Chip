@@ -58,6 +58,8 @@ Pore2Chip goes beyond analysis by translating the extracted data into actionable
 In essence, Pore2Chip offers a comprehensive solution for researchers and engineers working with soil microstructures. It efficiently bridges the gap between XCT data and micromodel development, paving the way for a deeper understanding of soil behavior and the creation of advanced microfluidic devices for diverse applications.
 
 ## Getting Started
+Here is a link to the documentation hosted on Github Pages: https://emsl-computing.github.io/Pore2Chip/
+
 The OpenPNM and PoreSpy libraries are required to analyze XCT images. PoreSpy is used to generate a pore network that is used to extract pore size distribution, pore throat size distribution, and pore coordination numbers. OpenPNM is used to construct a new 2D pore network that will be used to create the micromodel design.
 
 Example input images can be found in the "bean_bucket_100" folder. Full dataset can be found here: https://github.com/EMSL-MONet/CommSciMtg_Nov23/
