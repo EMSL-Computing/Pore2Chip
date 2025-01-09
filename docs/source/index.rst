@@ -29,6 +29,7 @@ User Guide
 
    install
    quickstart
+   module_ref
 
 Acknowledgements
 ----------------

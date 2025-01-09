@@ -4,35 +4,32 @@ import copy
 import os
 
 
-def filter_single(image,
-                  cropx=None,
-                  cropy=None,
-                  grayMinimum=None,
-                  grayMaximum=None,
-                  thresh=None,
-                  gauss=5,
+def filter_single(image, 
+                  cropx=None, 
+                  cropy=None, 
+                  grayMinimum=None, 
+                  grayMaximum=None, 
+                  thresh=None, 
+                  gauss=5, 
                   invert=False):
     r"""
     Filters single image using OpenCV Gaussian Blur and thresholds images 
-    using Otsu's thresholding
+    using Otsu's thresholding.
 
-    Parameters:
-        image : Input image (2D array)
-        cropx : Number of pixels in x-axis to crop image by 
-            (begins at top left)
-        cropy : Number of pixels in y-axis to crop image by 
-            (begins at top left)
-        grayMinimum : Minimum pixel value to count as solid 
-            (for picking up very dark solids in image)
-        grayMaximum : Maximum pixel value to count as solid 
-            (for picking up very dark solids in image)
-        thresh : Threshold value. If not given, then Otsu's threshold is used
-        gauss : Radius of Gaussian Blur. Default is 5.
-        invert : Inverts pixel values of image
+    Args:
+        image (2D array): Input image 
+        cropx (tuple or similar): Number of pixels in x-axis to crop image by 
+        cropy (tuple or similar): Number of pixels in y-axis to crop image by 
+        grayMinimum (int): Minimum pixel value to count as solid 
+        grayMaximum (int): Maximum pixel value to count as solid 
+        thresh (int): Threshold value. If not given, then Otsu's threshold is used 
+        gauss (int): Radius of Gaussian Blur. Default is 5 
+        invert (Boolean): Inverts pixel values of image 
 
-    Output:
-        image_filtered : Filtered image
+    Returns:
+        2D numpy array: Filtered image
     """
+
     y_length = image.shape[0]
     x_length = image.shape[1]
     image_filtered = np.zeros((y_length, x_length), dtype=np.uint8)
@@ -86,25 +83,21 @@ def filter_list(img_list,
                 invert=False):
     r"""
     Filters array of images using OpenCV Gaussian Blur and thresholds images 
-    using Otsu's thresholding
+    using Otsu's thresholding.
 
-    Parameters:
-        img_list : Array of input images
-        cropx : Number of pixels in x-axis to crop image by 
-            (begins at top left)
-        cropy : Number of pixels in y-axis to crop image by 
-            (begins at top left)
-        crop_depth: Number of pixels in z-axis
-        grayMinimum : Minimum pixel value to count as solid 
-            (for picking up very dark solids in image)
-        grayMaximum : Maximum pixel value to count as solid 
-            (for picking up very dark solids in image)
-        thresh : Threshold value. If not given, then Otsu's threshold is used
-        gauss : Radius of Gaussian Blur. Default is 5.
-        invert : Inverts pixel values of image list
+    Args:
+        img_list (3D numpy array): Array of input images
+        cropx (tuple or similar): Number of pixels in x-axis to crop image by 
+        cropy (tuple or similar): Number of pixels in y-axis to crop image by 
+        crop_depth (int): Number of pixels in z-axis
+        grayMinimum (int): Minimum pixel value to count as solid 
+        grayMaximum (int): Maximum pixel value to count as solid 
+        thresh (int): Threshold value. If not given, then Otsu's threshold is used
+        gauss (int): Radius of Gaussian Blur. Default is 5.
+        invert (Boolean): Inverts pixel values of image list
 
-    Output:
-        image_stack_filterd : Array of filtered images
+    Returns:
+        3D numpy array : Array of filtered images
     """
     # 3D array setup
     depth = len(img_list)
@@ -176,24 +169,20 @@ def read_and_filter(img_path,
                     invert=False):
     r"""
     Reads and filters a single image using OpenCV Gaussian Blur and 
-    thresholds images using Otsu's thresholding
+    thresholds images using Otsu's thresholding.
 
-    Parameters:
-        img_path : Absolute path to image
-        cropx : Number of pixels in x-axis to crop image by 
-            (begins at top left)
-        cropy : Number of pixels in y-axis to crop image by 
-            (begins at top left)
-        grayMinimum : Minimum pixel value to count as solid 
-            (for picking up very dark solids in image)
-        grayMaximum : Maximum pixel value to count as solid 
-            (for picking up very dark solids in image)
-        thresh : Threshold value. If not given, then Otsu's threshold is used
-        gauss : Radius of Gaussian Blur. Default is 5.
-        invert : Inverts pixel values of image list
+    Args:
+        img_path (str): Absolute path to image
+        cropx (tuple or similar): Number of pixels in x-axis to crop image by 
+        cropy (tuple or similar): Number of pixels in y-axis to crop image by 
+        grayMinimum (int): Minimum pixel value to count as solid 
+        grayMaximum (int): Maximum pixel value to count as solid 
+        thresh (int): Threshold value. If not given, then Otsu's threshold is used
+        gauss (int): Radius of Gaussian Blur. Default is 5.
+        invert (Boolean): Inverts pixel values of image list
 
-    Output:
-        image_filtered : Filtered image
+    Returns:
+        2D numpy array : Filtered image
     """
     image = cv.imread(img_path, cv.IMREAD_GRAYSCALE)
     x_length = 100
@@ -248,24 +237,19 @@ def read_and_filter_list(img_path,
     Reads and filters array of images using OpenCV Gaussian Blur and 
     thresholds images using Otsu's thresholding
 
-    Parameters:
-        img_path : Absolute path to directory containing images
-        cropx : Number of pixels in x-axis to crop image by 
-            (begins at top left)
-        cropy : Number of pixels in y-axis to crop image by 
-            (begins at top left)
-        crop_depth: Number of pixels in z-axis 
-            (leave empty to include all files in directory)
-        grayMinimum : Minimum pixel value to count as solid 
-            (for picking up very dark solids in image)
-        grayMaximum : Maximum pixel value to count as solid 
-            (for picking up very dark solids in image)
-        thresh : Threshold value. If not given, then Otsu's threshold is used
-        gauss : Radius of Gaussian Blur. Default is 5.
-        invert : Inverts pixel values of image list
+    Args:
+        img_path (str): Absolute path to directory containing images
+        cropx (tuple or similar): Number of pixels in x-axis to crop image by 
+        cropy (tuple or similar): Number of pixels in y-axis to crop image by 
+        crop_depth (int): Number of pixels in z-axis 
+        grayMinimum (int): Minimum pixel value to count as solid 
+        grayMaximum (int): Maximum pixel value to count as solid 
+        thresh (int): Threshold value. If not given, then Otsu's threshold is used
+        gauss (int): Radius of Gaussian Blur. Default is 5.
+        invert (Boolean): Inverts pixel values of image list
 
-    Output:
-        image_list_3D_filtered : Array of filtered images
+    Returns:
+        3D numpy array : Array of filtered images
     """
     depth = 1
     if crop_depth is not None:

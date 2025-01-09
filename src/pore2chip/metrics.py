@@ -11,13 +11,13 @@ from porespy.tools import randomize_colors
 
 def feret_diameter(image):
     r"""
-    Get maximum and minimum feret diameters of a single image
+    Get maximum and minimum feret diameters of a single image.
 
-    Parameters:
-        image : Input image
+    Args:
+        image (2D array): Input image
 
-    Output:
-        result : Tuple of arrays of max feret diameters and min feret diameters
+    Returns:
+        Tuple of numpy arrays: Tuple of arrays of max feret diameters and min feret diameters
     """
 
     max_ferets = []
@@ -42,13 +42,13 @@ def feret_diameter(image):
 
 def feret_diameter_list(img_list):
     r"""
-    Get maximum and minimum feret diameters of each image
+    Get maximum and minimum feret diameters of each image.
 
-    Parameters:
-        img_list : Array of input images
+    Args:
+        img_list (3D array): Array of input images
 
-    Output:
-        result : Tuple of arrays of max feret diameters and min feret diameters
+    Returns:
+        Tuple of numpy arrays: Tuple of arrays of max feret diameters and min feret diameters
     """
     max_ferets = []
     min_ferets = []
@@ -89,13 +89,13 @@ def feret_diameter_list(img_list):
 
 def extract_diameters(img_list, voxel_size=1):
     r"""
-    Extract pore diameters and pore throat diameters
+    Extract pore diameters and pore throat diameters.
 
-    Parameters:
-        img_list : Array of input images
+    Args:
+        img_list (3D array): Array of input images
 
-    Output:
-        result : Tuple of arrays of pore diameters and pore throat diameters
+    Returns:
+        Tuple of numpy arrays : Tuple of arrays of pore diameters and pore throat diameters
     """
     images = copy.deepcopy(img_list)
     snow_output = ps.networks.snow2(images, voxel_size=voxel_size)
@@ -106,13 +106,13 @@ def extract_diameters(img_list, voxel_size=1):
 
 def extract_diameters2(img_list, voxel_size=1, sigma_val=0.4):
     r"""
-    Extract pore diameters and pore throat diameters (with direct skimage watershed)
+    Extract pore diameters and pore throat diameters (with direct skimage watershed).
 
-    Parameters:
-        img_list : Array of input images
+    Args:
+        img_list (3D array): Array of input images
 
-    Output:
-        result : Tuple of arrays of pore diameters and pore throat diameters
+    Returns:
+        Tuple of numpy arrays : Tuple of arrays of pore diameters and pore throat diameters
     """
 
     sigma = sigma_val
@@ -137,15 +137,14 @@ def extract_diameters2(img_list, voxel_size=1, sigma_val=0.4):
 def extract_diameters_alt(img_list, num_bins=10):
     r"""
     Extract pore diameters using PoreSpy local thickness filter (no pore 
-    throat diameters)
+    throat diameters).
 
-    Parameters:
-        img_list : Array of input images
-        num_binds : Number of bins PoreSpy uses to calculate pore size 
-        distribution
+    Args:
+        img_list (3D array): Array of input images
+        num_bins (int): Number of bins PoreSpy uses to calculate pore size distribution
 
-    Output:
-        result : Array of pore diameters
+    Returns:
+        Numpy array : Array of pore diameters
     """
     #inverted = cv.bitwise_not(img_list)
     filtered = ps.filters.local_thickness(img_list)
@@ -155,13 +154,13 @@ def extract_diameters_alt(img_list, num_bins=10):
 
 def get_probability_density(arr):
     r"""
-    Get probability densities of given array of values
+    Get probability densities of given array of values.
 
-    Parameters:
-        arr : Array of values
+    Args:
+        arr (array): Array of values
 
-    Output:
-        pdf : Array of probability densities
+    Returns:
+        Numpy array : Array of probability densities
     """
     hist, bin_edges = np.histogram(arr, bins=len(arr), density=True)
     pdf = hist * np.diff(bin_edges)
@@ -172,11 +171,11 @@ def get_percent_probability(arr):
     r"""
     Get percent probability of given array of values
 
-    Parameters:
-        arr : Array of values
+    Args:
+        arr (array): Array of values
 
-    Output:
-        percent : Dictionary of arr and percentage chances
+    Returns:
+        dict : Dictionary of arr and percentage chances
     """
     uniques, counts = np.unique(arr, return_counts=True)
     percentages = dict(zip(uniques, counts * 100 / len(arr)))
