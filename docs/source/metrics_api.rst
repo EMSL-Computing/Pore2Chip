@@ -1,3 +1,4 @@
+
 **metrics**
 ===========
 
@@ -51,3 +52,8 @@ get_percent_probability()
 -------------------------
 
 .. autofunction:: pore2chip.metrics.get_percent_probability
+
+
+.. note::
+
+   This project is under active development.
