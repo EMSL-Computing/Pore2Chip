@@ -4,7 +4,7 @@ feret
 numpy
 opencv-python
 openpnm
-porespy
+porespy @ git+https://github.com/PMEAL/porespy.git@fix_scikit_image_deprecations
 pypardiso
 scikit-image
 scipy

@@ -1,7 +1,7 @@
 import numpy as np
 from skimage.measure import label, regionprops
 import feret
-import porespy as ps
+from porespy import networks, networks, filters
 import openpnm as op
 import copy
 from skimage.segmentation import watershed
@@ -98,7 +98,7 @@ def extract_diameters(img_list, voxel_size=1):
         Tuple of numpy arrays : Tuple of arrays of pore diameters and pore throat diameters
     """
     images = copy.deepcopy(img_list)
-    snow_output = ps.networks.snow2(images, voxel_size=voxel_size)
+    snow_output = networks.snow2(images, voxel_size=voxel_size)
     pn = op.io.network_from_porespy(snow_output.network)
 
     return pn["pore.equivalent_diameter"], pn["throat.equivalent_diameter"]
@@ -129,7 +129,7 @@ def extract_diameters2(img_list, voxel_size=1, sigma_val=0.4):
 
     regions = watershed(image=-dt, markers=peaks, mask=dt > 0)
     regions = randomize_colors(regions)
-    net = ps.networks.regions_to_network(regions * img_list, voxel_size=1)
+    net = networks.regions_to_network(regions * img_list, voxel_size=1)
     pn = op.io.network_from_porespy(net)
     return pn["pore.equivalent_diameter"], pn["throat.equivalent_diameter"]
 
@@ -147,8 +147,8 @@ def extract_diameters_alt(img_list, num_bins=10):
         Numpy array : Array of pore diameters
     """
     #inverted = cv.bitwise_not(img_list)
-    filtered = ps.filters.local_thickness(img_list)
-    psd = ps.metrics.pore_size_distribution(filtered, bins=num_bins, log=False)
+    filtered = filters.local_thickness(img_list)
+    psd = metrics.pore_size_distribution(filtered, bins=num_bins, log=False)
     return psd
 
 
