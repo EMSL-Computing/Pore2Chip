@@ -29,9 +29,11 @@ exclude_patterns = []
 
 html_theme = 'conestack'
 html_static_path = ['_static']
-html_theme_options ={
+html_theme_options = {
     'logo_url': '_static/p2c_logo.svg',
     'logo_title': 'Pore2Chip',
     'logo_width': '70px',
-    'logo_height': '70px'
+    'logo_height': '70px',
+    'github_url': 'https://github.com/EMSL-Computing/Pore2Chip',
+    'pypi_url': 'https://pypi.org/project/pore2chip/',
 }

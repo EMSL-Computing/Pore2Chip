@@ -30,28 +30,28 @@ def generate_network(n1,
     Create 2D OpenPNM network with given pore, throat, and coordination 
     information
 
-    Parameters:
-        n1 : Number of desired pores on x-axis
-        n2 : Number of desired pores on y-axis
-        pore_diameters : Array of input pore diameters
-        pore_pdf : Array of pore size probabilities
-        throat_diameters : Array of input throat diameters
-        throat_pdf : Array of throat size probabilities
-        coordination_nums : Array of pore coordination numbers
-        coord_pdf : Array of pore coordination probabilities
-        average_coord : Average coordination number (by default, generation 
+    Args:
+        n1 (int): Number of desired pores on x-axis
+        n2 (int): Number of desired pores on y-axis
+        pore_diameters (array): Array of input pore diameters
+        pore_pdf (array): Array of pore size probabilities
+        throat_diameters (array): Array of input throat diameters
+        throat_pdf (array): Array of throat size probabilities
+        coordination_nums (array): Array of pore coordination numbers
+        coord_pdf (array): Array of pore coordination probabilities
+        average_coord (int): Average coordination number (by default, generation 
             will not target specific average coordination number)
-        lone_pores : Trims pores with no connections (coordination number
+        lone_pores (Boolean): Trims pores with no connections (coordination number
             of zero)
-        center_channel : Number of pores in the center of the network 
+        center_channel (int): Number of pores in the center of the network 
             to be connected (allows guaranteed connection from top 
             to bottom)
-        return_middle_pores : Boolean that indicates if the function 
+        return_middle_pores (Boolean): Boolean that indicates if the function 
             returns a tuple with the network and an array of indices 
             of moddle pores for the center channel
 
-    Output:
-        generated_network : OpenPNM network
+    Returns:
+        openpnm.models.network : Generated OpenPNM network
     """
 
     random.seed(sd)
