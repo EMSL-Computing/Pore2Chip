@@ -144,6 +144,54 @@ def plot_boundary_conditions(x_b1, y_b1, bc_1, x_b2, y_b2, bc_2, x_b3, y_b3,
     plt.show()
 
 
+
+
+def plot_boundary_conditions2(x_b1, y_b1, bc_1, x_b2, y_b2, bc_2,
+                             x_b3, y_b3, bc_3, x_b4, y_b4, bc_4,
+                             x_c, y_c, results_dir):
+    plt.figure(figsize=(width, height), dpi=dpi)
+
+    # Compute vmin and vmax across all boundary condition values
+    all_bc_values = np.concatenate([bc_1, bc_2, bc_3, bc_4])
+    vmin = np.min(all_bc_values)
+    vmax = np.max(all_bc_values)
+
+    s = 10
+
+    # Plot the first boundary condition and link it to the colorbar
+    sc = plt.scatter(x_b1, y_b1, c=bc_1, marker='x', vmin=0, vmax=2,
+                     label='P[0,y] = 0', cmap=cm.jet, s=s)
+
+    # Remaining boundary conditions
+    plt.scatter(x_b2, y_b2, c=bc_2, marker='^', vmin=0, vmax=2,
+                label='P[1,y] = y', cmap=cm.jet, s=s)
+    plt.scatter(x_b3, y_b3, c=bc_3, marker='*', vmin=0, vmax=2,
+                label='$\\partial P/\\partial y[x,0] = 0$', cmap=cm.jet, s=s)
+    plt.scatter(x_b4, y_b4, c=bc_4, marker='o', vmin=0, vmax=2,
+                label='$\\partial P/\\partial y[x,1] = 0$', cmap=cm.jet, s=s)
+
+    # Collocation points
+    plt.scatter(x_c, y_c, c='k', marker='.', alpha=0.5,
+                label='Collocation points', s=5)
+
+    # Labels and colorbar
+    plt.xlabel('$X$')
+    plt.ylabel('$Y$')
+    cbar = plt.colorbar(sc, aspect=30)  # Link to actual scatter plot
+    cbar.set_label('Pressure (kPa)')
+
+    plt.legend()
+    plt.tight_layout()
+
+    figure_name = 'bcs_collocs'
+    plt.savefig(results_dir + figure_name + figure_format,
+                dpi=dpi,
+                format=figure_format.strip('.'),
+                bbox_inches='tight')
+    plt.show()
+
+
+
 def save_legend_as_image(results_dir):
     plt.figure(figsize=(width, height), dpi=dpi)
     fig, ax = plt.subplots()
@@ -193,6 +241,8 @@ def save_legend_as_image(results_dir):
     plt.close()
 
 
+
+
 #%% plot for pinn loss
 def plot_pinn_training(all_losses, all_epochs, title, fig_name, results_dir):
     plt.figure(figsize=(width, height), dpi=dpi)
@@ -232,6 +282,7 @@ def plot_2d_pressure_distribution(X, Y, pressure, cbar_lebel, title, fig_name,
     plt.ylabel('$Y$')
     filename = fig_name + '.png'
     plt.savefig(results_dir + filename, dpi=dpi)
+    plt.show()
 
 
 def plot_pressure_along_x(X, Y, pressure, title, fig_name, results_dir):
@@ -298,8 +349,9 @@ def plot_2d_pressure_distribution_masked(X, Y, pressure, perm_field,
     plt.savefig(results_dir + filename, dpi=dpi)
     # Set masked values to zero
     pressure_with_zeros = masked_pressure.filled(0)
-
+    plt.show()
     return pressure_with_zeros
+
 
 
 def plot_gradient_field(X, Y, grad_head_x, grad_head_y, fig_title, scale,
