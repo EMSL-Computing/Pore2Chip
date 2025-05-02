@@ -79,76 +79,9 @@ def plot_2d_permeability_seg(X, Y, perm_field, results_dir):
     plt.savefig(results_dir + filename, dpi=dpi)
 
 
-def plot_boundary_conditions(x_b1, y_b1, bc_1, x_b2, y_b2, bc_2, x_b3, y_b3,
-                             bc_3, x_b4, y_b4, bc_4, x_c, y_c, results_dir):
-    plt.figure(figsize=(width, height), dpi=dpi)
-    s = 10
-    plt.scatter(x_b1,
-                y_b1,
-                c=bc_1,
-                marker='x',
-                vmin=0,
-                vmax=2,
-                label='P[0,y] = 0',
-                cmap=cm.jet,
-                s=s)
-    plt.scatter(x_b2,
-                y_b2,
-                c=bc_2,
-                marker='^',
-                vmin=0,
-                vmax=2,
-                label='P[1,y] = y',
-                cmap=cm.jet,
-                s=s)
-    plt.scatter(x_b3,
-                y_b3,
-                c=bc_3,
-                marker='*',
-                vmin=0,
-                vmax=2,
-                label='$\\partial P/\\partial y[x,0] = 0$',
-                cmap=cm.jet,
-                s=s)
-    plt.scatter(x_b4,
-                y_b4,
-                c=bc_4,
-                marker='o',
-                vmin=0,
-                vmax=2,
-                label='$\\partial P/\\partial y[x,1] = 0$',
-                cmap=cm.jet,
-                s=s)
-    s = 5
-    plt.scatter(x_c,
-                y_c,
-                c='k',
-                marker='.',
-                alpha=0.5,
-                label='Collocation points',
-                s=s)
-    # Labels and colorbar
-    plt.xlabel('$X$')
-    plt.ylabel('$Y$')
-    cbar = plt.colorbar(mpl.cm.ScalarMappable(norm=mpl.colors.Normalize(
-        vmin=0, vmax=2),
-                                              cmap=cm.jet),
-                        aspect=30)
-    cbar.set_label('Pressure (kPa)')
-    plt.tight_layout()
-    figure_name = 'bcs_collocs'
-    plt.savefig(results_dir + figure_name + figure_format,
-                dpi=dpi,
-                format=figure_format.strip('.'),
-                bbox_inches='tight')
-    plt.show()
-
-
-
-
-def plot_boundary_conditions2(x_b1, y_b1, bc_1, x_b2, y_b2, bc_2,
-                             x_b3, y_b3, bc_3, x_b4, y_b4, bc_4,
-                             x_c, y_c, results_dir):
+def plot_boundary_conditions(x_b1, y_b1, bc_1, x_b2, y_b2, bc_2,
+                              x_b3, y_b3, bc_3, x_b4, y_b4, bc_4,
+                              x_c, y_c, results_dir):
     plt.figure(figsize=(width, height), dpi=dpi)
 
     # Compute vmin and vmax across all boundary condition values
@@ -156,31 +89,34 @@ def plot_boundary_conditions2(x_b1, y_b1, bc_1, x_b2, y_b2, bc_2,
     vmin = np.min(all_bc_values)
     vmax = np.max(all_bc_values)
 
-    s = 10
+    s = 3
 
     # Plot the first boundary condition and link it to the colorbar
-    sc = plt.scatter(x_b1, y_b1, c=bc_1, marker='x', vmin=0, vmax=2,
-                     label='P[0,y] = 0', cmap=cm.jet, s=s)
+    sc = plt.scatter(x_b1, y_b1, c=bc_1, marker='x', vmin=vmin, vmax=vmax,
+                     label='P[0,y]', cmap=cm.jet, s=s)
 
     # Remaining boundary conditions
-    plt.scatter(x_b2, y_b2, c=bc_2, marker='^', vmin=0, vmax=2,
-                label='P[1,y] = y', cmap=cm.jet, s=s)
-    plt.scatter(x_b3, y_b3, c=bc_3, marker='*', vmin=0, vmax=2,
-                label='$\\partial P/\\partial y[x,0] = 0$', cmap=cm.jet, s=s)
-    plt.scatter(x_b4, y_b4, c=bc_4, marker='o', vmin=0, vmax=2,
-                label='$\\partial P/\\partial y[x,1] = 0$', cmap=cm.jet, s=s)
+    plt.scatter(x_b2, y_b2, c=bc_2, marker='^', vmin=vmin, vmax=vmax,
+                label='P[1,y]', cmap=cm.jet, s=s)
+    plt.scatter(x_b3, y_b3, c=bc_3, marker='*', vmin=vmin, vmax=vmax,
+                label='$\\partial P/\\partial y[x,0]$', cmap=cm.jet, s=s)
+    plt.scatter(x_b4, y_b4, c=bc_4, marker='o', vmin=vmin, vmax=vmax,
+                label='$\\partial P/\\partial y[x,1]$', cmap=cm.jet, s=s)
 
     # Collocation points
     plt.scatter(x_c, y_c, c='k', marker='.', alpha=0.5,
-                label='Collocation points', s=5)
+                label='Collocation points', s=1)
 
     # Labels and colorbar
     plt.xlabel('$X$')
     plt.ylabel('$Y$')
-    cbar = plt.colorbar(sc, aspect=30)  # Link to actual scatter plot
+    cbar = plt.colorbar(sc, aspect=30)
     cbar.set_label('Pressure (kPa)')
 
-    plt.legend()
+    #plt.legend(fontsize=6) 
+    # plt.legend(fontsize=6, loc='best', frameon=True,
+    #        title='Legend', title_fontsize=6)
+    plt.legend(fontsize=6, loc='upper left', bbox_to_anchor=(0.50, 0.95))
     plt.tight_layout()
 
     figure_name = 'bcs_collocs'
@@ -189,56 +125,6 @@ def plot_boundary_conditions2(x_b1, y_b1, bc_1, x_b2, y_b2, bc_2,
                 format=figure_format.strip('.'),
                 bbox_inches='tight')
     plt.show()
-
-
-
-def save_legend_as_image(results_dir):
-    plt.figure(figsize=(width, height), dpi=dpi)
-    fig, ax = plt.subplots()
-    handles = [
-        mlines.Line2D([], [],
-                      color='red',
-                      marker='x',
-                      linestyle='None',
-                      markersize=10,
-                      label='P[0,y] = 0'),
-        mlines.Line2D([], [],
-                      color='blue',
-                      marker='^',
-                      linestyle='None',
-                      markersize=10,
-                      label='P[1,y] = y'),
-        mlines.Line2D([], [],
-                      color='green',
-                      marker='*',
-                      linestyle='None',
-                      markersize=10,
-                      label='$\\partial P/\\partial y[x,0] = 0$'),
-        mlines.Line2D([], [],
-                      color='purple',
-                      marker='o',
-                      linestyle='None',
-                      markersize=10,
-                      label='$\\partial P/\\partial y[x,1] = 0$'),
-        mlines.Line2D([], [],
-                      color='black',
-                      marker='.',
-                      linestyle='None',
-                      markersize=10,
-                      label='Collocation points')
-    ]
-    legend = ax.legend(handles=handles,
-                       loc='upper right',
-                       fontsize=fontsize,
-                       fancybox=True)
-    plt.tight_layout()
-    ax.axis('off')
-    fig.canvas.draw()
-    bbox = legend.get_window_extent().transformed(
-        fig.dpi_scale_trans.inverted())
-    filename = 'bc_colloc_legends.png'
-    fig.savefig(results_dir + filename, dpi=dpi, bbox_inches=bbox)
-    plt.close()
 
 
 
@@ -352,33 +238,3 @@ def plot_2d_pressure_distribution_masked(X, Y, pressure, perm_field,
     plt.show()
     return pressure_with_zeros
 
-
-
-def plot_gradient_field(X, Y, grad_head_x, grad_head_y, fig_title, scale,
-                        results_dir):
-    plt.figure(figsize=(width, height), dpi=dpi)
-
-    # Calculate the magnitude of the gradient vectors
-    magnitude = np.sqrt(grad_head_x**2 + grad_head_y**2)
-
-    # Determine vmin and vmax based on the actual values of grad_head_x and grad_head_y
-    vmin = min(np.min(grad_head_x), np.min(grad_head_y))
-    vmax = max(np.max(grad_head_x), np.max(grad_head_y))
-
-    # Plot gradient vectors with color range based on actual vmin and vmax
-    quiver = plt.quiver(X,
-                        Y,
-                        grad_head_x,
-                        grad_head_y,
-                        magnitude,
-                        scale=scale,
-                        cmap='jet')
-    quiver.set_clim(vmin, vmax)  # Set the color range without normalization
-
-    plt.colorbar(quiver, label='Gradient magnitude')
-    plt.title(f'{fig_title}')
-    plt.xlabel('X (m)')
-    plt.ylabel('Y (m)')
-    plt.xlim([X.min(), X.max()])
-    plt.ylim([Y.min(), Y.max()])
-    plt.show()
