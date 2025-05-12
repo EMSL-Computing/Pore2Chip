@@ -71,8 +71,6 @@ def main():
     ax[2].imshow(filtered2)
     ax[3].imshow(filtered3)
     plt.show()
-    plt.waitforbuttonpress()  # Wait for a user interaction before closing
-    plt.close()
 
     ### Advanced Tests ###
 
@@ -93,8 +91,6 @@ def main():
     ax[2].imshow(filtered_stack[1])
     ax[3].imshow(filtered_stack[2])
     plt.show()
-    plt.waitforbuttonpress()  # Wait for user interaction before closing
-    plt.close()
 
 
 if __name__ == "__main__":
