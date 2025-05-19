@@ -21,8 +21,8 @@ def network2svg(
     throat_random_debug=False,
     no_throats=False,
     middle_pores=None,
-    disconnected=None
-):  # Boolean to draw perp. lines for throat placement (debugging)
+    disconnected=None,
+    throat_vector_thres=None): # Boolean to draw perp. lines for throat placement (debugging) 
     r"""
     Create an SVG file from an OpenPNM network. 
     The network2svg function converts an OpenPNM network into an SVG image. 
@@ -209,6 +209,18 @@ def network2svg(
             # Convert coordinates to match the SVG coordinate system
             pore1_coords = [pore1_x, (-pore1_y) + d2]
             pore2_coords = [pore2_x, (-pore2_y) + d2]
+
+            # If small throats are vectors
+            if throat_vector_thres is not None:
+                if generated_network['throat.diameter'][throat_index] < throat_vector_thres:
+                    design.append(
+                        dr.Line(pore1_coords[0],
+                                pore1_coords[1],
+                                pore2_coords[0],
+                                pore2_coords[1],
+                                stroke='red',
+                                stroke_width=1))
+                    continue
 
             # Distance between the two pores
             distance = math.dist(pore1_coords, pore2_coords)

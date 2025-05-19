@@ -12,7 +12,7 @@ from pathlib import Path
 
 # Set up the module path (I am in tests folder)
 # Modify these lines if the pore2chip package is not in the PYTHONPATH
-mod_path = Path("__file__").resolve().parents[2]
+mod_path = Path(os.getcwd()).resolve().parent
 sys.path.append(os.path.abspath(mod_path))
 
 # Importing specific functions for exporting network data to SVG and DXF formats

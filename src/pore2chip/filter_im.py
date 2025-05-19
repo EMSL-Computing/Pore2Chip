@@ -25,6 +25,7 @@ def filter_single(image,
         thresh (int): Threshold value. If not given, then Otsu's threshold is used 
         gauss (int): Radius of Gaussian Blur. Default is 5 
         invert (Boolean): Inverts pixel values of image 
+        returnthres (Boolean): Returns the threshold value calculated using Otsu 
 
     Returns:
         2D numpy array: Filtered image

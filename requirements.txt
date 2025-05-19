@@ -5,12 +5,11 @@ numpy
 opencv-python
 openpnm
 porespy
-pypardiso
 scikit-image
 scipy
 yapf
 svglib
-reportlab
+reportlab==3.6.13
 cairosvg
 gstools
 jaxlib
