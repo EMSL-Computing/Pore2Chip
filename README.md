@@ -9,9 +9,9 @@ Below is a conceptual figure, workflow, and vision for this all-in-one Python to
 
 **ModEx for SoilChip**: Lab-on-a-chip designs to accelerate ModEx workflows informed by soil datasets. Key Steps in the ModEx loop include:
 
-1. **XCT Imaging of Soil Core and Aggregates (Pore2Chip):** High-resolution X-ray computed tomography (XCT) imaging captures detailed 3D structures, providing a foundational understanding of the physical characteristics.
+(1) **XCT Imaging of Soil Core and Aggregates (Pore2Chip):** High-resolution X-ray computed tomography (XCT) imaging captures detailed 3D structures, providing a foundational understanding of the physical characteristics.
 
-2. **3D Pore Network Characterization (Pore2Chip):** The 3D pore network is analyzed to determine pore size frequency and distribution, which is critical for understanding flow and transport properties.
+(2) **3D Pore Network Characterization (Pore2Chip):** The 3D pore network is analyzed to determine pore size frequency and distribution, which is critical for understanding flow and transport properties.
 
 3. **Transform 3D Pore Network into 2D Rendering (Pore2Chip):** The complex 3D network is simplified into a 2D rendering for easier analysis and visualization.
 
