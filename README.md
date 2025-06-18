@@ -282,23 +282,22 @@ Additionally, your contributions can be as simple as:
 
 ```
 .
-├── Dockerfile
-├── LICENSE.md
-├── README.Docker.md
-├── README.md
-├── compose.yaml
-├── dist
-│             ├── pore2chip-0.0.8-py3-none-any.whl
-│             └── pore2chip-0.0.8.tar.gz
-├── docker_requirements.txt
+├── CITATION.cff
+├── DISCLAIMER.md
+├── docs
+│             ├── make.bat
+│             ├── Makefile
+│             └── source
 ├── example_outputs
-│             ├── ModEx_Loop_SoilChip.jpg
 │             ├── cad_mockup.PNG
 │             ├── cad_mockup2.PNG
+│             ├── fabricated_chip.jpg
 │             ├── flow
 │             ├── grain_network.png
 │             ├── grain_network.svg
 │             ├── micromodel.npy
+│             ├── ModEx_Loop_SoilChip.jpg
+│             ├── network_from_values.svg
 │             ├── network.dxf
 │             ├── network.png
 │             ├── network.svg
@@ -306,7 +305,7 @@ Additionally, your contributions can be as simple as:
 │             ├── network1.svg
 │             ├── network2.png
 │             ├── network2.svg
-│             └── network_from_values.svg
+│             └── README.md
 ├── examples
 │             ├── bean_bucket_100
 │             ├── example_1_50x50_to_model.ipynb
@@ -315,25 +314,34 @@ Additionally, your contributions can be as simple as:
 │             ├── example_4_porespy_analysis.ipynb
 │             ├── example_5_vtk_exporting.ipynb
 │             ├── example_6_flow_2d_numerical_on_XCT.ipynb
-│             └── example_7_flow_2d_pinn_on_XCT.ipynb
-├── paper.bib
-├── paper.md
+│             ├── example_7_flow_2d_pinn_on_XCT.ipynb
+│             └── README.md
+├── LICENSE.md
+├── paper
+│             ├── figures
+│             ├── material
+│             ├── paper.bib
+│             └── paper.md
 ├── pyproject.toml
+├── README.md
 ├── requirements.txt
 ├── src
 │             ├── flow
 │             ├── pore2chip
-│             └── pore2chip.egg-info
+│             └── README.md
 ├── tahoma.sh
 ├── tests
+│             ├── README.md
 │             ├── test_coordination.py
 │             ├── test_export.py
 │             ├── test_filter_im.py
+│             ├── test_flow.py
 │             ├── test_generate.py
-│             └── test_metrics.py
+│             ├── test_metrics.py
+│             └── test_train_pinn.py
 └── tree.txt
 
-11 directories, 40 files
+14 directories, 45 files
 ```
 
 ## Acknowledgements
