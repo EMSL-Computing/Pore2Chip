@@ -9,25 +9,25 @@ Below is a conceptual figure, workflow, and vision for this all-in-one Python to
 
 **ModEx for SoilChip**: Lab-on-a-chip designs to accelerate ModEx workflows informed by soil datasets. Key Steps in the ModEx loop include:
 
-1. **XCT Imaging of Soil Core and Aggregates:** High-resolution X-ray computed tomography (XCT) imaging captures detailed 3D structures, providing a foundational understanding of the physical characteristics.
+1. **XCT Imaging of Soil Core and Aggregates (Pore2Chip):** High-resolution X-ray computed tomography (XCT) imaging captures detailed 3D structures, providing a foundational understanding of the physical characteristics.
 
-2. **3D Pore Network Characterization:** The 3D pore network is analyzed to determine pore size frequency and distribution, which is critical for understanding flow and transport properties.
+2. **3D Pore Network Characterization (Pore2Chip):** The 3D pore network is analyzed to determine pore size frequency and distribution, which is critical for understanding flow and transport properties.
 
-3. **Transform 3D Pore Network into 2D Rendering:** The complex 3D network is simplified into a 2D rendering for easier analysis and visualization.
+3. **Transform 3D Pore Network into 2D Rendering (Pore2Chip):** The complex 3D network is simplified into a 2D rendering for easier analysis and visualization.
 
-4. **Build Micromodels for Environmental Experiments:** Micromodels replicate environmental conditions, enabling controlled experiments to observe carbon flow and degradation.
+4. **Build Micromodels for Environmental Experiments (Pore2Chip):** Micromodels replicate environmental conditions, enabling controlled experiments to observe fluid flow and chemical species degradation.
 
-5. **Microscale Experimental Data on Chemical Hotspots:** Detailed experiments using techniques like ToF-SIMS and SEM-EDS provide data on chemical hotspots within the porous media.
+5. **Microscale Experimental Data on Chemical Hotspots (Chip2Flow):** Detailed experiments using techniques like ToF-SIMS and SEM-EDS provide data on chemical hotspots within the porous media.
 
-6a. **Pore-Scale Multi-Physics Modeling:** Simulations model fluid flow, heat transfer, and chemical reactions at the pore scale, which is needed to predict carbon cycling behavior under different environmental conditions.
+6a. **Pore-Scale Multi-Physics Modeling (Chip2Flow):** Simulations model fluid flow, heat transfer, and chemical reactions at the pore scale, which is needed to predict system behavior under different environmental conditions.
 
-6b. **Calibration and Validation:** Predictive AI/ML-enabled models are calibrated and validated using experimental data for accuracy and reliability.
+6b. **Calibration and Validation (Chip2Flow):** Predictive AI/ML-enabled models are calibrated and validated using experimental data for accuracy and reliability.
 
-7a. **Understanding Carbon Flow and Degradation in Soil Core Experiments:** Experiments on soil cores provide vital information on carbon flow and degradation, connecting back to micromodel generation.
+7a. **Understanding Fluid Flow and Species Degradation in Soil Core Experiments (Chip2Flow):** Experiments on soil cores provide vital information on fluid flow and chemical species degradation, connecting back to micromodel generation.
 
-7b. **Upscaled Properties:** Properties and behaviors observed at smaller scales are upscaled to larger scales (mm to cm) for real-world application.
+7b. **Upscaled Properties (Chip2Flow):** Properties and behaviors observed at smaller scales are upscaled to larger scales (mm to cm) for real-world application.
 
-**Conclusion:** The iterative ModEx loop continuously improves multi-physics process models through integration with experimental data, leading to more accurate predictions for soil carbon cycling and rhizosphere function applications.
+**Conclusion:** The iterative ModEx loop continuously improves multi-physics process models through integration with experimental data, leading to more accurate predictions for system evolution and rhizosphere function applications. Additional specifics on extending this to Critical Minerals and Material (CMM) science applications is here [Download the SoilTwin poster pdf](https://github.com/EMSL-Computing/Pore2Chip/blob/main/paper/material/Pore2Chip_Chip2Flow_Specifics.pdf)
 
 ![ModExLoop](https://github.com/EMSL-Computing/Pore2Chip/blob/main/example_outputs/ModEx_Loop_SoilChip.jpg)
 
@@ -201,9 +201,9 @@ For more information, see [user guide for EMSL Open OnDemand](https://www.emsl.p
 
 ### Within the Pore2Chip platform
 
-Our team is developing advanced modeling techniques to simulate complex multi-physics phenomena numerically. These numerical simulations are essential for understanding and predicting fluid flow behavior, chemical species degradation, and nutrient intake within the micromodels for soil carbon cycling applications.
+Our team is developing advanced modeling techniques to simulate complex multi-physics phenomena numerically. These numerical simulations are essential for understanding and predicting fluid flow behavior, chemical species degradation, and nutrient intake within the micromodels for reactive-transport applications.
 
-The micromodels generated by Pore2Chip can be meshed for multi-physics simulations to understand flow and reactive-transport modeling better. Here, we show a structured mesh capability (see [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11211760.svg)](https://doi.org/10.5281/zenodo.11211760)) that can be generated for PFLOTRAN-based multi-physics modeling. The mesh is a grid of points to solve carbon flow and reactive transport within the lab-on-chip.
+The micromodels generated by Pore2Chip can be meshed for multi-physics simulations to understand flow and reactive-transport modeling better. Here, we show a structured mesh capability (see [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11211760.svg)](https://doi.org/10.5281/zenodo.11211760)) that can be generated for PFLOTRAN-based multi-physics modeling. The mesh is a grid of points to solve fluid flow and reactive transport within the lab-on-chip.
 
 ### Key modeling capabilities that we are developing include
 
