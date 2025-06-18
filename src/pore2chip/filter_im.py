@@ -280,7 +280,7 @@ def read_and_filter_list(img_path,
 
     for stride in range(depth):
         # Read Images
-        img = cv.imread(img_path + os.listdir(img_path)[stride],
+        img = cv.imread(img_path + sorted(os.listdir(img_path))[stride],
                         cv.IMREAD_GRAYSCALE)
         # Copy subsection of original image to 3D array
         if cropx is not None and cropy is not None:
