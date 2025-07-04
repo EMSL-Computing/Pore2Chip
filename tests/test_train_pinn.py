@@ -36,35 +36,35 @@ class TestTrainPINN(unittest.TestCase):
     - Different optimizers and loss functions: Ensures the function works correctly with various optimizers and loss functions.
     - Multiple layers and nodes: Tests the function with different feed-forward neural network architectures.
     """
-
+    
     def setUp(self):
         """
         Sets up the test environment and initializes common test parameters.
-        The `setUp` method is called before every test function in this class.
-        It initializes the parameters, optimizer, and other inputs used by
-        the `train_PINN` function.
+        Ensures `weights` and `colloc` are not equal to test loss properly.
         """
-        # Initialize common test parameters
+        # Initialize weights and collocation points to be different
         self.params = [{
             'weights': jnp.array([1.0, 2.0]),  # Initial weights
-            'biases': jnp.array([0.5])  # Initial biases
+            'biases': jnp.array([0.5])
         }]
-        self.epochs = 100  # Number of training epochs
-        self.optimizer = optax.adam(
-            0.001)  # Adam optimizer with learning rate 0.001
+        self.colloc = jnp.array([3.0, -1.0])  # Different from weights to ensure meaningful loss
+        assert not jnp.array_equal(self.params[0]['weights'], self.colloc), \
+            "Initial weights and collocation points should not be equal."
+    
+        self.epochs = 100
+        self.optimizer = optax.adam(0.1)
         self.loss_fun = lambda params, colloc, conds, norm_coeff: jnp.mean(
-            (params[0]['weights'] - colloc)**2)  # Simple loss function
-        self.colloc = jnp.array([1.0, 2.0])  # Collocation points
-        self.conds = [jnp.array([1.0, 2.0])]  # Boundary conditions
-        self.norm_coeff = jnp.array([1.0])  # Normalization coefficient
-        self.hidden_layers = 2  # Number of hidden layers in the neural network
-        self.hidden_nodes = 10  # Number of hidden nodes for each layer
-        self.lr = 0.001  # Learning rate for the optimizer
-        self.results_dir = './results/'  # Results directory to save the .pkl file
-
-        # Create results directory if it doesn't exist
+            (params[0]['weights'] - colloc) ** 2)
+        self.conds = [jnp.array([1.0, 2.0])]
+        self.norm_coeff = jnp.array([1.0])
+        self.hidden_layers = 2
+        self.hidden_nodes = 10
+        self.lr = 0.001
+        self.results_dir = './results/'
+    
         if not os.path.exists(self.results_dir):
             os.makedirs(self.results_dir)
+
 
     def test_train_PINN_output(self):
         """
@@ -296,14 +296,19 @@ class TestTrainPINN(unittest.TestCase):
                     best_params)  # Ensure best_params is not None
                 self.assertLessEqual(best_loss,
                                      float('inf'))  # Ensure loss is finite
-
-
-def main():
-    """
-    Run the unit tests when script is executed `python test_train_pinn.py`.
-    """
-    unittest.main()
+                
+                
 
 
 if __name__ == '__main__':
-    main()
+    # Option 1: Run through standard unittest (preserves CLI usability)
+    unittest.main()
+
+    # Option 2: Also make individual test methods REPL-executable
+    print("\nManual REPL-friendly execution of each test case:")
+    t = TestTrainPINN()
+    t.setUp()
+    for item in dir(t):
+        if item.startswith('test_'):
+            print(f'\nRunning test: {item}')
+            getattr(t, item)()
