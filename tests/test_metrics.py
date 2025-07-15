@@ -2,6 +2,7 @@ import sys
 import os
 import time
 import numpy as np
+import porespy as ps  # ✅ Add this line to fix the NameError
 from skimage.draw import ellipse
 from pathlib import Path
 from porespy.generators import cylinders

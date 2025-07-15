@@ -1,7 +1,7 @@
 import numpy as np
 from skimage.measure import label, regionprops
 import feret
-from porespy import networks, networks, filters
+from porespy import networks, networks, filters, metrics
 import openpnm as op
 import copy
 from skimage.segmentation import watershed
@@ -118,12 +118,12 @@ def extract_diameters2(img_list, voxel_size=1, sigma_val=0.4):
     sigma = sigma_val
     dt = spim.distance_transform_edt(input=img_list)
     dt1 = spim.gaussian_filter(input=dt, sigma=sigma)
-    peaks = ps.filters.find_peaks(dt=dt)
+    peaks = filters.find_peaks(dt=dt)
 
     #print('Initial number of peaks: ', spim.label(peaks)[1])
-    peaks = ps.filters.trim_saddle_points(peaks=peaks, dt=dt1)
+    peaks = filters.trim_saddle_points(peaks=peaks, dt=dt1)
     #print('Peaks after trimming saddle points: ', spim.label(peaks)[1])
-    peaks = ps.filters.trim_nearby_peaks(peaks=peaks, dt=dt)
+    peaks = filters.trim_nearby_peaks(peaks=peaks, dt=dt)
     peaks, N = spim.label(peaks)
     #print('Peaks after trimming nearby peaks: ', N)
 
