@@ -23,44 +23,34 @@ def network2svg(
     middle_pores=None,
     disconnected=None,
     throat_vector_thres=None): # Boolean to draw perp. lines for throat placement (debugging) 
-    r"""
-    Create an SVG file from an OpenPNM network. 
-    The network2svg function converts an OpenPNM network into an SVG image. 
-    It represents pores as either blobs or circles, and throats as either simple lines 
-    or a series of connected circles to form a more complex shape
 
-    Parameters:
-        generated_network : dict
-            The OpenPNM network containing pore and throat information.
-        n1 : int
-            Number of pores on the x-axis of the model grid
-        n2 : int
-            Number of pores on the y-axis of the model grid
-        d1 : int
-            The x length of the SVG image (in pixels).
-        d2 : int
-            The y length of the SVG image (in pixels).
-        pore_shape : str, optional
-            Shape of the pore bodies, can be 'blob' or 'circle'. Default is 'blob'.
-        throat_random : int, optional
-            Multiplier that decides how random the throat shape will be. Default is 1.
+    r"""
+
+        Create an SVG file from an OpenPNM network. 
+        The network2svg function converts an OpenPNM network into an SVG image. 
+        It represents pores as either blobs or circles, and throats as either simple lines 
+        or a series of connected circles to form a more complex shape
+
+      Args:
+        generated_network (dict): The OpenPNM network containing pore and throat information.
+        n1 (int): Number of pores on the x-axis of the model grid
+        n2 (int): Number of pores on the y-axis of the model grid
+        d1 (int): The x length of the SVG image (in pixels).
+        d2 (int): The y length of the SVG image (in pixels).
+        pore_shape (str): Shape of the pore bodies, can be 'blob' or 'circle'. Default is 'blob'.
+        throat_random (int): Multiplier that decides how random the throat shape will be. Default is 1.
             A value of 0 makes the throats straight.
-        pore_debug : bool, optional
-            If True, draws pore bodies as blue and draws pore index number next 
+        pore_debug (boolean): If True, draws pore bodies as blue and draws pore index number next 
             to the pore. Default is False.
-        throat_debug : bool, optional
-            If True, draws lines where throats connect. Default is False.
-        throat_random_debug : bool, optional
-            If True, draws lines perpendicular to throat directions used to randomize
+        throat_debug (boolean): If True, draws lines where throats connect. Default is False.
+        throat_random_debug (boolean): If True, draws lines perpendicular to throat directions used to randomize
             throat shape. `throat_debug` must be True. Default is False.
-        middle_pores : array-like
-            Array or pore indices that indicate the center channel for debugging
+        middle_pores (array): Array or pore indices that indicate the center channel for debugging
             Renders the middle pores in green. 
             Also writes pore index number next to dot. Default is None.
 
-    Returns:
-        dr.Drawing
-            A drawSvg drawing object representing the network.
+      Returns:
+        dr.Drawing: A drawSvg drawing object representing the network.
     """
 
     # Initialize the drawing with the specified size and origin at the bottom left
@@ -351,22 +341,19 @@ def network2dxf(
     no_throats=False,
 ):
     r"""
-    Create a DXF file from an OpenPNM network.
-    The network2dxf function generates a DXF file from an OpenPNM network. 
-    It represents pores as circles and throats as a series of connected circles 
-    to form irregular shapes, with an optional parameter to introduce randomness 
-    in the throat shapes.
+        Create a DXF file from an OpenPNM network. (deprecated)
+        The network2dxf function generates a DXF file from an OpenPNM network. 
+        It represents pores as circles and throats as a series of connected circles 
+        to form irregular shapes, with an optional parameter to introduce randomness 
+        in the throat shapes.
 
-    Parameters:
-        generated_network : dict
-            The OpenPNM network containing pore and throat information.
-        throat_random : int, optional
-            Multiplier that decides how random the throat shape will be. Default is 1.
+      Args:
+        generated_network (dict): The OpenPNM network containing pore and throat information.
+        throat_random (int): Multiplier that decides how random the throat shape will be. Default is 1.
             A value of 0 makes the throats straight.
 
-    Returns:
-        ezdxf.document
-            An ezdxf document object representing the network.
+      Returns:
+        ezdxf.document: An ezdxf document object representing the network.
     """
 
     # Create a new DXF document with DXF version R2000

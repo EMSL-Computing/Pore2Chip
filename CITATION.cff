@@ -38,7 +38,7 @@ authors:
     given-names: "Satish"
     orcid: "https://orcid.org/0000-0001-7847-6293"
     affiliation: "EMSL"
-version: "0.1.0"
+version: "0.2.0"
 date-released: "2024-7-15"
 repository-code: "https://github.com/EMSL-Computing/Pore2Chip/"
 license: "MIT"

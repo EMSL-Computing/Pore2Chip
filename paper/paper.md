@@ -72,7 +72,7 @@ responses under changing pore networks [@davidson2012d; @moyano2018diffusion].
 
 The need for software that can generate various micromodel designs that researchers can test and validate with minimal computational 
 cost [@Dentz2023; @Oostrom2014] is increasing. `Pore2Chip` allows this functionality by providing the intended users, such as earth scientists and 
-lab-on-chip instrument specialists, with easy-to-use research software for lab-on-chip designs. Specifically, the Pore2Chip-based data worth analysis allows researchers to 
+lab-on-chip instrument specialists, with easy-to-use research software for lab-on-chip designs. Specifically, the Pore2Chip-based information analysis of XCT images allows researchers to 
 fill this experimental design gap by enabling the ability to build a representative quasi-2D pore network along with 
 first-order, fast, and reasonably accurate flow models that can be linked with experiments. These flow models are built using recent advances in 
 physics-informed neural networks [@New2024], laying the foundation to accelerate numerical simulations and improve the fidelity of predictions in 
@@ -97,7 +97,7 @@ Using `Porespy` [@Gostick2016], `OpenPNM` [@Gostick2016] and various graphics re
 on the target porosity of the micromodel. It can also be exported as micromodel data in VTK formats for 
 visualization in Paraview or microfluidic simulations with open-source software such as `PFLOTRAN` (https://www.pflotran.org), `OpenFOAM` (https://www.openfoam.com), 
 and other physics-informed neural network modules. If the user wants to extract data from XCT images, `Pore2Chip` has image filtering and network extraction 
-modules utilizing Otsu thresholding and `PoreSpy`. The generation function can also work with data extracted by other means if it is an array of values that 
+modules utilizing Otsu thresholding and `PoreSpy`. Though, generation function can also work with data extracted by other software as long as it is an array of values that 
 Python can read. 
 
 \autoref{fig:fig2} provides a high-level overview of the repository structure and example use cases (\autoref{fig:fig1}) within the `Pore2Chip` repository. 
