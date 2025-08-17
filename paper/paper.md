@@ -81,28 +81,25 @@ Such a capability can guide model-experiment-data (ModEx) integration at the mic
 ## Main features and differences with other tools
 
 `Pore2Chip` addresses complex pore structures by representing pore networks as connected shapes, unlike older sphere packing algorithms. 
-This enables users to easily create and control pore networks representing various real-world conditions. `Pore2Chip` offers experimental design capabilities that 
-cannot be achieved by existing software such as epyc [@Dobson2022]. 
-`Pore2Chip` provides support and reproducibility for developing lab-on-chip experimental designs uniformly across different soil datasets with fast, reasonably 
-accurate, first-order flow modeling capabilities. Microscale experiments using `Pore2Chip` micromodels may target both abiotic and biotic 
-processes and be integrated into modeling efforts such as water flow modeling, reactive transport modeling, and microbial activity simulations. 
+This enables users to easily create and control pore networks representing various real-world conditions. `Pore2Chip` offers experimental design capabilities that cannot be achieved by existing software such as epyc [@Dobson2022]. 
+`Pore2Chip` provides support and reproducibility for developing lab-on-chip experimental designs uniformly across different soil datasets with fast, reasonably accurate, first-order flow modeling capabilities. 
+Microscale experiments using `Pore2Chip` micromodels may target both abiotic and biotic processes and be integrated into modeling efforts such as water flow modeling, reactive transport modeling, and microbial activity simulations. 
 
 
 ## Implementation details and support libraries
 
 Using `Porespy` [@Gostick2016], `OpenPNM` [@Gostick2016] and various graphics rendering libraries (e.g., drawsvg, ezdxf, svglib, cairosvg, reportlab), 
-`Pore2Chip` renders SVG or DXF micromodel designs of the generated network. Output designs are scalable and adjustable based 
-on the target porosity of the micromodel. It can also be exported as micromodel data in VTK formats for 
-visualization in Paraview or microfluidic simulations with open-source software such as `PFLOTRAN` (https://www.pflotran.org), `OpenFOAM` (https://www.openfoam.com), 
-and other physics-informed neural network modules. If the user wants to extract data from XCT images, `Pore2Chip` has image filtering and network extraction 
-modules utilizing Otsu thresholding and `PoreSpy`. Though, generation function can also work with data extracted by other software as long as it is an array of values that 
-Python can read. 
+`Pore2Chip` renders SVG or DXF micromodel designs of the generated network. 
+Output designs are scalable and adjustable based on the target porosity of the micromodel. 
+It can also be exported as micromodel data in VTK formats for visualization in Paraview or microfluidic simulations with open-source software such as `PFLOTRAN` (https://www.pflotran.org), `OpenFOAM` (https://www.openfoam.com), 
+and other physics-informed neural network modules. 
+If the user wants to extract data from XCT images, `Pore2Chip` has image filtering and network extraction modules utilizing Otsu thresholding and `PoreSpy`. Though, generation function can also work with data extracted by other software as long as it is an array of values that Python can read. 
 
 \autoref{fig:fig2} provides a high-level overview of the repository structure and example use cases (\autoref{fig:fig1}) within the `Pore2Chip` repository. 
 
 # Figures
 
-![A high-level overview of essential steps in Pore2Chip-based micromodel designs informed by soil dataset. The iterative ModEx loop continuously improves multi-physics process models by integrating experimental data, leading to more accurate predictions for soil carbon cycling and rhizosphere function applications.\label{fig:fig1}](figures/2_ModEx_Loop_SoilChip.jpg)
+![A high-level overview of essential steps in Pore2Chip-based micromodel designs informed by soil dataset. The iterative ModEx loop continuously improves multi-physics process models by integrating experimental data, leading to more accurate predictions for fluid flow, reactive-transport, and rhizosphere function applications.\label{fig:fig1}](figures/2_ModEx_Loop_SoilChip.jpg)
 
 ![An overview of the Pore2Chip repository structure, detailed example notebooks, and built distributions.\label{fig:fig2}](figures/3_Workflow.png)
 
