@@ -5,7 +5,7 @@
 
 Pore2Chip Documentation
 =======================
-A python package that takes XCT images of porous materials and generates representative digital twin micromodels.
+A python package that takes XCT images of porous materials and generates representative reduced complexity micromodels.
 
 .. figure:: _static/ModEx_Loop_SoilChip.jpg
    :width: 636px
@@ -35,7 +35,7 @@ Acknowledgements
 ----------------
 This research was performed on a project award (Award DOIs: 10.46936/ltds.proj.2024.61069/60012423; 10.46936/intm.proj.2023.60674/60008777; 10.46936/intm.proj.2023.60904/60008965) 
 from the Environmental Molecular Sciences Laboratory, a DOE Office of Science User Facility sponsored by the Biological and Environmental Research program under contract no. DE-AC05-76RL01830. 
-The authors acknowledge the contributions of Michael Perkins at PNNL’s Creative Services, who developed the conceptual graphics in this paper.
+The authors acknowledge the contributions of Michael Perkins and Ben Watson at PNNL’s Creative Services, who developed the conceptual graphics in this paper.
 
 PNNL-SA-197910
 
