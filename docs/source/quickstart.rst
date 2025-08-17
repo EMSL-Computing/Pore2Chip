@@ -33,9 +33,8 @@ custom threshold values, and gray value masking can also be set in the function 
 
 Step 3: Pore Data Extraction
 ----------------------------
-Now that the segmented data is loaded into memory, we will use the ``metrics`` module to extract the necessary information needed to 
-cunstruct the micromodel design. This extraction is based on pore network extraction via watershed segmentation and the SNOW 
-algorithm provided by `Porespy`.
+Now that the segmented data is loaded into memory, we will use the ``metrics`` module to extract the necessary information needed to construct the micromodel design. 
+This extraction is based on pore network extraction via watershed segmentation and the SNOW algorithm provided by `Porespy`.
 
 First, we will extract the pore and pore throat diameters:
 
@@ -51,8 +50,7 @@ Next, we will extract the pore coordination numbers:
    :start-after: # Step 3.2 Start
    :end-before: # Step 3.2 End
 
-The variables we extracted are arrays that contain all of the pore diameters, throat diameters, and coordination numbers for all the 
-extracted pores in the pore network. We can visualize the distribution of the data using `matplotlib`:
+The variables we extracted are arrays that contain all of the pore diameters, throat diameters, and coordination numbers for all the extracted pores in the pore network. We can visualize the distribution of the data using `matplotlib`:
 
 .. literalinclude:: ./examples/quickstart_example.py
    :language: python

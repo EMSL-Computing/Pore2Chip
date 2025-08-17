@@ -11,3 +11,8 @@ generate_network()
 ------------------
 
 .. autofunction:: pore2chip.generate.generate_network
+
+
+.. note::
+
+   This project is under active development.

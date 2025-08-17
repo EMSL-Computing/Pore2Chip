@@ -9,7 +9,7 @@
 project = 'Pore2Chip'
 copyright = '2025, Aramy Truong, Maruti Mudunuru, Md Lal Mamud'
 author = 'Aramy Truong, Maruti Mudunuru, Md Lal Mamud'
-release = '0.1.1'
+release = '0.2.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

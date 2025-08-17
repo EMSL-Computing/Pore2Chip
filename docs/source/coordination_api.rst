@@ -70,3 +70,7 @@ Functionality:
 
     - This function assumes the `porespy` and `openpnm` libraries are installed and imported.
     - The specific implementation of `ps.networks.snow2` might require further investigation depending on the exact functionality of the PoresPy library.
+
+.. note::
+
+   This project is under active development.

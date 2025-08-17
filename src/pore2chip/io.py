@@ -69,16 +69,23 @@ def _write_vtk(vtk_fl_name, num_nodes, num_elements, nodes_per_element, \
 
 def img2vtk(image, vtk_fl_name, dims, **kwargs):
     r"""
-    Converts 2D image array to 3D vtk model
+        Converts 2D image array to 3D vtk model
 
-    Parameters:
-        image : 2D image array
-        vtk_fl_name : Filename/filepath
-        dims : Size 3 Array-like for x, y, and z dimentions respectively
+      Args:
+        image (2D array): 2D image array
+        vtk_fl_name (str): Filename/filepath
+        dims (array): Size 3 Array-like for x, y, and z dimentions respectively
         **kwargs : Extra arguements to write to VTK file.
-            Examples: Permeability = perm_matrix
-            ...where perm_matrix is an array defining permeability
-                values for each pixel
+            Examples: Permeability = perm_matrix ... 
+            where perm_matrix is an array defining permeability
+            values for each pixel
+
+        generated_network (dict): The OpenPNM network containing pore and throat information.
+        throat_random (int): Multiplier that decides how random the throat shape will be. Default is 1.
+            A value of 0 makes the throats straight.
+
+      Returns:
+        None
     """
     xseed = image.shape[0]
     yseed = image.shape[1]
