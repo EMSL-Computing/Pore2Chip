@@ -1,7 +1,7 @@
 # Pore2Chip: All-in-One Python Tool for Soil Microstructure Analysis and Micromodel Design
 
 ## What is Pore2Chip?
-Pore2Chip is a Python module designed to streamline the process of analyzing X-ray computed tomography (XCT) images of soil and creating 2D micromodel designs based on that analysis. It leverages the power of open-source libraries like OpenPNM, PoreSpy, and drawsvg to  extract key information about the soil's porous structure and translate it into a blueprint for microfluidic simulations or physical "lab-on-a-chip" devices developed using additive manufacturing.
+Pore2Chip is a Python module designed to streamline the process of analyzing X-ray computed tomography (XCT) images of soil and creating 2D micromodel designs based on that analysis. It leverages the power of open-source libraries like OpenPNM, PoreSpy, and drawsvg to  extract key information about the soil's porous structure and translate it into a blueprint for microfluidic simulations or physical `lab-on-a-chip` devices developed using additive manufacturing.
 
 ### A workflow for model-data-experiment (ModEx) design:
 
@@ -15,7 +15,7 @@ Below is a conceptual figure, workflow, and vision for this all-in-one Python to
 
 (3) **Transform 3D Pore Network into 2D Rendering (Pore2Chip):** The complex 3D network is simplified into a 2D rendering for easier analysis and visualization.
 
-(4) **Build Micromodels for Environmental Experiments (Pore2Chip):** Micromodels replicate environmental conditions, enabling controlled experiments to observe fluid flow and chemical species degradation.
+(4) **Build Micromodels for Experiments (Pore2Chip):** Micromodels replicate environmental conditions, enabling controlled experiments to observe fluid flow and chemical species degradation.
 
 (5) **Microscale Experimental Data on Chemical Hotspots (Chip2Flow):** Detailed experiments using techniques like ToF-SIMS and SEM-EDS provide data on chemical hotspots within the porous media.
 
@@ -23,7 +23,7 @@ Below is a conceptual figure, workflow, and vision for this all-in-one Python to
 
 (6b) **Calibration and Validation (Chip2Flow):** Predictive AI/ML-enabled models are calibrated and validated using experimental data for accuracy and reliability.
 
-(7a) **Understanding Fluid Flow and Species Degradation in Soil Core Experiments (Chip2Flow):** Experiments on soil cores provide vital information on fluid flow and chemical species degradation, connecting back to micromodel generation.
+(7a) **Understanding Fluid Flow and Reactive-Transport in Soil Core Experiments (Chip2Flow):** Experiments on soil cores provide vital information on fluid flow and chemical species degradation, connecting back to micromodel generation.
 
 (7b) **Upscaled Properties (Chip2Flow):** Properties and behaviors observed at smaller scales are upscaled to larger scales (mm to cm) for real-world application.
 
@@ -345,7 +345,7 @@ Additionally, your contributions can be as simple as:
 ```
 
 ## Acknowledgements
-This research was performed on a project award (Award DOIs: 10.46936/ltds.proj.2024.61069/60012423; 10.46936/intm.proj.2023.60674/60008777; 10.46936/intm.proj.2023.60904/60008965) from the Environmental Molecular Sciences Laboratory, a DOE Office of Science User Facility sponsored by the Biological and Environmental Research program under contract no. DE-AC05-76RL01830. The authors acknowledge the contributions of Michael Perkins at PNNL’s Creative Services, who developed the conceptual graphics in this paper.
+This research was performed on a project award (Award DOIs: 10.46936/ltds.proj.2024.61069/60012423; 10.46936/intm.proj.2023.60674/60008777; 10.46936/intm.proj.2023.60904/60008965) from the Environmental Molecular Sciences Laboratory, a DOE Office of Science User Facility sponsored by the Biological and Environmental Research program under contract no. DE-AC05-76RL01830. The authors acknowledge the contributions of Michael Perkins and Ben Watson at PNNL’s Creative Services, who developed the conceptual graphics in this paper.
 
 PNNL-SA-197910
 
