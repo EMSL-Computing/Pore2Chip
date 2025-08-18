@@ -3,6 +3,8 @@
 ## What is Pore2Chip?
 Pore2Chip is a Python module designed to streamline the process of analyzing X-ray computed tomography (XCT) images of soil and creating 2D micromodel designs based on that analysis. It leverages the power of open-source libraries like OpenPNM, PoreSpy, and drawsvg to  extract key information about the soil's porous structure and translate it into a blueprint for microfluidic simulations or physical `lab-on-a-chip` devices developed using additive manufacturing.
 
+Documentation Quick Link: https://emsl-computing.github.io/Pore2Chip/
+
 ### A workflow for model-data-experiment (ModEx) design:
 
 Below is a conceptual figure, workflow, and vision for this all-in-one Python tool. The working principle starts with XCT imaging files, which will be characterized for soil structure-property relationships and then transformed into a 2D rendering applicable to pore-scale micromodel building. Micromodel experiments will then be used with PFLOTRAN/OpenFOAM/PINNs process models to simulate flow and reactive transport for calibration and V&V.
