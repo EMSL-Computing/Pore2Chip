@@ -25,14 +25,14 @@ def create_random_properties():
             - coordination_nums (np.ndarray): Array of random coordination numbers (converted to integers).
     """
     # Generating random pore diameters within specified range
-    pore_diameters = np.random.uniform(low=1.0, high=10.0, size=20)
+    pore_diameters = np.random.uniform(low=1.0, high=10.0, size=20, seed=1)
 
     # Generating random throat diameters within specified range
-    throat_diameters = np.random.uniform(low=0.5, high=6.0, size=20)
+    throat_diameters = np.random.uniform(low=0.5, high=6.0, size=20, seed=1)
 
     # Generating random coordination numbers within specified range and converting to integers
     coordination_nums = np.random.uniform(low=0, high=8,
-                                          size=20).astype(np.int64)
+                                          size=20, seed=1).astype(np.int64)
     return pore_diameters, throat_diameters, coordination_nums
 
 
