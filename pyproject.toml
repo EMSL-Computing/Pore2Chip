@@ -29,6 +29,11 @@ dynamic = ["dependencies"]
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.txt"]}
 
+[project.optional-dependencies]
+extras = [
+  "pypardiso",
+]
+
 [project.urls]
 Homepage = "https://www.emsl.pnnl.gov/science/instruments-resources/terraforms-pore2chip"
 Source = "https://github.com/EMSL-Computing/Pore2Chip"
