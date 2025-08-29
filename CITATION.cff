@@ -1,45 +1,83 @@
-cff-version: 1.2.0
-message: "If you use this work, please cite it using the following metadata."
-title: "Pore2Chip: All-in-One Python Tool for Soil Microstructure Analysis and Micromodel Design"
+cff-version: "1.2.0"
 authors:
-  - family-names: "Truong"
-    given-names: "Aramy"
+- family-names: Truong
+  given-names: Aramy
+  orcid: "https://orcid.org/0009-0002-7467-7957"
+- family-names: Mudunuru
+  given-names: Maruti K.
+  orcid: "https://orcid.org/0000-0002-2158-7723"
+- family-names: Rooney
+  given-names: Erin C.
+  orcid: "https://orcid.org/0000-0002-9121-7699"
+- family-names: Bhattacharjee
+  given-names: Arunima
+  orcid: "https://orcid.org/0000-0001-7482-8722"
+- family-names: Varga
+  given-names: Tamas
+  orcid: "https://orcid.org/0000-0002-5492-866X"
+- family-names: Mamud
+  given-names: Md Lal
+  orcid: "https://orcid.org/0000-0002-5764-1058"
+- family-names: He
+  given-names: Xiaoliang
+  orcid: "https://orcid.org/0000-0003-3835-1917"
+- family-names: Battu
+  given-names: Anil K.
+  orcid: "https://orcid.org/0000-0001-7724-5100"
+- family-names: Karra
+  given-names: Satish
+  orcid: "https://orcid.org/0000-0001-7847-6293"
+contact:
+- family-names: Truong
+  given-names: Aramy
+  orcid: "https://orcid.org/0009-0002-7467-7957"
+- family-names: Mudunuru
+  given-names: Maruti K.
+  orcid: "https://orcid.org/0000-0002-2158-7723"
+doi: 10.5281/zenodo.16903861
+message: If you use this software, please cite our article in the
+  Journal of Open Source Software.
+preferred-citation:
+  authors:
+  - family-names: Truong
+    given-names: Aramy
     orcid: "https://orcid.org/0009-0002-7467-7957"
-    affiliation: "EMSL"
-  - family-names: "Mudunuru"
-    given-names: "Maruti"
+  - family-names: Mudunuru
+    given-names: Maruti K.
     orcid: "https://orcid.org/0000-0002-2158-7723"
-    affiliation: "PNNL"
-  - family-names: "Rooney"
-    given-names: "Erin C."
+  - family-names: Rooney
+    given-names: Erin C.
     orcid: "https://orcid.org/0000-0002-9121-7699"
-    affiliation: "USDA-NRCS"
-  - family-names: "Bhattacharjee"
-    given-names: "Arunima"
+  - family-names: Bhattacharjee
+    given-names: Arunima
     orcid: "https://orcid.org/0000-0001-7482-8722"
-    affiliation: "EMSL"
-  - family-names: "Varga"
-    given-names: "Tamas"
+  - family-names: Varga
+    given-names: Tamas
     orcid: "https://orcid.org/0000-0002-5492-866X"
-    affiliation: "EMSL"
-  - family-names: "Mamud"
-    given-names: "Md Lal"
+  - family-names: Mamud
+    given-names: Md Lal
     orcid: "https://orcid.org/0000-0002-5764-1058"
-    affiliation: "PNNL"
-  - family-names: "He"
-    given-names: "Xiaoliang"
+  - family-names: He
+    given-names: Xiaoliang
     orcid: "https://orcid.org/0000-0003-3835-1917"
-    affiliation: "PNNL"
-  - family-names: "Battu"
-    given-names: "Anil K."
+  - family-names: Battu
+    given-names: Anil K.
     orcid: "https://orcid.org/0000-0001-7724-5100"
-    affiliation: "EMSL"
-  - family-names: "Karra"
-    given-names: "Satish"
+  - family-names: Karra
+    given-names: Satish
     orcid: "https://orcid.org/0000-0001-7847-6293"
-    affiliation: "EMSL"
-version: "0.2.0"
-date-released: "2024-7-15"
-repository-code: "https://github.com/EMSL-Computing/Pore2Chip/"
-license: "MIT"
-doi: "XXXXX"
+  date-published: 2025-08-29
+  doi: 10.21105/joss.08052
+  issn: 2475-9066
+  issue: 112
+  journal: Journal of Open Source Software
+  publisher:
+    name: Open Journals
+  start: 8052
+  title: "Pore2Chip: All-in-one python tool for soil microstructure
+    analysis and micromodel design"
+  type: article
+  url: "https://joss.theoj.org/papers/10.21105/joss.08052"
+  volume: 10
+title: "Pore2Chip: All-in-one python tool for soil microstructure
+  analysis and micromodel design"
