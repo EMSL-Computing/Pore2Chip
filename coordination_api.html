@@ -1,0 +1,301 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>coordination &#8212; Pore2Chip 0.2.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/conestack.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="generate" href="generate_api.html" />
+    <link rel="prev" title="metrics" href="metrics_api.html" />
+<link rel="stylesheet" type="text/css" src="_static/bootstrap.css" />
+<script src="_static/bootstrap.bundle.min.js"></script>
+<script src="_static/conestack.js"></script>
+
+  </head><body>
+
+  <noscript>
+    <style type="text/css">
+      #searchbox,
+      #searchdesc {
+        display: none;
+      }
+      @media (max-width: 768px) {
+        #navbar-toggle {
+          display: none;
+        }
+        #cs-mobile-menu {
+          display: block;
+        }
+        #cs-layout {
+          margin-top: 12rem;
+        }
+        #cs-ext-links {
+          margin-right: 2rem!important;
+        }
+      }
+    </style>
+  </noscript>
+
+  
+  <header class="navbar navbar-expand-md" id="header">
+    <nav class="container-xxl flex-wrap flex-md-nowrap p-0" id="cs-nav">
+  <a id="logo" class="navbar-brand p-0 me-2" href="index.html">
+    <img src="_static/p2c_logo.svg"
+         alt="Logo"
+         width="70px"
+         height="70px" />
+    <span>Pore2Chip</span>
+  </a>
+
+      
+  <div id="nav-search" class="ms-auto">
+    <div id="searchbox" class="nav-item me-3" role="search">
+      <form class="search input-group" action="search.html" method="get">
+        <input type="text" class="form-control" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        <button type="submit" 
+                class="bi bi-search input-group-text"
+                btn-title="Search documentation"></button>
+      </form>
+    </div>
+  </div>
+      
+  <div id="cs-ext-links"class="me-3">
+    <ul class="navbar-nav flex-row ms-md-auto">
+  <li class="nav-item" data-title="GitHub">
+    <a class="nav-link p-2" href="https://github.com/EMSL-Computing/Pore2Chip" target="_blank" rel="noopener">
+      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" class="navbar-nav-svg d-inline-block align-text-top" viewBox="0 0 512 499.36" role="img"><title>GitHub</title><path fill="currentColor" fill-rule="evenodd" d="M256 0C114.64 0 0 114.61 0 256c0 113.09 73.34 209 175.08 242.9 12.8 2.35 17.47-5.56 17.47-12.34 0-6.08-.22-22.18-.35-43.54-71.2 15.49-86.2-34.34-86.2-34.34-11.64-29.57-28.42-37.45-28.42-37.45-23.27-15.84 1.73-15.55 1.73-15.55 25.69 1.81 39.21 26.38 39.21 26.38 22.84 39.12 59.92 27.82 74.5 21.27 2.33-16.54 8.94-27.82 16.25-34.22-56.84-6.43-116.6-28.43-116.6-126.49 0-27.95 10-50.8 26.35-68.69-2.63-6.48-11.42-32.5 2.51-67.75 0 0 21.49-6.88 70.4 26.24a242.65 242.65 0 0 1 128.18 0c48.87-33.13 70.33-26.24 70.33-26.24 14 35.25 5.18 61.27 2.55 67.75 16.41 17.9 26.31 40.75 26.31 68.69 0 98.35-59.85 120-116.88 126.32 9.19 7.9 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.23 0 6.85 4.61 14.81 17.6 12.31C438.72 464.97 512 369.08 512 256.02 512 114.62 397.37 0 256 0z"></path></svg>
+    </a>
+  </li>
+
+  <li class="nav-item" data-title="Pypi">
+    <a class="nav-link p-2" href="https://pypi.org/project/pore2chip/" target="_blank" rel="noopener">
+      <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="36" height="36" viewBox="0 0 50 50" role="img" style=" fill:#000000;"><path d="M 25 2 C 20.941406 2 18.1875 2.96875 16.4375 4.375 C 14.6875 5.78125 14 7.589844 14 9.09375 L 14 14 L 24 14 L 24 15 L 9.09375 15 C 7.265625 15 5.410156 15.792969 4.09375 17.46875 C 2.777344 19.144531 2 21.644531 2 25 C 2 28.355469 2.777344 30.855469 4.09375 32.53125 C 5.410156 34.207031 7.265625 35 9.09375 35 L 14 35 L 14 40.90625 C 14 42.410156 14.6875 44.21875 16.4375 45.625 C 18.1875 47.03125 20.941406 48 25 48 C 29.058594 48 31.8125 47.03125 33.5625 45.625 C 35.3125 44.21875 36 42.410156 36 40.90625 L 36 36 L 26 36 L 26 35 L 40.90625 35 C 42.734375 35 44.589844 34.207031 45.90625 32.53125 C 47.222656 30.855469 48 28.355469 48 25 C 48 21.644531 47.222656 19.144531 45.90625 17.46875 C 44.589844 15.792969 42.734375 15 40.90625 15 L 36 15 L 36 9.09375 C 36 7.550781 35.316406 5.738281 33.5625 4.34375 C 31.808594 2.949219 29.054688 2 25 2 Z M 25 4 C 28.746094 4 31.015625 4.875 32.3125 5.90625 C 33.609375 6.9375 34 8.136719 34 9.09375 L 34 21 C 34 22.65625 32.65625 24 31 24 L 19 24 C 16.941406 24 15.167969 25.269531 14.40625 27.0625 C 14.277344 27.359375 14.160156 27.675781 14.09375 28 C 14.027344 28.324219 14 28.65625 14 29 L 14 33 L 9.09375 33 C 7.824219 33 6.648438 32.503906 5.6875 31.28125 C 4.726563 30.058594 4 28.042969 4 25 C 4 21.957031 4.726563 19.941406 5.6875 18.71875 C 6.648438 17.496094 7.824219 17 9.09375 17 L 26 17 L 26 12 L 16 12 L 16 9.09375 C 16 8.199219 16.386719 6.980469 17.6875 5.9375 C 18.988281 4.894531 21.257813 4 25 4 Z M 20 7 C 18.898438 7 18 7.898438 18 9 C 18 10.101563 18.898438 11 20 11 C 21.101563 11 22 10.101563 22 9 C 22 7.898438 21.101563 7 20 7 Z M 36 17 L 40.90625 17 C 42.175781 17 43.351563 17.496094 44.3125 18.71875 C 45.273438 19.941406 46 21.957031 46 25 C 46 28.042969 45.273438 30.058594 44.3125 31.28125 C 43.351563 32.503906 42.175781 33 40.90625 33 L 24 33 L 24 38 L 34 38 L 34 40.90625 C 34 41.800781 33.613281 43.019531 32.3125 44.0625 C 31.011719 45.105469 28.742188 46 25 46 C 21.257813 46 18.988281 45.105469 17.6875 44.0625 C 16.386719 43.019531 16 41.800781 16 40.90625 L 16 29 C 16 28.792969 16.023438 28.601563 16.0625 28.40625 C 16.34375 27.039063 17.550781 26 19 26 L 31 26 C 33.746094 26 36 23.746094 36 21 Z M 30 39 C 28.898438 39 28 39.898438 28 41 C 28 42.101563 28.898438 43 30 43 C 31.101563 43 32 42.101563 32 41 C 32 39.898438 31.101563 39 30 39 Z"></path></svg>
+    </a>
+  </li>
+
+    </ul>
+  </div>
+
+
+      <button id="navbar-toggle" class="navbar-toggler p-0 me-4" type="button" data-bs-toggle="collapse" data-bs-target="#cs-mobile-menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" class="bi" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path></svg>
+      </button>
+
+      <div class="collapse container-fluid m-0 p-3" id="cs-mobile-menu"><nav class="cs-mobile-toc">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="module_ref.html">Module Reference</a></li>
+</ul>
+
+</nav>
+      </div>
+    </nav>
+  </header>
+  
+
+  <div class="container-xxl my-md-4" id="cs-layout">
+    
+  <aside id="cs-sidebar" class="ms-4 sphinxsidebar"><nav class="cs-nav-toc">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="install.html#pip-installation">Pip Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#conda-environment">Conda Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#docker-image">Docker Image</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-1-importing-libraries">Step 1: Importing Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-2-loading-desired-data">Step 2: Loading Desired Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-3-pore-data-extraction">Step 3: Pore Data Extraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-4-micromodel-network-generation">Step 4: Micromodel Network Generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#step-5-micromodel-exporting">Step 5: Micromodel Exporting</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="module_ref.html">Module Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="filter_im_api.html"><strong>filter_im</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics_api.html"><strong>metrics</strong></a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><strong>coordination</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="generate_api.html"><strong>generate</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="export_api.html"><strong>export</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="io_api.html"><strong>io</strong></a></li>
+</ul>
+</li>
+</ul>
+
+</nav>
+    
+  </aside>
+    
+
+    
+      <main class="document cs-main order-1" role="main">
+    
+      <div class="ps-lg-4 mt-3 cs-content">
+        
+  <section id="coordination">
+<h1><strong>coordination</strong><a class="headerlink" href="#coordination" title="Permalink to this heading">#</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">coordination</span></code> module contains functions related to extracting pore coordination numbers.</p>
+<hr class="docutils" />
+<section id="coordination-nums-3d">
+<h2>coordination_nums_3D()<a class="headerlink" href="#coordination-nums-3d" title="Permalink to this heading">#</a></h2>
+<p>Functionality:</p>
+<ol class="arabic simple">
+<li><dl class="simple">
+<dt>Check for OpenPNM network:</dt><dd><ul class="simple">
+<li><p>If <cite>pn</cite> is not None (i.e., an OpenPNM network is provided), the function extracts the coordination numbers directly from the network using <cite>op.models.network.coordination_number(pn)</cite>.</p></li>
+<li><p>This bypasses the image processing step and leverages the existing information in the network.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Image processing (if no network provided):</dt><dd><ul class="simple">
+<li><p>If <cite>pn</cite> is None, the function assumes <cite>img_list</cite> contains 3D image data as NumPy arrays.</p></li>
+<li><p>It utilizes the <cite>porespy</cite> library to process the images:</p></li>
+<li><dl class="simple">
+<dt><cite>ps.networks.snow2(img_list, voxel_size=1)</cite>: This function likely performs segmentation and network extraction from the images.</dt><dd><ul>
+<li><p><cite>voxel_size=1</cite> is assumed to be a unit voxel size (adjust if needed).</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>The processed network is then converted to an OpenPNM network using <cite>op.io.network_from_porespy(snow_output.network)</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Coordination number calculation:</dt><dd><ul class="simple">
+<li><p>Regardless of the input (image or network), the function calculates the coordination number of each pore using:</p></li>
+<li><p><cite>op.models.network.coordination_number(pn2)</cite>: This function calculates the coordination number for each pore in the OpenPNM network <cite>pn2</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Return coordination numbers:</dt><dd><ul class="simple">
+<li><p>The function returns the calculated coordination numbers (<cite>coordination_nums</cite>) as a list.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p>This function assumes the <cite>porespy</cite> and <cite>openpnm</cite> libraries are installed and imported.</p></li>
+<li><p>The specific implementation of <cite>ps.networks.snow2</cite> might require further investigation depending on the exact functionality of the PoresPy library.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="coordination-nums-2d">
+<h2>coordination_nums_2D()<a class="headerlink" href="#coordination-nums-2d" title="Permalink to this heading">#</a></h2>
+<p>Functionality:</p>
+<ol class="arabic simple">
+<li><dl class="simple">
+<dt>Iterate through image slices:</dt><dd><ul class="simple">
+<li><p>The function loops through each image in <cite>img_list</cite> using a for loop.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Process individual image:</dt><dd><ul class="simple">
+<li><p>Inside the loop, for each image slice (<cite>img_list[k]</cite>), it extracts a 2D portion using slicing (<cite>img_list[k, :, :]</cite>).</p></li>
+<li><p><cite>ps.networks.snow2(img_slice, voxel_size=1)</cite> likely performs segmentation and network extraction specifically for the 2D slice.</p></li>
+<li><p><cite>voxel_size=1</cite> is assumed to be a unit voxel size (adjust if needed).</p></li>
+<li><p>The processed network information is stored in <cite>snow_output.network</cite>.</p></li>
+<li><p>An OpenPNM network object (<cite>pn</cite>) is created by converting the PoresPy network using <cite>op.io.network_from_porespy(snow_output.network)</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Coordination number calculation:</dt><dd><ul class="simple">
+<li><p>The coordination number for each pore in the current image slice’s network (<cite>pn</cite>) is calculated using <cite>op.models.network.coordination_number(pn)</cite>.</p></li>
+<li><p>This function from OpenPNM provides the coordination numbers as a list.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Accumulate coordination numbers:</dt><dd><ul class="simple">
+<li><p>The calculated coordination numbers for the current slice (<cite>temp_coordination</cite>) are appended to the <cite>coordination_nums_2D</cite> list using <cite>np.concatenate</cite>.</p></li>
+<li><p>This accumulates coordination numbers from all processed slices into a single list.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Return results:</dt><dd><ul class="simple">
+<li><p>After iterating through all images, the function returns the final <cite>coordination_nums_2D</cite> list containing coordination numbers for all pores across the entire 2D image series.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p>This function assumes the <cite>porespy</cite> and <cite>openpnm</cite> libraries are installed and imported.</p></li>
+<li><p>The specific implementation of <cite>ps.networks.snow2</cite> might require further investigation depending on the exact functionality of the PoresPy library.</p></li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This project is under active development.</p>
+</div>
+</section>
+</section>
+
+
+      </div>
+
+    
+  <div class="cs-local-toc mx-4 mt-4 mb-5 my-md-0 ps-xl-3 mb-lg-5 text-muted">
+    <strong class="d-block h6 my-2 pb-2 border-bottom">On this page</strong>
+    <nav id="TableOfContents">
+      <ul>
+<li><a class="reference internal" href="#coordination-nums-3d">coordination_nums_3D()</a></li>
+<li><a class="reference internal" href="#coordination-nums-2d">coordination_nums_2D()</a></li>
+</ul>
+
+    </nav>
+  </div>
+    
+    </main>
+  </div><div class="container footer" role="contentinfo">
+  <footer class="d-flex flex-wrap justify-content-between align-items-center pt-2 my-4 border-top"><ul class="pb-2 mb-3 nav container border-bottom">
+  <li class="nav-item col-md-6 col">
+    <a href="metrics_api.html"
+       title="previous chapter"
+       class="nav-link px-2 text-muted previous-chapter"><strong>metrics</strong></a>
+  </li>
+  <li class="nav-item col-md-6 col text-end">
+    <a href="generate_api.html"
+       title="next chapter"
+       class="nav-link px-2 text-muted next-chapter"><strong>generate</strong></a>
+  </li>
+</ul>
+      <div class="container text-center text-muted pt-2 pb-2">
+          &#169; Copyright 2025, Aramy Truong, Maruti Mudunuru, Md Lal Mamud.
+      </div>
+      <div class="container text-center text-muted pt-2 pb-2">
+        Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.0.
+      </div>
+  </footer>
+</div>
+
+  </body>
+</html>
