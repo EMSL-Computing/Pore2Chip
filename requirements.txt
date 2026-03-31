@@ -16,3 +16,4 @@ jaxlib
 jax
 optax
 matplotlib
+shapely

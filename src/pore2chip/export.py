@@ -6,6 +6,8 @@ import numpy as np
 import drawsvg as dr
 import math
 import ezdxf
+from shapely.geometry import Point, Polygon
+from shapely.ops import unary_union
 
 
 def network2svg(
@@ -163,7 +165,7 @@ def network2svg(
             else:
                 design.append(
                     dr.Circle(x_coord, (-y_coord) + d2,
-                              radius / 2,
+                              radius,
                               fill=fill_color))
                 if pore_debug:
                     design.append(
@@ -487,3 +489,181 @@ def network2dxf(
                                           ratio=1)
 
     return document
+
+
+def _sample_blob_path(positions, samples_per_segment=10):
+    """Sample points along an SVG blob path (M + Q + T×7 + Z) into a list of 2-D points.
+
+    Replicates the exact same Bezier segments that network2svg() draws with drawsvg:
+      M positions[0]
+      Q (mx1,my1) positions[1]   <- first segment, explicit control point
+      T positions[2..8]           <- smooth quadratic (reflected control point)
+      Z                           <- Shapely closes automatically
+    """
+    points = []
+
+    p0 = (positions[0]['x'], positions[0]['y'])
+    points.append(p0)
+
+    # First segment: Quadratic Bezier (Q command)
+    cp = (positions[1]['mx'], positions[1]['my'])
+    p2 = (positions[1]['x'], positions[1]['y'])
+    for k in range(1, samples_per_segment + 1):
+        t = k / samples_per_segment
+        x = (1 - t)**2 * p0[0] + 2 * t * (1 - t) * cp[0] + t**2 * p2[0]
+        y = (1 - t)**2 * p0[1] + 2 * t * (1 - t) * cp[1] + t**2 * p2[1]
+        points.append((x, y))
+
+    prev_cp = cp
+    prev_end = p2
+
+    # Remaining segments: Smooth Quadratic Bezier (T command)
+    # Control point is the reflection of the previous control point about the current start.
+    for i in range(2, 9):
+        p0 = prev_end
+        cp = (2 * p0[0] - prev_cp[0], 2 * p0[1] - prev_cp[1])
+        p2 = (positions[i]['x'], positions[i]['y'])
+        for k in range(1, samples_per_segment + 1):
+            t = k / samples_per_segment
+            x = (1 - t)**2 * p0[0] + 2 * t * (1 - t) * cp[0] + t**2 * p2[0]
+            y = (1 - t)**2 * p0[1] + 2 * t * (1 - t) * cp[1] + t**2 * p2[1]
+            points.append((x, y))
+        prev_cp = cp
+        prev_end = p2
+
+    return points
+
+
+def network2shapely(
+    generated_network,
+    n1,
+    n2,
+    d1,
+    d2,
+    pore_shape='blob',
+    throat_random=1,
+    no_throats=False,
+    middle_pores=None,
+    disconnected=None,
+    throat_vector_thres=None):
+    r"""
+    Create a merged Shapely geometry from an OpenPNM network.
+
+    Produces a geometry visually equivalent to the SVG output of network2svg().
+    Pores are represented as blob polygons (sampled from the same Bezier curves)
+    or circles, and throats as overlapping buffered circles, all merged via
+    unary_union into a single Shapely geometry.
+
+    Args:
+        generated_network (dict): The OpenPNM network containing pore and throat information.
+        n1 (int): Number of pores on the x-axis of the model grid.
+        n2 (int): Number of pores on the y-axis of the model grid.
+        d1 (int): The x extent of the output coordinate space.
+        d2 (int): The y extent of the output coordinate space.
+        pore_shape (str): Shape of the pore bodies, 'blob' or 'circle'. Default is 'blob'.
+        throat_random (int): Randomness multiplier for throat shape (0 = straight). Default is 1.
+        no_throats (bool): If True, throats are omitted. Default is False.
+        middle_pores (array): Unused; present for signature compatibility with network2svg.
+        disconnected (array): Unused; present for signature compatibility with network2svg.
+        throat_vector_thres (float): Throats narrower than this threshold are skipped
+            (they render as zero-area lines in network2svg). Default is None.
+
+    Returns:
+        shapely.geometry.base.BaseGeometry: A merged Shapely geometry representing the
+            network, or None if pore_shape is invalid or no shapes were generated.
+    """
+    shapes = []
+    num_pores = len(generated_network['pore.coords'])
+
+    if pore_shape == 'blob':
+        for pore_index in range(num_pores):
+            x_coord = generated_network['pore.coords'][pore_index][0] * (d1 / n1)
+            y_coord = generated_network['pore.coords'][pore_index][1] * (d2 / n2)
+            radius = generated_network['pore.diameter'][pore_index] / 2
+
+            # Reproduce the exact same random positions as network2svg()
+            positions = []
+            for i in range(9):
+                rand_radius = radius + np.random.uniform(-0.4 * radius, 0.4 * radius)
+                positions.append({
+                    'x': math.cos((math.pi / 4) * i) * radius,
+                    'y': math.sin((math.pi / 4) * i) * radius,
+                    'mx': math.cos((math.pi / 4) * i - math.radians(20)) * rand_radius,
+                    'my': math.sin((math.pi / 4) * i - math.radians(20)) * rand_radius
+                })
+
+            local_pts = _sample_blob_path(positions)
+            # Apply the same SVG transform: translate(x_coord, (-y_coord) + d2)
+            world_pts = [(x_coord + px, (-y_coord + d2) + py) for px, py in local_pts]
+            if len(world_pts) >= 3:
+                shapes.append(Polygon(world_pts))
+
+    elif pore_shape == 'circle':
+        for pore_index in range(num_pores):
+            x_coord = generated_network['pore.coords'][pore_index][0] * (d1 / n1)
+            y_coord = generated_network['pore.coords'][pore_index][1] * (d2 / n2)
+            radius = generated_network['pore.diameter'][pore_index] / 2
+            shapes.append(Point(x_coord, (-y_coord) + d2).buffer(radius))
+
+    else:
+        print("Error: Invalid shape for pore body (Must be 'blob' or 'circle')")
+        return None
+
+    if generated_network.get('throat.conns') is not None and not no_throats:
+        num_throats = len(generated_network['throat.conns'])
+
+        for throat_index in range(num_throats):
+            pore1 = generated_network['throat.conns'][throat_index][0]
+            pore2 = generated_network['throat.conns'][throat_index][1]
+
+            pore1_x = generated_network['pore.coords'][pore1][0] * (d1 / n1)
+            pore1_y = generated_network['pore.coords'][pore1][1] * (d2 / n2)
+            pore2_x = generated_network['pore.coords'][pore2][0] * (d1 / n1)
+            pore2_y = generated_network['pore.coords'][pore2][1] * (d2 / n2)
+
+            pore1_coords = [pore1_x, (-pore1_y) + d2]
+            pore2_coords = [pore2_x, (-pore2_y) + d2]
+
+            if throat_vector_thres is not None:
+                if generated_network['throat.diameter'][throat_index] < throat_vector_thres:
+                    continue
+
+            distance = math.dist(pore1_coords, pore2_coords)
+
+            if math.isnan(generated_network['throat.diameter'][throat_index]):
+                continue
+
+            num_throat_points = math.ceil(
+                distance / generated_network['throat.diameter'][throat_index])
+            num_throat_points += round(num_throat_points / 2)
+
+            x_segment = (pore2_coords[0] - pore1_coords[0]) / num_throat_points
+            y_segment = (pore2_coords[1] - pore1_coords[1]) / num_throat_points
+            magnitude = 2 * (generated_network['throat.diameter'][throat_index] / 2)
+
+            for i in range(num_throat_points):
+                base_point = [
+                    pore1_coords[0] + (x_segment * i),
+                    pore1_coords[1] + (y_segment * i)
+                ]
+
+                direction = np.random.randint(0, 2)
+                if direction == 0:
+                    perp_vector = [y_segment / magnitude, -x_segment / magnitude]
+                else:
+                    perp_vector = [-y_segment / magnitude, x_segment / magnitude]
+
+                throat_radius = generated_network['throat.diameter'][throat_index] / 2
+                random_shift = np.random.uniform(-throat_radius, throat_radius) * throat_random
+                perp_vector[0] *= random_shift
+                perp_vector[1] *= random_shift
+
+                x_new = base_point[0] + perp_vector[0]
+                y_new = base_point[1] + perp_vector[1]
+
+                shapes.append(Point(x_new, y_new).buffer(throat_radius))
+
+    if not shapes:
+        return None
+
+    return unary_union(shapes)

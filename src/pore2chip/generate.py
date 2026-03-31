@@ -92,7 +92,7 @@ def generate_network(n1,
     if pore_pdf is not None:
         random_diameter = np.random.choice(a=pore_diameters,
                                            size=num_pores,
-                                           replace=True,
+                                           replace=False,
                                            p=pore_pdf)
     else:
         random_diameter = random.choices(pore_diameters, k=num_pores)
@@ -104,7 +104,10 @@ def generate_network(n1,
         random_coordination = temp_coordination.astype(
             int)  # convert float to int
     else:
-        random_coordination = random.choices(coordination_nums, k=num_pores)
+        if coordination_nums is None:
+            random_coordination = [0]
+        else:
+            random_coordination = random.choices(coordination_nums, k=num_pores)
 
     # Assign random pore diameters
     generated_network['pore.diameter'] = random_diameter
@@ -113,6 +116,15 @@ def generate_network(n1,
         print('Continuing without throats...')
         op.topotools.trim(generated_network,
                           throats=generated_network['throat.all'])
+        # Slightly randomize pore positions
+        for pore_index in range(len(generated_network['pore.coords'])):
+            print(pore_index)
+            shift_amount_x = np.random.uniform(-pore_random_shift,
+                                            pore_random_shift)
+            shift_amount_y = np.random.uniform(-pore_random_shift,
+                                            pore_random_shift)
+            generated_network['pore.coords'][pore_index][0] += shift_amount_x
+            generated_network['pore.coords'][pore_index][1] += shift_amount_y
         return generated_network
 
     # Create list of already visited pores
