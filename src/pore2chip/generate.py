@@ -1,9 +1,11 @@
 import math
 import numpy as np
-import openpnm as op
 import random
-from skimage.morphology import diamond
 from itertools import chain
+
+from pore2chip.lean_network import (LeanNetwork, trim, connect_pores,
+                                    duplicate_throats, coordination_number,
+                                    reduce_coordination)
  
 
 def generate_network(n1,
@@ -51,34 +53,13 @@ def generate_network(n1,
             of moddle pores for the center channel
 
     Returns:
-        openpnm.models.network : Generated OpenPNM network
+        pore2chip.lean_network.LeanNetwork : Generated 2D pore network
     """
 
     random.seed(sd)
     np.random.seed(sd)
 
-    generated_network = op.network.BodyCenteredCubic([n1, n2, 2])
-    op.topotools.trim(generated_network, pores=generated_network.pores('zmax'))
-    op.topotools.trim(generated_network,
-                      throats=generated_network.throats('body_to_body'))
-    op.topotools.trim(generated_network,
-                      throats=generated_network.throats('corner_to_corner'))
-    generated_network['pore.coords'] *= [1, 1, 0]
-
-    # Add geometry (spheres and cylinders)
-    geo = op.models.collections.geometry.spheres_and_cylinders
-    generated_network.add_model_collection(geo)
-    generated_network.regenerate_models()
-
-    # Shift points and scale (pores reach the edges)
-    for pore_index in range(len(generated_network['pore.coords'])):
-        generated_network['pore.coords'][pore_index][0] -= 0.5
-        generated_network['pore.coords'][pore_index][1] -= 0.5
-        generated_network['pore.coords'][pore_index][0] *= (n1 / (n1 - 1))
-        generated_network['pore.coords'][pore_index][1] *= (n2 / (n2 - 1))
-
-    # Remove 3D aspects to create 2D image
-    del generated_network.params['dimensionality']
+    generated_network = LeanNetwork.create_2d(n1, n2)
 
     # Get numbers of pores
     num_pores = len(generated_network['pore.coords'])
@@ -111,8 +92,8 @@ def generate_network(n1,
 
     if throat_diameters is None:
         print('Continuing without throats...')
-        op.topotools.trim(generated_network,
-                          throats=generated_network['throat.all'])
+        trim(generated_network,
+             throats=np.arange(generated_network.Nt))
         return generated_network
 
     # Create list of already visited pores
@@ -152,7 +133,7 @@ def generate_network(n1,
 
                         # If any of the pores in the tuple have not be visited already
                         if conn[0] not in visited or conn[1] not in visited:
-                            op.topotools.trim(generated_network,
+                            trim(generated_network,
                                               throats=[random_throat])
                             i -= 1  # One less disconnection that needs to be made
 
@@ -184,11 +165,11 @@ def generate_network(n1,
                         # upper triangular (the first pore index is smaller than the second).
                         # Reduces error messages from OpenPNM
                         if pore_index < random_pore:
-                            op.topotools.connect_pores(
+                            connect_pores(
                                 generated_network, pore_index,
                                 random_pore)  # neighbor_pores[-1]
                         else:
-                            op.topotools.connect_pores(generated_network,
+                            connect_pores(generated_network,
                                                        random_pore, pore_index)
                         i -= 1  # One less connection that needs to be made
                 else:
@@ -233,12 +214,12 @@ def generate_network(n1,
                     [current_pore], flatten=True)
                 if next_pore not in connected_pores:
                     if current_pore < next_pore:
-                        op.topotools.connect_pores(generated_network,
+                        connect_pores(generated_network,
                                                    current_pore,
                                                    next_pore,
                                                    labels=['middle'])
                     else:
-                        op.topotools.connect_pores(generated_network,
+                        connect_pores(generated_network,
                                                    next_pore,
                                                    current_pore,
                                                    labels=['middle'])
@@ -246,11 +227,11 @@ def generate_network(n1,
                 current_pore = next_pore
 
     # Remove any duplicate throats that may have been formed
-    dupes = op.models.network.duplicate_throats(generated_network)
-    op.topotools.trim(generated_network, throats=dupes)
+    dupes = duplicate_throats(generated_network)
+    trim(generated_network, throats=dupes)
 
     # Zero Coordination Fixes
-    coord = op.models.network.coordination_number(generated_network)
+    coord = coordination_number(generated_network)
     # If there is no coordination value of 0 in our random selection
     # but we still see some pores with a coordination of 0,
     # connect them with a neighbor
@@ -269,9 +250,9 @@ def generate_network(n1,
             if pore_to_connect is None:
                 pore_to_connect = neighbor_pores[0]
             if ind < pore_to_connect:
-                op.topotools.connect_pores(generated_network, ind, pore_to_connect)
+                connect_pores(generated_network, ind, pore_to_connect)
             else:
-                op.topotools.connect_pores(generated_network, pore_to_connect, ind)
+                connect_pores(generated_network, pore_to_connect, ind)
 
     # Higher Coordination Fixes
     if max(coord) > max(random_coordination):
@@ -290,24 +271,23 @@ def generate_network(n1,
                 print('neighbor:', neighbor)
                 neighbors_throats = generated_network.find_neighbor_throats(neighbor)
                 if len(neighbors_throats) > min(random_coordination):
-                    if ind < neighbor:
-                        op.topotools.trim(generated_network,
-                                            throats=[[ind, neighbor]])
-                    else:
-                        op.topotools.trim(generated_network,
-                                            throats=[[neighbor, ind]])
+                    conns = generated_network['throat.conns']
+                    connecting_throat = np.where(
+                        (np.isin(conns[:, 0], [ind, neighbor]))
+                        & (np.isin(conns[:, 1], [ind, neighbor])))[0]
+                    trim(generated_network, throats=connecting_throat)
                     i -= 1
                 j += 1
 
     # Remove non-connected pores if flag is true
     if not lone_pores:
-        op.topotools.trim(generated_network, pores=np.where(coord == 0))
+        trim(generated_network, pores=np.where(coord == 0)[0])
 
     # Reduce even further to an average coordination
     if average_coord is not None:
-        reduce = op.topotools.reduce_coordination(generated_network,
+        reduce = reduce_coordination(generated_network,
                                                   average_coord)
-        op.topotools.trim(generated_network, throats=reduce)
+        trim(generated_network, throats=reduce)
 
     # Slightly randomize pore positions
     for pore_index in range(len(generated_network['pore.coords'])):
