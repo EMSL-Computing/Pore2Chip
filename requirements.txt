@@ -9,7 +9,6 @@ scikit-image
 scipy
 yapf
 svglib
-reportlab==3.6.13
 cairosvg
 gstools
 jaxlib
